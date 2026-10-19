@@ -1,0 +1,3 @@
+python submission/tools/step_latency.py (run from backend/, final models, Intel Core Ultra 7 255H, 4 torch threads)
+median ms 1.1  p95 2.3  max 3.2 over 200 step_sample calls (5 plant ticks + detector + localizer, 0.5 s budget)
+model files: gdn.pt 6647 B, mlp.pt 119973 B, baseline.joblib 1192886 B

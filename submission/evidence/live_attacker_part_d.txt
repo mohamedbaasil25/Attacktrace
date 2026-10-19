@@ -1,0 +1,19 @@
+Phase 13 Part D: attacker tool, real API end to end (2026-10-09).
+
+Stack: plant_emulator (seed 42) + backend on :8010 (AT_API_KEY set), LIVE mode on the 20-minute
+trained model from Part C.
+
+1. POST /api/mode {mode:"live"} -> 200, source.state "connected", protocol "modbus".
+2. POST /api/attack {scenario:"sensor_offset", target:"LIT101", magnitude:-25, duration_s:10}
+   -> 200 {"attack_id":"atk_001"}
+3. GET /api/incidents (5 s later):
+   inc_001 localizing origin=[LIT101, PLC1, MV101] mode=live
+   ground_truth={attack_id: atk_001, scenario: sensor_offset, target: LIT101, mitre: T0856}
+4. GET http://localhost:8081/truth (emulator, after the 10 s duration elapsed):
+   evt_001 node_id=LIT101 tag=LIT101.spoof_offset scenario=sensor_offset
+   start_plant_t=214.6, end_wall set (the write was cleared automatically)
+5. POST /api/attack without X-API-Key -> 401 (same auth rule as SIM/HAI attacks).
+
+Conclusion: the attacker tool wrote to the emulator's spoof_offset register, the write reached
+the plant (origin ranked LIT101 first), the ground truth round-tripped into the incident's
+"reveal" fields, and the write was cleared after duration_s with no operator action.

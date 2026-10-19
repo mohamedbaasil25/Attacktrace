@@ -1,0 +1,4 @@
+reads=120 in 12 s (10.0/s) request latency ms p50=0.8 p95=1.6 max=1.7
+P101 position before write ~ 0.615 -> 6 s after write 0.003
+health: {'status': 'ok', 'plant_t': 12.2, 'ticks': 122, 'hz_target': 10.0, 'hz_measured': 10.0, 'lag_ms_p95': 25.0, 'seed': 42, 'registers': {'input': 24, 'holding': 404}}
+truth: [('P101', 'actuator_force')]

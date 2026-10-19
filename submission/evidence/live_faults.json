@@ -1,0 +1,23 @@
+{
+ "emulator_down": {
+  "final_state": "down",
+  "connected": false,
+  "reason": "connection lost",
+  "exceptions": [],
+  "pass": true
+ },
+ "slow_network": {
+  "qualities_seen": [
+   "good",
+   "stale"
+  ],
+  "exceptions": [],
+  "pass": true
+ },
+ "out_of_range": {
+  "final_quality": "out_of_range",
+  "origin_was_the_corrupted_node": false,
+  "exceptions": [],
+  "pass": true
+ }
+}

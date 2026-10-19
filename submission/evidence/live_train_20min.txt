@@ -1,0 +1,12 @@
+2026-10-09 17:08:04,032 recorded  10% (240 samples, 0 skipped)
+2026-10-09 17:10:04,040 recorded  20% (480 samples, 0 skipped)
+2026-10-09 17:12:04,548 recorded  30% (721 samples, 0 skipped)
+2026-10-09 17:14:05,034 recorded  40% (962 samples, 0 skipped)
+2026-10-09 17:16:05,050 recorded  50% (1202 samples, 0 skipped)
+2026-10-09 17:18:05,549 recorded  60% (1443 samples, 0 skipped)
+2026-10-09 17:20:05,522 recorded  70% (1683 samples, 0 skipped)
+2026-10-09 17:22:06,047 recorded  80% (1924 samples, 0 skipped)
+2026-10-09 17:24:06,544 recorded  90% (2165 samples, 0 skipped)
+2026-10-09 17:26:06,106 live gdn: val_mse=0.0174 thr=3.399
+2026-10-09 17:26:06,197 live mlp: val_mse=0.0091 thr=2.698
+2026-10-09 17:26:06,197 saved models\live: active=mlp, 2400 clean samples, 2 s

@@ -1,0 +1,82 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 6 0 R /Resources << /Font << /F1 4 0 R /F2 5 0 R >> >> >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>
+endobj
+6 0 obj
+<< /Length 2930 >>
+stream
+BT /F2 17 Tf 40.0 788.0 Td (AttackTrace incident report) Tj ET
+BT /F1 9 Tf 40.0 772.0 Td (inc_001 | status open | SIM mode | detected 2026-10-08 18:30:50 UTC) Tj ET
+BT /F2 11 Tf 40.0 752.0 Td (Origin) Tj ET
+0.5 w 40.0 748.0 m 555.0 748.0 l S
+BT /F2 14 Tf 40.0 735.0 Td (LIT101 \(sensor\)  confidence 51%) Tj ET
+BT /F1 9 Tf 40.0 718.0 Td (T0856 Spoof Reporting Message) Tj ET
+BT /F2 11 Tf 40.0 698.0 Td (Ranked candidates \(score breakdown\)) Tj ET
+0.5 w 40.0 694.0 m 555.0 694.0 l S
+BT /F1 7.5 Tf 270.0 679.0 Td (bar: deviation | onset | causal) Tj ET
+BT /F1 9 Tf 40.0 667.0 Td (1. LIT101 \(sensor\)  51%) Tj ET
+0.15 g 270.0 666.0 79.1 9.0 re B 0 g
+0.55 g 349.1 666.0 19.9 9.0 re B 0 g
+0.85 g 369.0 666.0 21.0 9.0 re B 0 g
+BT /F1 8 Tf 398.0 667.0 Td (0.60 | 0.15 | 0.16) Tj ET
+BT /F1 9 Tf 40.0 652.0 Td (2. PLC1 \(controller\)  25%) Tj ET
+0.15 g 270.0 651.0 75.8 9.0 re B 0 g
+0.55 g 345.8 651.0 18.9 9.0 re B 0 g
+0.85 g 364.7 651.0 25.3 9.0 re B 0 g
+BT /F1 8 Tf 398.0 652.0 Td (0.60 | 0.15 | 0.20) Tj ET
+BT /F1 9 Tf 40.0 637.0 Td (3. MV101 \(actuator\)  17%) Tj ET
+0.15 g 270.0 636.0 79.9 9.0 re B 0 g
+0.55 g 349.9 636.0 20.4 9.0 re B 0 g
+0.85 g 370.2 636.0 19.8 9.0 re B 0 g
+BT /F1 8 Tf 398.0 637.0 Td (0.59 | 0.15 | 0.15) Tj ET
+BT /F1 8 Tf 40.0 622.0 Td (Weights: deviation 0.6, onset 0.2, causal 0.2. Bar segments are weight x signal, as numbers on the right.) Tj ET
+BT /F2 11 Tf 40.0 603.0 Td (Propagation path \(seconds after first onset\)) Tj ET
+0.5 w 40.0 599.0 m 555.0 599.0 l S
+BT /F1 9 Tf 40.0 586.0 Td (PLC2 +0.0s > LIT101 +17.5s > PLC1 +17.5s > MV101 +17.5s > P101 +17.5s > FIT201 +17.5s > PIT301 +17.5s) Tj ET
+BT /F1 9 Tf 40.0 574.0 Td (> LIT301 +19.0s > P301 +22.5s) Tj ET
+BT /F2 11 Tf 40.0 554.0 Td (Timeline) Tj ET
+0.5 w 40.0 550.0 m 555.0 550.0 l S
+BT /F1 9 Tf 40.0 537.0 Td (Detected 2026-10-08 18:30:50 UTC. Path spans 22.5 s from first onset.) Tj ET
+BT /F1 9 Tf 40.0 525.0 Td (Not contained. No isolate action recorded.) Tj ET
+BT /F2 11 Tf 40.0 505.0 Td (Explanation and action) Tj ET
+0.5 w 40.0 501.0 m 555.0 501.0 l S
+BT /F1 9 Tf 40.0 488.0 Td (Origin LIT101 \(sensor\) - spoof low -> PLC1 -> MV101 -> T1 overflow risk) Tj ET
+BT /F2 9 Tf 40.0 476.0 Td (Isolate LIT101 - PLC1 -> manual) Tj ET
+BT /F2 11 Tf 40.0 456.0 Td (Impact \(worst values seen\)) Tj ET
+0.5 w 40.0 452.0 m 555.0 452.0 l S
+BT /F1 9 Tf 40.0 439.0 Td (T1 overflow 35 s, T1 dry-run none, T2 overflow none, T2 dry-run none.) Tj ET
+BT /F1 9 Tf 40.0 427.0 Td (Pump stress: P101 0%, P301 0%. Energy wasted: 0.002 kWh.) Tj ET
+BT /F2 11 Tf 40.0 407.0 Td (Baseline comparison) Tj ET
+0.5 w 40.0 403.0 m 555.0 403.0 l S
+BT /F1 9 Tf 40.0 390.0 Td (A 3-sigma baseline raised 6 alarms: LIT101, MV101, P101, FIT201, PIT301, PLC1. AttackTrace reports one) Tj ET
+BT /F1 9 Tf 40.0 378.0 Td (origin.) Tj ET
+0.5 w 40.0 38.0 m 555.0 38.0 l S
+BT /F1 7.5 Tf 40.0 26.0 Td (Generated 2026-10-08 18:30:50 UTC. Values come from the live run; none are estimated.) Tj ET
+endstream
+endobj
+xref
+0 7
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000251 00000 n 
+0000000348 00000 n 
+0000000450 00000 n 
+trailer
+<< /Size 7 /Root 1 0 R >>
+startxref
+3432
+%%EOF

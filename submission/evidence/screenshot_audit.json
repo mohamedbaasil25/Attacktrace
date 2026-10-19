@@ -1,0 +1,327 @@
+{
+ "audited": 15,
+ "expected": 15,
+ "confirmedBlockingCount": 2,
+ "results": [
+  {
+   "name": "01-idle @1440x900",
+   "stateVerdict": "fail",
+   "layoutVerdict": "pass",
+   "stateEvidence": "Visible: top bar pill \"Normal\" (green, outlined) with SIM highlighted next to HAI. Twin shows tanks \"T1\" and \"T2\", pumps with badges \"P101 60%\" and \"P301 51%\", a valve with badge \"MV101 35%\", and nine badges, each with a green dot: PLC1 35%, PLC2 51%, LIT101 50.4%, LIT301 51.7%, MV101 35%, PIT301 0.71 bar, FIT201 5.16 L/s, P101 60%, P301 51%. Incident panel reads \"No incident\" with meters \"T1 overflow\", \"T1 dry-run\", \"T2 overflow\", \"T2 dry-run\", \"P101 stress 0%\", \"P301 stress 0%\" and \"Energy wasted 0.000 kWh\". Attack console has Scenario \"Sensor offset\", Target \"LIT101\", Magnitude \"-25\", and the \"Launch\" and \"Reset\" buttons. Timeline rows LIT101 50.4%, FIT201 5.16 L/s, PIT301 0.71 bar, LIT301 51.7%; the four sparklines run from about x=942 to 1427 of a plot area that starts near x=210, so they cover roughly 40% of its width, which is within the expected third to half. The \"Filter\" label (at about x=712, y=491) appears as bare monospace text. There is no outlined box around it, and the pipe from P101 ends near x=685 and does not resume until about x=790 on the T2 side, so the filter looks missing and the pipe looks broken.",
+   "confirmedBlocking": [
+    {
+     "lens": "state",
+     "text": "The claimed filter box (outlined, labelled \"Filter\") is not rendered. Only the text \"Filter\" appears, floating between the pump and T2, with no outline or box. The pipe from P101 stops near x=685 and the one into T2 starts near x=790, leaving a visible gap in the flow path.",
+     "refuted": false,
+     "reason": "In the screenshot, the bare text \"Filter\" at about (712, 491) has no outline or box, the dotted pipe from P101 ends near x=685, and the pipe into T2 starts near x=790, so the flow path has a visible 100px gap that a viewer would notice."
+    }
+   ],
+   "refutedBlocking": [],
+   "unresolved": [],
+   "cosmetic": [
+    "A large empty area sits below the twin diagram (y about 530 to 730). Most of the Incident panel and the Attack console below the form are also empty.",
+    "Badge labels (PLC1, LIT101, etc.) and the timeline row labels are tiny and low-contrast, but still legible.",
+    "The left roughly 60% of the timeline plot area is blank, with the sparklines packed to the right. This is within the expected range.",
+    "The twin and console panels have a lot of empty space below the diagram and the form (the twin canvas is only about 60% filled vertically).",
+    "A stray label 'Filter' in monospace sits near the centre of the twin below the FIT201/PIT301 badges. It looks unattached and is a different style from the other labels.",
+    "Small, low-contrast grey text on the badge captions (PLC1, LIT101, MV101), the top bar ('gdn', '276 ms') and the timeline labels. It is small but still legible.",
+    "The incident panel is mostly empty ('No incident'), and the meter rows show '-' placeholders. This is expected in the idle state.",
+    "The timeline sparklines are tightly packed at the right edge, with a large blank gap in the middle of the bottom strip."
+   ]
+  },
+  {
+   "name": "01-idle @1280x800",
+   "stateVerdict": "fail",
+   "layoutVerdict": "pass",
+   "stateEvidence": "Visible on screen: top bar shows \"AttackTrace\", SIM|HAI toggle with SIM highlighted blue, a green pill reading \"Normal\", \"Split\", \"Metrics\", \"gdn\", \"327 ms\", \"22:04:31\". Digital twin shows tanks \"T1\" and \"T2\" with blue fill, pumps with spinning-impeller icons (\"P101 60%\", \"P301 51%\"), valve \"MV101 35%\", and dotted/dashed flowing pipes. Nine badges, each with a green dot: \"PLC1 35%\", \"LIT101 50.4%\", \"MV101 35%\", \"FIT201 5.16 L/s\", \"P101 60%\", \"PIT301 0.71 bar\", \"PLC2 51%\", \"LIT301 51.7%\", \"P301 51%\". Incident panel reads \"No incident\" with meters \"T1 overflow\", \"T1 dry-run\", \"T2 overflow\", \"T2 dry-run\", \"P101 stress 0%\", \"P301 stress 0%\", and \"Energy wasted 0.000 kWh\". Attack console shows Scenario \"Sensor offset\", Target \"LIT101\", Magnitude \"-25\", a blue \"Launch\" button and \"Reset\". Timeline shows four sparklines (LIT101 50.4%, FIT201 5.16 L/s, PIT301 0.71 bar, LIT301 51.7%) spanning x of about 847 to 1268 of the roughly 200 to 1268 plot area (about 40%, so within the right third to half). Filter: only the tiny text \"Filter\" appears at about (629, 425). There is no outlined box around it, and the pipe has a visible gap of about 90 px (x 607 to 692) where the filter should sit.",
+   "confirmedBlocking": [
+    {
+     "lens": "state",
+     "text": "The claimed filter box is not visible. Only a tiny bare text label \"Filter\" appears between P101 and the T2 side, with no outlined rectangle. The pipe from P101 ends at about x=607 and the next pipe starts at about x=692, leaving an empty gap. The twin therefore reads as a broken pipe with a stray label instead of an equipment box in the flow path.",
+     "refuted": false,
+     "reason": "In the screenshot the P101 pipe ends near x=607 and the next pipe begins near x=692, with only a tiny bare \"Filter\" text at about x=629, y=425 and no outlined box in the gap, so the flow path looks broken with a stray label."
+    }
+   ],
+   "refutedBlocking": [],
+   "unresolved": [],
+   "cosmetic": [
+    "The timeline plot area has a large empty region to the left of the sparklines, about 190 to 845 px. The traces fill only about 40% of the width, which is within the expected range but looks sparse.",
+    "Badge text and the tank labels \"T1\" and \"T2\" are very small and low contrast in the downscaled image, but they are legible.",
+    "The dashed control wires and the PLC badges sit in a lot of unused dark space in the twin pane, and the incident panel has unused space below the meters.",
+    "The 'Filter' label in the middle of the twin is tiny, with a bright white-on-pink fragment that looks like a stray label.",
+    "Node badge labels such as PLC1, LIT101 and MV101 use very small grey text.",
+    "The Incident panel has a large empty area below the meters, and the twin has unused space at the bottom.",
+    "The right edge of the twin is cut by the pipe stub at the panel boundary; the pipe runs to the edge, which looks a little abrupt.",
+    "The dash values and the low-contrast meter bars in the incident panel are hard to read."
+   ]
+  },
+  {
+   "name": "02-attack-in-progress @1440x900",
+   "stateVerdict": "pass",
+   "layoutVerdict": "pass",
+   "stateEvidence": "Top bar pill reads \"Incident\" (red, shield icon); twin header also shows \"Incident inc_001 \u00b7 LIT101\". LIT101 badge on tank T1 shows \"28.6%\" with a line below \"true 53.8%\", so reported differs from true. Incident panel shows \"inc_001\" with status chip \"localizing\", MITRE tag \"T0856\", origin card \"LIT101 sensor 48%\" with a red confidence bar, runners-up \"2 PLC1 29%\" and \"3 MV101 16%\". Path chips: \"LIT101 +0.0s > PLC1 +0.0s > MV101 +0.0s > P101 +0.0s > FIT201 +0.0s > PIT301 +0.0s > LIT301 +1.5s\". Explanation line: \"Origin LIT101 (sensor) \u00b7 spoof low \u2192 PLC1 \u2192 MV101 \u2192 T1 overflow risk\". Action line: \"Isolate LIT101 \u00b7 PLC1 \u2192 manual\". Attack console shows Scenario \"Sensor offset\", Target \"LIT101\", Magnitude \"-25\", id \"atk_001\". Non-normal glyphs: PLC1 orange square, PLC2 orange triangle, LIT101 red diamond, plus several orange squares on MV101, FIT201, PIT301, LIT301 and P101. Red dashed attack pulses run along the PLC1-to-LIT101 links.",
+   "confirmedBlocking": [],
+   "refutedBlocking": [],
+   "unresolved": [],
+   "cosmetic": [
+    "Large empty area at the bottom of the incident panel and the attack console column.",
+    "The stray label \"Filter\" under the twin near P101/FIT201 is small and its meaning is unclear.",
+    "Small, low-contrast secondary text (node ids like PLC1/LIT101, \"true 53.8%\", Reveal rows). It is still legible.",
+    "The path chips wrap onto three lines with leading chevrons at the start of lines 2 and 3, which looks slightly awkward.",
+    "The origin confidence is only 48% and the explanation text is dense. Both are legible.",
+    "The timeline sparklines are crowded to the right and the left side is empty.",
+    "A stray 'Filter' label sits near the middle of the twin, below PIT301, without an obvious equipment association.",
+    "The left attack console has a large empty area below 'atk_001', and the lower part of the twin pane is also unused.",
+    "The incident panel is empty below the 'Energy wasted' row.",
+    "Node badge labels (PLC1, LIT101, MV101, etc.) and the 'true 53.8%' note are very small, and the secondary grey text is low contrast against the dark background.",
+    "The path chips wrap onto three lines, with a leading chevron at the start of lines 2 and 3, which looks slightly untidy.",
+    "The timeline sparklines occupy only the right portion of the strip, leaving a wide gap between the numeric readouts and the charts.",
+    "The incident rows 'PLC1 29%' and 'MV101 16%' are shown with numeric prefixes 2 and 3, but there is no visible row 1 because the top candidate is rendered above in the larger LIT101 card."
+   ]
+  },
+  {
+   "name": "02-attack-in-progress @1280x800",
+   "stateVerdict": "pass",
+   "layoutVerdict": "pass",
+   "stateEvidence": "All claimed elements are visible. Top bar: red pill \"Incident\" next to the SIM|HAI toggle. Twin header: \"Incident inc_001 \u00b7 LIT101\". LIT101 badge on tank T1 reads \"28.6%\" with a red diamond glyph and a line beneath it, \"true 53.8%\", so reported and true values clearly differ. The attack console shows Scenario \"Sensor offset\", Target \"LIT101\", Magnitude \"-25\", and id \"atk_001\". Incident panel: \"inc_001\" with status chip \"localizing\", MITRE tag \"T0856\", origin \"LIT101 sensor 48%\" with a confidence bar, runners-up \"2 PLC1 29%\" and \"3 MV101 16%\". Path chips: \"LIT101 +0.0s > PLC1 +0.0s > MV101 +0.0s > P101 +0.0s > FIT201 +0.0s > PIT301 +0.0s > LIT301 +1.5s\". Explanation: \"Origin LIT101 (sensor) \u00b7 spoof low \u2192 PLC1 \u2192 MV101 \u2192 T1 overflow risk\". Action line, in orange: \"Isolate LIT101 \u00b7 PLC1 \u2192 manual\". Non-normal glyphs: PLC1 and MV101 show orange squares, PLC2 an orange triangle, PIT301, FIT201, P101 and LIT301 orange squares, and LIT101 a red diamond. Only P301 shows a green circle (normal). No text is clipped or overlapping in the panels.",
+   "confirmedBlocking": [],
+   "refutedBlocking": [],
+   "unresolved": [],
+   "cosmetic": [
+    "The pipe label \"Filter\" floats in the middle of the twin with small white text and no clear association to equipment.",
+    "The Reveal section is collapsed or empty, with all the impact meters showing \"-\" or 0%, so the lower part of the incident panel looks empty. The labels are small grey text.",
+    "The node-badge captions (for example \"PLC1\", \"true 53.8%\") and the timeline sparklines are small and low contrast, but still legible.",
+    "The timeline sparklines are almost flat except for a drop at the far right edge, so the attack effect is easy to miss.",
+    "The confidence reads 48% with PLC1 at 29%, which is a lower top-1 margin than the typical 0.9, but this is data and not a layout issue.",
+    "Small grey secondary text (node badge labels like PLC1/PIT301, the 'true 53.8%' note, the Reveal rows) is tiny but still legible.",
+    "The 'Filter' label in the twin is small, floats between the pump and PIT301 with no clear anchor, and has weak contrast.",
+    "The Attack Console panel has a large empty area below the atk_001 id.",
+    "The Reveal section shows dashes and zeros for the T1/T2 meters. This is low-information filler, not a layout fault.",
+    "The timeline sparklines are compressed against the right edge with an empty gap in the middle. The attack markers at the top right are small."
+   ]
+  },
+  {
+   "name": "03-incident-localized @1440x900",
+   "stateVerdict": "pass",
+   "layoutVerdict": "pass",
+   "stateEvidence": "All claimed elements are visible and legible. Incident panel header: \"inc_001\" with pill \"open\", and a \"T0856\" tag at top right. Origin card: \"LIT101\" with \"sensor\" beneath it and \"48%\" confidence, plus a red confidence bar. Runners-up: \"2 PLC1 29%\" and \"3 MV101 16%\". Path chips with +seconds: \"LIT101 +0.0s > PLC1 +0.0s > MV101 +0.0s\", then \"P101 +0.0s > FIT201 +0.0s\", then \"PIT301 +0.0s > LIT301 +1.5s\", then \"PLC2 +3.5s\". Explanation line: \"Origin LIT101 (sensor) \u00b7 spoof low \u2192 PLC1 \u2192 MV101 \u2192 T1 overflow risk\". Action line: \"Isolate LIT101 \u00b7 PLC1 \u2192 manual\". Impact meters under \"Reveal\": \"T1 overflow 44 s\" (red bar), T1 dry-run, T2 overflow, T2 dry-run, P101 stress 0%, P301 stress 0%, \"Energy wasted 0.000 kWh\", and \"Overflow risk\". Twin: the LIT101 badge reads \"41.7%\" with \"true 66.8%\" below it. This shows the spoofed reading against the true level. It has a red diamond glyph, and red attack pulses run along the links. The top bar shows the red \"Incident\" pill. The console shows Sensor offset, target LIT101, magnitude -25 and id atk_001.",
+   "confirmedBlocking": [],
+   "refutedBlocking": [],
+   "unresolved": [],
+   "cosmetic": [
+    "Origin confidence is 48% with runners-up at 29% and 16%. This is a modest margin, but it is displayed correctly.",
+    "A stray \"Filter\" label sits near the center of the twin, between PIT301 and FIT201. It is small and slightly ambiguous.",
+    "The path chips wrap onto several lines, and some lines start with a dangling chevron. This is slightly untidy but readable.",
+    "The twin and incident panels have a large empty area below their content. The twin's lower half is empty and so is the lower part of the incident panel.",
+    "Small grey text (the timeline channel labels, the tank labels and the \"true 66.8%\" caption) is low-contrast but still legible.",
+    "The twin and incident panels have a large empty area in their lower halves (the diagram sits in the upper part of the pane).",
+    "Some small monospace labels (node IDs such as PLC1/LIT101, 'true 66.8%', Reveal rows, timeline labels) are tiny and low-contrast but still legible.",
+    "The 'Filter' label near the pipe is a bare unboxed text with no visible associated equipment, and is a bit ambiguous.",
+    "The timeline sparklines occupy only the right portion of the strip, leaving a blank gap between the labels and the charts."
+   ]
+  },
+  {
+   "name": "03-incident-localized @1280x800",
+   "stateVerdict": "pass",
+   "layoutVerdict": "pass",
+   "stateEvidence": "Status row reads \"inc_001\" with pill \"open\"; top bar pill \"Incident\". Origin card reads \"LIT101\" with \"sensor\" and \"48%\", plus a confidence bar. Runners-up read \"2 PLC1 29%\" and \"3 MV101 16%\". The path chips are \"LIT101 +0.0s\", \"PLC1 +0.0s\", \"MV101 +0.0s\", \"P101 +0.0s\", \"FIT201 +0.0s\", \"PIT301 +0.0s\", \"LIT301 +1.5s\" and \"PLC2 +3.5s\". The explanation line reads \"Origin LIT101 (sensor) \u00b7 spoof low \u2192 PLC1 \u2192 MV101 \u2192 T1 overflow risk\". The action line reads \"Isolate LIT101 \u00b7 PLC1 \u2192 manual\". The MITRE tag reads \"T0856\". Impact meters (Reveal section): \"T1 overflow 42 s\", \"T1 dry-run\", \"T2 overflow\", \"T2 dry-run\", \"P101 stress 0%\", \"P301 stress 0%\", \"Energy wasted 0.000 kWh\", \"Overflow risk\". The twin LIT101 badge reads \"42.5%\" with \"true 67.4%\", so the spoofed reading and the true level are both shown. The tank fill and dashed reported-level tick also show the difference.",
+   "confirmedBlocking": [],
+   "refutedBlocking": [],
+   "unresolved": [],
+   "cosmetic": [
+    "Secondary text is small and low-contrast: the runner-up rows, the 'true 67.4%' sub-label, and the node labels in the twin.",
+    "The path chips wrap onto four lines in the narrow incident panel, which looks slightly busy. Everything stays legible.",
+    "Most impact meters sit at zero or '-', so they look empty. Only T1 overflow (42 s) is populated, which is consistent with the scenario.",
+    "The 'Filter' label in the twin sits in a blank area with no equipment next to it.",
+    "The timeline occupies a lot of horizontal space, with a large gap between the readouts and the sparklines.",
+    "Small grey secondary text (badge labels like PLC1/LIT101, 'true 67.4%', Reveal row labels) is low-contrast and tiny but still legible.",
+    "The 'Filter' label in the twin is tiny, floats between tanks and is only loosely associated with any equipment.",
+    "The Attack Console has a large unused empty area below 'atk_001'.",
+    "The twin has some empty space at the top and bottom; the right incident panel leaves unused space below 'Overflow risk'.",
+    "The Timeline sparklines on the right are tightly packed, and the marker at the top right sits close to the chart edge."
+   ]
+  },
+  {
+   "name": "04-split-view @1440x900",
+   "stateVerdict": "pass",
+   "layoutVerdict": "pass",
+   "stateEvidence": "The centre panel header reads \"SPLIT VIEW\" (with Twin|Graph toggle), and the top bar \"Split\" button is highlighted. The left column reads \"BASELINE ... 6 alarms\" and has six red alarm rows: LIT101, MV101, P101, FIT201, PIT301, PLC1, each marked \"3\u03c3\". The right column reads \"ATTACKTRACE ... 1 origin\" and has an origin card \"LIT101 sensor 48%\" with a red bar and candidates \"2 PLC1 29%\" and \"3 MV101 16%\". It shows path chips \"LIT101 +0.0s > PLC1 +0.0s > MV101 +0.0s > P101 +0.0s > FIT201 +0.0s > PIT301 +0.0s > LIT301 +1.5s > PLC2 +3.5s\". The explanation reads \"Origin LIT101 (sensor) \u00b7 spoof low \u2192 PLC1 \u2192 MV101 \u2192 T1 overflow risk\". The action reads \"Isolate LIT101 \u00b7 PLC1 \u2192 manual\". The digital twin is visible below, showing tanks T1/T2, pumps, valve and badges (LIT101 44.4%, true 69.6%). The incident panel at right shows \"inc_001 open\", \"T0856\" and \"LIT101 48%\". The AttackTrace column is fully visible, and no text line is cut through the middle.",
+   "confirmedBlocking": [],
+   "refutedBlocking": [],
+   "unresolved": [],
+   "cosmetic": [
+    "The AttackTrace column has unused empty space under the action line, between about y=375 and y=420.",
+    "Twin badge labels (PLC1 83%, MV101 85%, true 69.6%) and the 'Filter' label are very small, though legible.",
+    "Secondary text such as the 'sensor' subtitle and the candidate rows is small and grey, with low contrast.",
+    "The path chips wrap onto three lines, with a leading chevron at the start of the continuation lines.",
+    "The twin is not centred in its area, and there is empty space below it in the tall panel.",
+    "The twin diagram labels (node badges, 'true 69.6%', 'Filter') are very small and hard to read at this downscaled size.",
+    "There is a lot of empty space in the AttackTrace column below the action line and in the left console panel under 'atk_001'.",
+    "Secondary grey text (Magnitude label, 'sensor' subtitle, 'gdn' and '5 ms' in the top bar) is low contrast but still legible.",
+    "The Baseline and AttackTrace columns repeat information already shown in the incident panel on the right, which is visually redundant but not a layout defect."
+   ]
+  },
+  {
+   "name": "04-split-view @1280x800",
+   "stateVerdict": "pass",
+   "layoutVerdict": "pass",
+   "stateEvidence": "Centre panel header reads \"SPLIT VIEW\" with a Twin/Graph toggle. Left column header \"BASELINE\" with \"6 alarms\" and six red alarm rows (LIT101, MV101, P101, FIT201, PIT301, PLC1, each \"3\u03c3\"). Right column header \"ATTACKTRACE\" with \"1 origin\". It shows origin card \"LIT101 sensor 48%\", runners-up \"2 PLC1 29%\" and \"3 MV101 16%\", path chips (LIT101 +0.0s > PLC1 +0.0s > MV101 +0.0s > P101 +0.0s > FIT201 +0.0s > PIT301 +0.0s > LIT301 +1.5s > PLC2 +3.5s), and the explanation \"Origin LIT101 (sensor) \u00b7 spoof low \u2192 PLC1 \u2192 MV101 \u2192 T1 overflow risk\". The twin diagram (tanks, pumps, valve, badges) is fully visible below the columns. The top bar shows the \"Split\" button active and the \"Incident\" pill. The incident panel on the right shows \"inc_001 open\", \"T0856\" and \"Isolate LIT101 \u00b7 PLC1 \u2192 manual\".",
+   "confirmedBlocking": [],
+   "refutedBlocking": [],
+   "unresolved": [],
+   "cosmetic": [
+    "The AttackTrace column in the split view does not show the recommended action (the 'Isolate LIT101 \u00b7 PLC1 \u2192 manual' line). It appears only in the right Incident panel. The column ends at the explanation text. The explanation wraps cleanly and is not cut mid-line, but the column may need scrolling to reach the action, and the screenshot gives no scroll cue.",
+    "Twin node badge text and labels are very small, for example 'PLC1 83%' and 'true 69.4K'. They are legible only at a close look.",
+    "The twin diagram has unused space at its left and right edges, and a small 'Filter' label floats in the middle.",
+    "The Attack Console panel has a large empty area below 'atk_001'.",
+    "The twin diagram inside Split View is small. Its badge labels (PLC1, LIT101, MV101, FIT201, PIT301) are tiny and hard to read at this size, and there is a lot of empty space around the diagram.",
+    "Secondary grey text is low contrast and small. This includes the ranked-candidate rows (2 PLC1 29%, 3 MV101 16%), the path-chip time offsets, the dim Reveal rows (T1 dry-run, T2 overflow and others) and the timeline sensor labels.",
+    "The Attack Console column has a large empty area below the atk_001 id. The Incident column has some unused space at the bottom.",
+    "The path chips repeat the same content in the Split View AttackTrace column and the Incident panel. They wrap onto several lines, with a leading chevron at the start of some wrapped lines, which looks slightly untidy but is legible.",
+    "The timeline sparklines are clipped at the right edge of the panel, and the incident marker above them is small. This looks like deliberate chart bounds rather than a layout fault."
+   ]
+  },
+  {
+   "name": "05-graph-view @1440x900",
+   "stateVerdict": "pass",
+   "layoutVerdict": "pass",
+   "stateEvidence": "Centre panel header reads \"PROCESS GRAPH\" with the toggle \"Twin | Graph\"; \"Graph\" is highlighted blue (selected). The graph shows nine nodes left to right: LIT101 46.4%, PLC1 80%, MV101 81%, P101 51%, FIT201 4.38 L/s, LIT301 48.5%, PIT301 0.63 bar, PLC2 40%, P301 40%. Each node has a status glyph (diamond on LIT101, squares on most, circle on P301). Red highlighted edges run LIT101 -> PLC1 -> FIT201 -> LIT301 and on to PIT301, with red dotted edges along the path. Top bar pill reads \"Incident\". Incident panel is populated: \"inc_001 open\", \"T0856\", \"LIT101 sensor 48%\", candidates \"2 PLC1 29%\" and \"3 MV101 16%\", path chips \"LIT101 +0.0s > PLC1 +0.0s > MV101 +0.0s > P101 +0.0s > FIT201 +0.0s > PIT301 +0.0s > LIT301 +1.5s > PLC2 +3.5s\", explanation \"Origin LIT101 (sensor) \u00b7 spoof low \u2192 PLC1 \u2192 MV101 \u2192 T1 overflow risk\", action \"Isolate LIT101 \u00b7 PLC1 \u2192 manual\", and Reveal rows \"T1 overflow 35 s\", \"Overflow risk\".",
+   "confirmedBlocking": [],
+   "refutedBlocking": [],
+   "unresolved": [],
+   "cosmetic": [
+    "Node labels and values inside the graph nodes are very small at 1440x900 but still legible.",
+    "The graph occupies a thin horizontal band in a tall panel, leaving a lot of empty space above and below.",
+    "A grey \"React Flow\" watermark appears at the bottom right of the graph panel.",
+    "The incident panel has empty space below the Reveal section.",
+    "Graph node labels and values (for example LIT101 46.4%, PLC1 80%) are very small inside the nodes, though still legible.",
+    "The process graph occupies only a thin band in the middle of a tall pane, leaving large empty areas above and below it.",
+    "A faint 'React Flow' watermark sits at the bottom right of the graph pane.",
+    "The right incident panel has unused space below the Overflow risk line.",
+    "Some secondary text is low contrast grey, such as the 'sensor' sublabel, the Reveal rows and the timeline sparkline labels."
+   ]
+  },
+  {
+   "name": "05-graph-view @1280x800",
+   "stateVerdict": "pass",
+   "layoutVerdict": "pass",
+   "stateEvidence": "The top bar pill reads \"Incident\". The centre panel header reads \"PROCESS GRAPH\", and the \"Twin | Graph\" toggle has \"Graph\" highlighted blue. The graph shows nine nodes laid out left to right, each with an id, a value and a status glyph. The ids and values are LIT101 46.4%, PLC1 80%, MV101 81%, P101 51%, FIT201 4.38 L/s, LIT301 48.5%, PIT301 0.63 bar, PLC2 40% and P301 48%. LIT101, MV101, PLC1, P101, FIT201, PIT301 and LIT301 have red or orange outlines, and P301 has a green outline. Red solid and dotted edges run LIT101 > PLC1 > MV101, with more red edges toward P101, PIT301 and PLC2, which highlights the attack path. The Incident panel is populated: \"inc_001\" \"open\", \"T0856\", \"LIT101 sensor 48%\", the path chips \"LIT101 +0.0s > PLC1 +0.0s > MV101 +0.0s > P101 +0.0s ... LIT301 +1.5s > PLC2 +3.5s\", \"Origin LIT101 (sensor) \u00b7 spoof low > PLC1 > MV101 > T1 overflow risk\", \"Isolate LIT101 \u00b7 PLC1 > manual\", and \"T1 overflow 35 s\" in the Reveal section. The Attack Console and Timeline are also populated, with the timeline showing \"Live\".",
+   "confirmedBlocking": [],
+   "refutedBlocking": [],
+   "unresolved": [],
+   "cosmetic": [
+    "The graph is small and sits in the middle of a tall panel, leaving a lot of empty dark space above and below it. The node ids and values are tiny, about 6px at this downscale, but still legible.",
+    "A grey \"React Flow\" watermark is visible at the bottom right of the graph panel.",
+    "The grey dashed learned edges are low contrast against the dark background.",
+    "Some of the edges and the arrowhead near MV101 and PIT301 overlap and look slightly cluttered at this size.",
+    "Graph node labels (LIT101, PLC1, MV101 and similar) are very small, though still legible.",
+    "The process graph is small and sits in the middle of a large empty pane, leaving a lot of unused space above and below.",
+    "A 'React Flow' watermark shows at the bottom right of the graph pane.",
+    "The attack console has a large empty area below the 'atk_001' ID.",
+    "The timeline sparklines are thin and unlabeled, and the marker icon at the top is tiny.",
+    "Secondary text such as the '+0.0s' offsets and the gray labels in the path chips is low-contrast."
+   ]
+  },
+  {
+   "name": "06-incident-resolved @1440x900",
+   "stateVerdict": "pass",
+   "layoutVerdict": "pass",
+   "stateEvidence": "Status pill reads \"Normal\" (green outline, check icon). Incident panel shows a shield icon with \"No incident\". LIT101 badge reads \"46.7%\" with no \"true ...\" line. Impact meters \"T1 overflow\", \"T1 dry-run\", \"T2 overflow\" and \"T2 dry-run\" all show \"-\" with a tiny green bar. There is no red \"Overflow risk\" line. \"P101 stress 7%\" has a small amber bar and \"P301 stress 0%\". \"Energy wasted 0.024 kWh\". Node glyphs are green dots, except P101 \"54%\", which has an amber triangle and amber border. The timeline shows a dip and step in the LIT101, FIT201, PIT301 and LIT301 traces, plus a small blue/red marker icon above the trace near x=963. The sidebar still shows the console \"atk_001\" and \"Live\".",
+   "confirmedBlocking": [],
+   "refutedBlocking": [],
+   "unresolved": [],
+   "cosmetic": [
+    "P101 pump badge still shows an amber warning triangle and amber border. This is likely a stress or suspect state left over from the attack, and it slightly contradicts 'node glyphs are normal'. It is a subtle caution color, not a red alert.",
+    "The P101 stress meter shows a small amber bar at 7%.",
+    "Only one small combined detection/attack marker icon is visible on the timeline (around x=963). It is tiny, so separate detection and attack icons are hard to tell apart.",
+    "A small, low-contrast 'Filter' label floats between the tanks. The center pane and the console panel have large unused empty space below the content.",
+    "The timeline plot area starts far to the right, so the left of the plot is empty.",
+    "Large empty areas in the console panel below atk_001 and in the twin panel below the tanks.",
+    "Incident panel is mostly empty ('No incident' state with dashes), leaving unused space.",
+    "Small, low-contrast grey text for badge labels (PLC1, LIT101, MV101), the 'gdn' and '5 ms' header items, and timeline sensor labels.",
+    "The 'Filter' label floats between the tanks with no obvious associated equipment.",
+    "The timeline marker icon near the top of the sparklines is tiny and its meaning is unclear."
+   ]
+  },
+  {
+   "name": "06-incident-resolved @1280x800",
+   "stateVerdict": "pass",
+   "layoutVerdict": "pass",
+   "stateEvidence": "Status pill reads \"Normal\" (green, check icon). Incident panel shows \"No incident\". The LIT101 badge reads \"46.7%\" with no \"true ...\" line. Impact rows T1 overflow, T1 dry-run, T2 overflow and T2 dry-run all show \"-\", with no red bars. P101 stress is 7% and P301 stress is 0%, in amber/green. There is no red \"Overflow risk\" line. Energy wasted reads \"0.024 kWh\". The node glyphs are green dots, except P101, which has an amber triangle and an amber outline at 54%. LIT301 reads 47.9%, PIT301 0.65 bar, FIT201 4.63 L/s. The timeline shows a \"Live\" chip and trend traces with a step disturbance. A small red/blue detection/attack marker icon sits above the traces near x=864. A dashed truth line is visible after the disturbance.",
+   "confirmedBlocking": [],
+   "refutedBlocking": [],
+   "unresolved": [],
+   "cosmetic": [
+    "P101 pump shows an amber warning triangle and amber outline in the Normal state. This is a residual pump-stress indicator (7%) and is not red or an overflow estimate.",
+    "The detection/attack marker icon is very small and overlaps at one point, so its two parts are hard to tell apart at this resolution.",
+    "The 'Filter' label in the twin is tiny, bright white and low context. The twin canvas also has a lot of empty space.",
+    "The timeline shows only a single marker icon, and the timeline row is small. The earlier disturbance shows as steps in the traces.",
+    "Node badge labels (PLC1, LIT101, MV101, FIT201, etc.) and their small caption text are very small and dim grey; legible but low emphasis.",
+    "The 'Filter' label near the center of the twin is tiny and floats without an obvious attached equipment symbol.",
+    "The Incident panel has a large empty area below the metrics list, and the twin pane has unused space at the bottom.",
+    "Right-side metric bars are thin and the '-' values are low contrast; the timeline sparkline labels are small.",
+    "The small attack marker above the timeline plot is tiny and hard to interpret at this size."
+   ]
+  },
+  {
+   "name": "07-metrics @1440x900",
+   "stateVerdict": "pass",
+   "layoutVerdict": "pass",
+   "stateEvidence": "The screenshot shows every claimed element. Header: \"Dashboard\" back link and bold \"Metrics\" title. First row of five cards: \"F1 0.90 Baseline 0.77\", \"TOP-1 84% Baseline 68%\", \"TOP-3 100% Baseline 86%\", \"TIME TO LOCALIZE 23.3 s\", \"FALSE ALARMS 0.0 /h Baseline 3.6 /h\". Section label \"HAI \u00b7 TEST1 \u00b7 MLP\". Second row of five cards: \"F1 0.43 Adjusted 0.92 \u00b7 Baseline 0.08\", \"ATTACKS DETECTED 79% 22 of 28\", \"FALSE ALARMS 0.18 /h Baseline 0.01 /h\", \"PROCESS TOP-1 71% Always P1 79%\", \"TOP-1 IF DETECTED 91% Always P1 86%\". Grouped bar chart with legend \"Baseline\" (grey) and \"AttackTrace\" (blue), categories Overall, Freeze, Offset, Ramp, Force, Setpoint, y axis 0 to 1. Nothing is cut off or overlapping.",
+   "confirmedBlocking": [],
+   "refutedBlocking": [],
+   "unresolved": [],
+   "cosmetic": [
+    "The card sub-text (baseline lines) and chart axis labels are small and low-contrast but legible.",
+    "The 'Time to localize' card has no baseline line, so it looks less filled than the others. This is by design.",
+    "The HAI section label reads 'HAI \u00b7 TEST1 \u00b7 MLP', which is small grey text.",
+    "Secondary text (baseline captions, uppercase card labels, axis tick labels) is small and low-contrast grey on dark, but still legible.",
+    "The 'Time to localize' card has no baseline caption, so its height looks emptier than the other cards.",
+    "The 'HAI \u00b7 TEST1 \u00b7 MLP' section label is tiny and low-contrast. The chart shows only the SIM data, and the page has no other heading to say so.",
+    "The chart's y-axis labels (0.25 to 1) are very small, and the chart panel takes up much of the page."
+   ]
+  },
+  {
+   "name": "07-metrics @1280x800",
+   "stateVerdict": "pass",
+   "layoutVerdict": "pass",
+   "stateEvidence": "All claimed elements are visible. Top bar shows \"\u2190 Dashboard\" link and \"Metrics\" title. First row of five cards: \"F1 0.90 / Baseline 0.77\", \"TOP-1 84% / Baseline 68%\", \"TOP-3 100% / Baseline 86%\", \"TIME TO LOCALIZE 23.3 s\", \"FALSE ALARMS 0.0 /h / Baseline 3.6 /h\". Section label \"HAI \u00b7 TEST1 \u00b7 MLP\". Second row of five cards: \"F1 0.43 / Adjusted 0.92 \u00b7 Baseline 0.08\", \"ATTACKS DETECTED 79% / 22 of 28\", \"FALSE ALARMS 0.18 /h / Baseline 0.01 /h\", \"PROCESS TOP-1 71% / Always P1 79%\", \"TOP-1 IF DETECTED 91% / Always P1 86%\". Grouped bar chart with legend \"Baseline\" (grey) and \"AttackTrace\" (blue), y-axis 0 to 1, categories Overall, Freeze, Offset, Ramp, Force, Setpoint. Nothing is cut off or overlapping.",
+   "confirmedBlocking": [],
+   "refutedBlocking": [],
+   "unresolved": [],
+   "cosmetic": [
+    "The 'Time to localize' card has no baseline line, so it has an empty sub-row. This is expected because the baseline does not localize in time.",
+    "The 'HAI \u00b7 TEST1 \u00b7 MLP' section label and the card sub-lines are small, low-contrast grey text, but they are legible.",
+    "The bottom chart panel sits close to the bottom edge of the viewport, with only a small margin below it.",
+    "The 'HAI \u00b7 TEST1 \u00b7 MLP' section label is small and low-contrast grey.",
+    "Secondary baseline text on the cards (e.g. 'Baseline 0.77') is small and muted, but still legible.",
+    "The 'Time to localize' card has no baseline line, so its lower area is empty.",
+    "The chart axis tick labels are small and dim, but readable.",
+    "The chart has no title or axis caption stating that it plots F1 score."
+   ]
+  },
+  {
+   "name": "08-hai-incident @1440x900",
+   "stateVerdict": "pass",
+   "layoutVerdict": "pass",
+   "stateEvidence": "Top bar: \"SIM | HAI\" toggle with HAI highlighted; status pill reads \"Incident\". Left panel titled \"REPLAY\" with an empty-state \"HAI dataset\" and a \"Restart\" button at the bottom. Centre \"PROCESS GRAPH\" shows real plant tag nodes with values, in columns: P1_B2004 0.10, P1_B2016 1.43, P1_B3004 462.0, P1_LIT01 459.6, P1_FCV01D 0.71, P1_PCV02Z 11.64, P1_PIT01 2.04, P2_24Vdc 28.02, P2_SIT01 792.0, P3_LCP01D 7496, P3_LCV01D -96.00, P3_LT01 45.87, P4_HT_FD -0.00, P4_ST_PT01 18248, P4_ST_TTO1 27629 (P1..P4 blocks present). The Twin toggle is greyed out/disabled next to the active \"Graph\" toggle. Graph header banner: \"Incident inc_001 \u00b7 P1_PCV02Z\". Incident panel: \"inc_001 open\", origin \"P1_PCV02Z\" (actuator, 53%), alternates \"P1_LCV01D 9%\" and \"P2_VXT03 4%\", path chips (P1_B4022 +0.0s -> P1_LCV01D +1.0s ...), explanation \"Origin P1_PCV02Z (actuator, P1) \u00b7 reads low -> P1_B4022 -> P1_LCV01D\", action \"Inspect P1 \u00b7 check P1_PCV02Z\". There is no MITRE tag anywhere in the incident panel. Timeline at the bottom shows the Live chip and tag values (P1_LIT01 459.6, P1_FT01 -15.22, P1_PIT01 2.04, P3_LT01 45.87).",
+   "confirmedBlocking": [],
+   "refutedBlocking": [],
+   "unresolved": [],
+   "cosmetic": [
+    "A \"React Flow\" watermark is visible at the bottom-right of the graph pane.",
+    "The Replay panel is mostly empty space, with only a small \"HAI dataset\" placeholder in the middle.",
+    "Node id labels inside the graph nodes are very small and dim, but still legible.",
+    "Dense red dashed edges cross over the nodes in the graph, which adds visual noise but does not hide the text.",
+    "The bottom half of the incident panel is empty, and the Twin toggle's greyed-out label has low contrast, as expected for a disabled control.",
+    "Graph node labels and values (e.g. P1_B2004, 0.10) are very small, but still legible.",
+    "A third-party 'React Flow' watermark sits at the bottom right of the graph pane.",
+    "The Replay pane is mostly empty, showing only a 'HAI dataset' placeholder and a Restart button.",
+    "The Incident panel has unused space below the path chips and action text.",
+    "Red dashed edges overlap and cross over node cards in the graph, which makes some parts visually busy.",
+    "Secondary grey text such as the node IDs, the 'actuator' label and the top-bar 'mlp' and '5 ms' has low contrast.",
+    "The timeline sparkline at the bottom right is small and has no axis labels."
+   ]
+  }
+ ]
+}

@@ -1,0 +1,9 @@
+{
+ "test1": {
+  "clean_samples": 278382,
+  "clean_samples_alerting": 174,
+  "clean_alert_rate": 0.0006250404120956096,
+  "attack_samples": 11538,
+  "attack_samples_alerting": 3189
+ }
+}

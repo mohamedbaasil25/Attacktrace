@@ -1,0 +1,7 @@
+Phase 11 Part D clean-start test (2026-10-09)
+Source: fresh extract of submission/AttackTrace_Submission.zip (final build) into an empty folder, .env copied from .env.example (placeholder demo key), no HAI data, no models.
+docker compose build: both images built. docker compose up -d: backend healthy after 22 s (models trained in the container; the zip ships reports/metrics.json, so no evaluation ran), frontend up.
+GET /api/status -> {"mode":"sim","hai_available":false,"detector_active":"gdn"}. /api/metrics keys: ambiguity, detection, hai, isolation, localization.
+Write endpoint without key -> 401; with the shipped key -> 200.
+Playwright against http://localhost:5173 (containers, AT_API_KEY set): 4 passed, 1 skipped (HAI replay: no data). Includes launch, graph/split/metrics, Isolate -> Contained + PDF download, Demo locked notice. All assert zero console errors.
+Earlier Phase 11 Part A test (before the backend changes): backend healthy after about 50 s.

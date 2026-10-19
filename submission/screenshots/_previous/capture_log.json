@@ -1,0 +1,65 @@
+{
+ "shots": [
+  {
+   "file": "submission\\screenshots\\01-idle_1440x900.png",
+   "overflow": false
+  },
+  {
+   "file": "submission\\screenshots\\02-attack-in-progress_1440x900.png",
+   "overflow": false
+  },
+  {
+   "file": "submission\\screenshots\\03-incident-localized_1440x900.png",
+   "overflow": false
+  },
+  {
+   "file": "submission\\screenshots\\04-split-view_1440x900.png",
+   "overflow": false
+  },
+  {
+   "file": "submission\\screenshots\\05-graph-view_1440x900.png",
+   "overflow": false
+  },
+  {
+   "file": "submission\\screenshots\\06-incident-resolved_1440x900.png",
+   "overflow": false
+  },
+  {
+   "file": "submission\\screenshots\\07-metrics_1440x900.png",
+   "overflow": false
+  },
+  {
+   "file": "submission\\screenshots\\01-idle_1280x800.png",
+   "overflow": false
+  },
+  {
+   "file": "submission\\screenshots\\02-attack-in-progress_1280x800.png",
+   "overflow": false
+  },
+  {
+   "file": "submission\\screenshots\\03-incident-localized_1280x800.png",
+   "overflow": false
+  },
+  {
+   "file": "submission\\screenshots\\04-split-view_1280x800.png",
+   "overflow": false
+  },
+  {
+   "file": "submission\\screenshots\\05-graph-view_1280x800.png",
+   "overflow": false
+  },
+  {
+   "file": "submission\\screenshots\\06-incident-resolved_1280x800.png",
+   "overflow": false
+  },
+  {
+   "file": "submission\\screenshots\\07-metrics_1280x800.png",
+   "overflow": false
+  },
+  {
+   "file": "submission\\screenshots\\08-hai-incident_1440x900.png",
+   "overflow": false
+  }
+ ],
+ "console_errors": []
+}

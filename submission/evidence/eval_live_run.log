@@ -1,0 +1,887 @@
+2026-10-09 19:21:45,474 clean session: 60 min
+2026-10-09 20:21:45,942 attack 1/30: sensor_freeze on FIT201
+2026-10-09 20:21:45,946 attacker write tag=FIT201.spoof_freeze value=1
+2026-10-09 20:21:45,946 attacker launch id=atk_001 scenario=sensor_freeze target=FIT201 magnitude=0.0 duration_s=120.0
+2026-10-09 20:23:45,949 attacker write tag=FIT201.spoof_freeze value=0.0
+2026-10-09 20:23:45,949 attacker clear id=atk_001 scenario=sensor_freeze target=FIT201
+2026-10-09 20:25:16,361 attack 2/30: sensor_freeze on LIT101
+2026-10-09 20:25:16,363 attacker write tag=LIT101.spoof_freeze value=1
+2026-10-09 20:25:16,363 attacker launch id=atk_002 scenario=sensor_freeze target=LIT101 magnitude=0.0 duration_s=120.0
+2026-10-09 20:27:16,383 attacker write tag=LIT101.spoof_freeze value=0.0
+2026-10-09 20:27:16,383 attacker clear id=atk_002 scenario=sensor_freeze target=LIT101
+2026-10-09 20:28:47,317 attack 3/30: sensor_freeze on FIT201
+2026-10-09 20:28:47,317 attacker write tag=FIT201.spoof_freeze value=1
+2026-10-09 20:28:47,317 attacker launch id=atk_003 scenario=sensor_freeze target=FIT201 magnitude=0.0 duration_s=120.0
+2026-10-09 20:30:47,323 attacker write tag=FIT201.spoof_freeze value=0.0
+2026-10-09 20:30:47,323 attacker clear id=atk_003 scenario=sensor_freeze target=FIT201
+2026-10-09 20:32:17,988 attack 4/30: sensor_freeze on FIT201
+2026-10-09 20:32:17,992 attacker write tag=FIT201.spoof_freeze value=1
+2026-10-09 20:32:17,992 attacker launch id=atk_004 scenario=sensor_freeze target=FIT201 magnitude=0.0 duration_s=120.0
+2026-10-09 20:34:18,011 attacker write tag=FIT201.spoof_freeze value=0.0
+2026-10-09 20:34:18,011 attacker clear id=atk_004 scenario=sensor_freeze target=FIT201
+2026-10-09 20:35:48,746 attack 5/30: sensor_freeze on FIT201
+2026-10-09 20:35:48,749 attacker write tag=FIT201.spoof_freeze value=1
+2026-10-09 20:35:48,749 attacker launch id=atk_005 scenario=sensor_freeze target=FIT201 magnitude=0.0 duration_s=120.0
+2026-10-09 20:37:48,761 attacker write tag=FIT201.spoof_freeze value=0.0
+2026-10-09 20:37:48,761 attacker clear id=atk_005 scenario=sensor_freeze target=FIT201
+2026-10-09 20:39:19,242 attack 6/30: sensor_freeze on FIT201
+2026-10-09 20:39:19,242 attacker write tag=FIT201.spoof_freeze value=1
+2026-10-09 20:39:19,242 attacker launch id=atk_006 scenario=sensor_freeze target=FIT201 magnitude=0.0 duration_s=120.0
+2026-10-09 20:41:19,270 attacker write tag=FIT201.spoof_freeze value=0.0
+2026-10-09 20:41:19,270 attacker clear id=atk_006 scenario=sensor_freeze target=FIT201
+2026-10-09 20:42:49,399 attack 7/30: sensor_offset on FIT201
+2026-10-09 20:42:49,401 attacker write tag=FIT201.spoof_offset value=2.809347791800712
+2026-10-09 20:42:49,401 attacker launch id=atk_007 scenario=sensor_offset target=FIT201 magnitude=2.809347791800712 duration_s=120.0
+2026-10-09 20:44:49,405 attacker write tag=FIT201.spoof_offset value=0.0
+2026-10-09 20:44:49,405 attacker clear id=atk_007 scenario=sensor_offset target=FIT201
+2026-10-09 20:46:20,104 attack 8/30: sensor_offset on LIT101
+2026-10-09 20:46:20,108 attacker write tag=LIT101.spoof_offset value=15.766816055304137
+2026-10-09 20:46:20,108 attacker launch id=atk_008 scenario=sensor_offset target=LIT101 magnitude=15.766816055304137 duration_s=120.0
+2026-10-09 20:48:20,107 attacker write tag=LIT101.spoof_offset value=0.0
+2026-10-09 20:48:20,107 attacker clear id=atk_008 scenario=sensor_offset target=LIT101
+2026-10-09 20:49:50,540 attack 9/30: sensor_offset on FIT201
+2026-10-09 20:49:50,542 attacker write tag=FIT201.spoof_offset value=3.1312744380294575
+2026-10-09 20:49:50,542 attacker launch id=atk_009 scenario=sensor_offset target=FIT201 magnitude=3.1312744380294575 duration_s=120.0
+2026-10-09 20:51:50,556 attacker write tag=FIT201.spoof_offset value=0.0
+2026-10-09 20:51:50,556 attacker clear id=atk_009 scenario=sensor_offset target=FIT201
+2026-10-09 20:53:20,998 attack 10/30: sensor_offset on FIT201
+2026-10-09 20:53:21,000 attacker write tag=FIT201.spoof_offset value=-3.5202975365861953
+2026-10-09 20:53:21,000 attacker launch id=atk_010 scenario=sensor_offset target=FIT201 magnitude=-3.5202975365861953 duration_s=120.0
+2026-10-09 20:55:21,016 attacker write tag=FIT201.spoof_offset value=0.0
+2026-10-09 20:55:21,017 attacker clear id=atk_010 scenario=sensor_offset target=FIT201
+2026-10-09 20:56:51,913 attack 11/30: sensor_offset on FIT201
+2026-10-09 20:56:51,913 attacker write tag=FIT201.spoof_offset value=-2.1070460304672314
+2026-10-09 20:56:51,913 attacker launch id=atk_011 scenario=sensor_offset target=FIT201 magnitude=-2.1070460304672314 duration_s=120.0
+2026-10-09 20:58:51,946 attacker write tag=FIT201.spoof_offset value=0.0
+2026-10-09 20:58:51,946 attacker clear id=atk_011 scenario=sensor_offset target=FIT201
+2026-10-09 21:00:22,505 attack 12/30: sensor_offset on FIT201
+2026-10-09 21:00:22,506 attacker write tag=FIT201.spoof_offset value=-2.1539710583748315
+2026-10-09 21:00:22,506 attacker launch id=atk_012 scenario=sensor_offset target=FIT201 magnitude=-2.1539710583748315 duration_s=120.0
+2026-10-09 21:02:22,510 attacker write tag=FIT201.spoof_offset value=0.0
+2026-10-09 21:02:22,510 attacker clear id=atk_012 scenario=sensor_offset target=FIT201
+2026-10-09 21:03:53,030 attack 13/30: sensor_ramp on FIT201
+2026-10-09 21:03:53,032 attacker write tag=FIT201.spoof_offset value=0.0
+2026-10-09 21:03:53,032 attacker launch id=atk_013 scenario=sensor_ramp target=FIT201 magnitude=3.7457970557342826 duration_s=120.0
+2026-10-09 21:03:54,051 attacker write tag=FIT201.spoof_offset value=0.031738737291983635
+2026-10-09 21:03:55,065 attacker write tag=FIT201.spoof_offset value=0.06347034492753442
+2026-10-09 21:03:56,081 attacker write tag=FIT201.spoof_offset value=0.09521340615520436
+2026-10-09 21:03:57,099 attacker write tag=FIT201.spoof_offset value=0.1269519425069754
+2026-10-09 21:03:58,119 attacker write tag=FIT201.spoof_offset value=0.15881432500978934
+2026-10-09 21:03:59,146 attacker write tag=FIT201.spoof_offset value=0.19079509850898516
+2026-10-09 21:04:00,152 attacker write tag=FIT201.spoof_offset value=0.22224176548081498
+2026-10-09 21:04:01,167 attacker write tag=FIT201.spoof_offset value=0.25393615452365104
+2026-10-09 21:04:02,165 attacker write tag=FIT201.spoof_offset value=0.2851311773692135
+2026-10-09 21:04:03,181 attacker write tag=FIT201.spoof_offset value=0.31682215042843515
+2026-10-09 21:04:04,193 attacker write tag=FIT201.spoof_offset value=0.34836182294978624
+2026-10-09 21:04:05,203 attacker write tag=FIT201.spoof_offset value=0.3799352980802375
+2026-10-09 21:04:06,212 attacker write tag=FIT201.spoof_offset value=0.41142331408248584
+2026-10-09 21:04:07,220 attacker write tag=FIT201.spoof_offset value=0.44293203436886386
+2026-10-09 21:04:08,200 attacker write tag=FIT201.spoof_offset value=0.4734550461633643
+2026-10-09 21:04:09,197 attacker write tag=FIT201.spoof_offset value=0.5046429765636444
+2026-10-09 21:04:10,210 attacker write tag=FIT201.spoof_offset value=0.5362921689431019
+2026-10-09 21:04:11,215 attacker write tag=FIT201.spoof_offset value=0.5676152576841723
+2026-10-09 21:04:12,221 attacker write tag=FIT201.spoof_offset value=0.5990509250399187
+2026-10-09 21:04:13,225 attacker write tag=FIT201.spoof_offset value=0.6303642942284826
+2026-10-09 21:04:14,227 attacker write tag=FIT201.spoof_offset value=0.6616678099043981
+2026-10-09 21:04:15,232 attacker write tag=FIT201.spoof_offset value=0.6930302457159909
+2026-10-09 21:04:16,251 attacker write tag=FIT201.spoof_offset value=0.7248167695674269
+2026-10-09 21:04:17,262 attacker write tag=FIT201.spoof_offset value=0.7563684464059244
+2026-10-09 21:04:18,270 attacker write tag=FIT201.spoof_offset value=0.7878473680029942
+2026-10-09 21:04:19,273 attacker write tag=FIT201.spoof_offset value=0.8190743701112831
+2026-10-09 21:04:20,279 attacker write tag=FIT201.spoof_offset value=0.8505883222854194
+2026-10-09 21:04:21,278 attacker write tag=FIT201.spoof_offset value=0.8817065859697621
+2026-10-09 21:04:22,295 attacker write tag=FIT201.spoof_offset value=0.913453174814498
+2026-10-09 21:04:23,306 attacker write tag=FIT201.spoof_offset value=0.9450208896588542
+2026-10-09 21:04:24,310 attacker write tag=FIT201.spoof_offset value=0.9763980908549594
+2026-10-09 21:04:25,327 attacker write tag=FIT201.spoof_offset value=1.0081438015165438
+2026-10-09 21:04:26,341 attacker write tag=FIT201.spoof_offset value=1.0398210585456968
+2026-10-09 21:04:27,348 attacker write tag=FIT201.spoof_offset value=1.071224828503248
+2026-10-09 21:04:28,346 attacker write tag=FIT201.spoof_offset value=1.1023485845534022
+2026-10-09 21:04:29,346 attacker write tag=FIT201.spoof_offset value=1.1335632846553412
+2026-10-09 21:04:30,352 attacker write tag=FIT201.spoof_offset value=1.1649517012922024
+2026-10-09 21:04:31,359 attacker write tag=FIT201.spoof_offset value=1.1964546687347155
+2026-10-09 21:04:32,367 attacker write tag=FIT201.spoof_offset value=1.2278324950781487
+2026-10-09 21:04:33,370 attacker write tag=FIT201.spoof_offset value=1.2591666206464527
+2026-10-09 21:04:34,382 attacker write tag=FIT201.spoof_offset value=1.2907328172758692
+2026-10-09 21:04:35,389 attacker write tag=FIT201.spoof_offset value=1.3221664380183393
+2026-10-09 21:04:36,392 attacker write tag=FIT201.spoof_offset value=1.3535438624813472
+2026-10-09 21:04:37,397 attacker write tag=FIT201.spoof_offset value=1.384911061320202
+2026-10-09 21:04:38,386 attacker write tag=FIT201.spoof_offset value=1.4157627145535527
+2026-10-09 21:04:39,397 attacker write tag=FIT201.spoof_offset value=1.4473527932993504
+2026-10-09 21:04:40,418 attacker write tag=FIT201.spoof_offset value=1.4792044366641344
+2026-10-09 21:04:41,423 attacker write tag=FIT201.spoof_offset value=1.5105802610476715
+2026-10-09 21:04:42,414 attacker write tag=FIT201.spoof_offset value=1.5415352942992984
+2026-10-09 21:04:43,421 attacker write tag=FIT201.spoof_offset value=1.5729513960321202
+2026-10-09 21:04:44,430 attacker write tag=FIT201.spoof_offset value=1.604460882868198
+2026-10-09 21:04:45,457 attacker write tag=FIT201.spoof_offset value=1.6365089490119304
+2026-10-09 21:04:46,451 attacker write tag=FIT201.spoof_offset value=1.6675360081664354
+2026-10-09 21:04:47,445 attacker write tag=FIT201.spoof_offset value=1.6985665726113162
+2026-10-09 21:04:48,465 attacker write tag=FIT201.spoof_offset value=1.730348043188516
+2026-10-09 21:04:49,459 attacker write tag=FIT201.spoof_offset value=1.7613859828834229
+2026-10-09 21:04:50,470 attacker write tag=FIT201.spoof_offset value=1.7929984925107327
+2026-10-09 21:04:51,476 attacker write tag=FIT201.spoof_offset value=1.8244070106110857
+2026-10-09 21:04:52,488 attacker write tag=FIT201.spoof_offset value=1.855954914238924
+2026-10-09 21:04:53,495 attacker write tag=FIT201.spoof_offset value=1.8873944813232413
+2026-10-09 21:04:54,515 attacker write tag=FIT201.spoof_offset value=1.9192475982495847
+2026-10-09 21:04:55,522 attacker write tag=FIT201.spoof_offset value=1.950703389395513
+2026-10-09 21:04:56,535 attacker write tag=FIT201.spoof_offset value=1.9823225374920692
+2026-10-09 21:04:57,538 attacker write tag=FIT201.spoof_offset value=2.0136159019661326
+2026-10-09 21:04:58,552 attacker write tag=FIT201.spoof_offset value=2.0452055490625844
+2026-10-09 21:04:59,556 attacker write tag=FIT201.spoof_offset value=2.0766080017454085
+2026-10-09 21:05:00,577 attacker write tag=FIT201.spoof_offset value=2.1084898903333062
+2026-10-09 21:05:01,587 attacker write tag=FIT201.spoof_offset value=2.13998216329117
+2026-10-09 21:05:02,592 attacker write tag=FIT201.spoof_offset value=2.1713800017913343
+2026-10-09 21:05:03,613 attacker write tag=FIT201.spoof_offset value=2.203215413652277
+2026-10-09 21:05:04,619 attacker write tag=FIT201.spoof_offset value=2.2346129470210068
+2026-10-09 21:05:05,626 attacker write tag=FIT201.spoof_offset value=2.2660617722395644
+2026-10-09 21:05:06,634 attacker write tag=FIT201.spoof_offset value=2.297519208118345
+2026-10-09 21:05:07,640 attacker write tag=FIT201.spoof_offset value=2.328967512380796
+2026-10-09 21:05:08,648 attacker write tag=FIT201.spoof_offset value=2.360404988198456
+2026-10-09 21:05:09,669 attacker write tag=FIT201.spoof_offset value=2.3922891168976133
+2026-10-09 21:05:10,685 attacker write tag=FIT201.spoof_offset value=2.424017889043497
+2026-10-09 21:05:11,687 attacker write tag=FIT201.spoof_offset value=2.4552758582712193
+2026-10-09 21:05:12,693 attacker write tag=FIT201.spoof_offset value=2.4866922874621653
+2026-10-09 21:05:13,695 attacker write tag=FIT201.spoof_offset value=2.51794890220401
+2026-10-09 21:05:14,712 attacker write tag=FIT201.spoof_offset value=2.549709341038956
+2026-10-09 21:05:15,728 attacker write tag=FIT201.spoof_offset value=2.581411120216279
+2026-10-09 21:05:16,734 attacker write tag=FIT201.spoof_offset value=2.6128157981259013
+2026-10-09 21:05:17,753 attacker write tag=FIT201.spoof_offset value=2.6446277446353488
+2026-10-09 21:05:18,758 attacker write tag=FIT201.spoof_offset value=2.675996111904329
+2026-10-09 21:05:19,780 attacker write tag=FIT201.spoof_offset value=2.707910902591485
+2026-10-09 21:05:20,788 attacker write tag=FIT201.spoof_offset value=2.7393705860237545
+2026-10-09 21:05:21,808 attacker write tag=FIT201.spoof_offset value=2.771201993964905
+2026-10-09 21:05:22,819 attacker write tag=FIT201.spoof_offset value=2.8027562830261665
+2026-10-09 21:05:23,819 attacker write tag=FIT201.spoof_offset value=2.8339879514127264
+2026-10-09 21:05:24,835 attacker write tag=FIT201.spoof_offset value=2.865664196298586
+2026-10-09 21:05:25,838 attacker write tag=FIT201.spoof_offset value=2.8969557969641166
+2026-10-09 21:05:26,835 attacker write tag=FIT201.spoof_offset value=2.9281142412487524
+2026-10-09 21:05:27,851 attacker write tag=FIT201.spoof_offset value=2.959775423060896
+2026-10-09 21:05:28,864 attacker write tag=FIT201.spoof_offset value=2.991404774454915
+2026-10-09 21:05:29,861 attacker write tag=FIT201.spoof_offset value=3.0225581431386255
+2026-10-09 21:05:30,881 attacker write tag=FIT201.spoof_offset value=3.0543806352881195
+2026-10-09 21:05:31,897 attacker write tag=FIT201.spoof_offset value=3.086103066653961
+2026-10-09 21:05:32,914 attacker write tag=FIT201.spoof_offset value=3.1178932892937548
+2026-10-09 21:05:33,929 attacker write tag=FIT201.spoof_offset value=3.1495622407941197
+2026-10-09 21:05:34,943 attacker write tag=FIT201.spoof_offset value=3.181223377952883
+2026-10-09 21:05:35,943 attacker write tag=FIT201.spoof_offset value=3.212439670692062
+2026-10-09 21:05:36,929 attacker write tag=FIT201.spoof_offset value=3.2432124586130757
+2026-10-09 21:05:37,947 attacker write tag=FIT201.spoof_offset value=3.274930141836115
+2026-10-09 21:05:38,976 attacker write tag=FIT201.spoof_offset value=3.3070745029950714
+2026-10-09 21:05:39,984 attacker write tag=FIT201.spoof_offset value=3.338578713290011
+2026-10-09 21:05:41,004 attacker write tag=FIT201.spoof_offset value=3.370381260262845
+2026-10-09 21:05:42,000 attacker write tag=FIT201.spoof_offset value=3.4014462822330747
+2026-10-09 21:05:43,016 attacker write tag=FIT201.spoof_offset value=3.433194753962025
+2026-10-09 21:05:44,017 attacker write tag=FIT201.spoof_offset value=3.4644641098017956
+2026-10-09 21:05:45,029 attacker write tag=FIT201.spoof_offset value=3.4960616531043804
+2026-10-09 21:05:46,030 attacker write tag=FIT201.spoof_offset value=3.527300086478099
+2026-10-09 21:05:47,025 attacker write tag=FIT201.spoof_offset value=3.5583690379458193
+2026-10-09 21:05:48,045 attacker write tag=FIT201.spoof_offset value=3.5902045986513635
+2026-10-09 21:05:49,062 attacker write tag=FIT201.spoof_offset value=3.621882726421438
+2026-10-09 21:05:50,077 attacker write tag=FIT201.spoof_offset value=3.653572330110322
+2026-10-09 21:05:51,090 attacker write tag=FIT201.spoof_offset value=3.685202001520235
+2026-10-09 21:05:52,090 attacker write tag=FIT201.spoof_offset value=3.7164631560224386
+2026-10-09 21:05:53,055 attacker write tag=FIT201.spoof_offset value=3.7457970557342826
+2026-10-09 21:05:53,057 attacker write tag=FIT201.spoof_offset value=0.0
+2026-10-09 21:05:53,057 attacker clear id=atk_013 scenario=sensor_ramp target=FIT201
+2026-10-09 21:07:23,694 attack 14/30: sensor_ramp on LIT101
+2026-10-09 21:07:23,695 attacker write tag=LIT101.spoof_offset value=0.0
+2026-10-09 21:07:23,695 attacker launch id=atk_014 scenario=sensor_ramp target=LIT101 magnitude=21.022421407072184 duration_s=120.0
+2026-10-09 21:07:24,715 attacker write tag=LIT101.spoof_offset value=0.17836717055353957
+2026-10-09 21:07:25,721 attacker write tag=LIT101.spoof_offset value=0.35460196968126123
+2026-10-09 21:07:26,721 attacker write tag=LIT101.spoof_offset value=0.529875900600436
+2026-10-09 21:07:27,725 attacker write tag=LIT101.spoof_offset value=0.7054375698846914
+2026-10-09 21:07:28,731 attacker write tag=LIT101.spoof_offset value=0.8820795632817077
+2026-10-09 21:07:29,749 attacker write tag=LIT101.spoof_offset value=1.0599866197650298
+2026-10-09 21:07:30,769 attacker write tag=LIT101.spoof_offset value=1.2392955706431212
+2026-10-09 21:07:31,766 attacker write tag=LIT101.spoof_offset value=1.413644511892812
+2026-10-09 21:07:32,768 attacker write tag=LIT101.spoof_offset value=1.5895432890801833
+2026-10-09 21:07:33,760 attacker write tag=LIT101.spoof_offset value=1.76326826118545
+2026-10-09 21:07:34,747 attacker write tag=LIT101.spoof_offset value=1.9358087820558558
+2026-10-09 21:07:35,757 attacker write tag=LIT101.spoof_offset value=2.113067602303723
+2026-10-09 21:07:36,760 attacker write tag=LIT101.spoof_offset value=2.2888376093677754
+2026-10-09 21:07:37,777 attacker write tag=LIT101.spoof_offset value=2.4669898845971256
+2026-10-09 21:07:38,800 attacker write tag=LIT101.spoof_offset value=2.6460402510336123
+2026-10-09 21:07:39,818 attacker write tag=LIT101.spoof_offset value=2.8245117157804467
+2026-10-09 21:07:40,839 attacker write tag=LIT101.spoof_offset value=3.003184584852497
+2026-10-09 21:07:41,853 attacker write tag=LIT101.spoof_offset value=3.180803359989356
+2026-10-09 21:07:42,854 attacker write tag=LIT101.spoof_offset value=3.3561211888649396
+2026-10-09 21:07:43,872 attacker write tag=LIT101.spoof_offset value=3.5345897716336654
+2026-10-09 21:07:44,888 attacker write tag=LIT101.spoof_offset value=3.7125561383911077
+2026-10-09 21:07:45,905 attacker write tag=LIT101.spoof_offset value=3.890887263334389
+2026-10-09 21:07:46,911 attacker write tag=LIT101.spoof_offset value=4.066977754717685
+2026-10-09 21:07:47,914 attacker write tag=LIT101.spoof_offset value=4.242700856543824
+2026-10-09 21:07:48,933 attacker write tag=LIT101.spoof_offset value=4.421350419184213
+2026-10-09 21:07:49,951 attacker write tag=LIT101.spoof_offset value=4.599442924693658
+2026-10-09 21:07:50,963 attacker write tag=LIT101.spoof_offset value=4.776645066038721
+2026-10-09 21:07:51,966 attacker write tag=LIT101.spoof_offset value=4.952561343933738
+2026-10-09 21:07:52,966 attacker write tag=LIT101.spoof_offset value=5.128155466797565
+2026-10-09 21:07:53,977 attacker write tag=LIT101.spoof_offset value=5.30479875499634
+2026-10-09 21:07:54,984 attacker write tag=LIT101.spoof_offset value=5.481674898672735
+2026-10-09 21:07:55,994 attacker write tag=LIT101.spoof_offset value=5.6580516665481575
+2026-10-09 21:07:57,018 attacker write tag=LIT101.spoof_offset value=5.837403011741905
+2026-10-09 21:07:58,024 attacker write tag=LIT101.spoof_offset value=6.0142490826032535
+2026-10-09 21:07:59,037 attacker write tag=LIT101.spoof_offset value=6.191327215354048
+2026-10-09 21:08:00,034 attacker write tag=LIT101.spoof_offset value=6.365913147093427
+2026-10-09 21:08:01,041 attacker write tag=LIT101.spoof_offset value=6.5422388747188664
+2026-10-09 21:08:02,049 attacker write tag=LIT101.spoof_offset value=6.7189072235968474
+2026-10-09 21:08:03,051 attacker write tag=LIT101.spoof_offset value=6.89446329599608
+2026-10-09 21:08:04,043 attacker write tag=LIT101.spoof_offset value=7.067922541366169
+2026-10-09 21:08:05,066 attacker write tag=LIT101.spoof_offset value=7.247476209776704
+2026-10-09 21:08:06,042 attacker write tag=LIT101.spoof_offset value=7.418435443557026
+2026-10-09 21:08:07,063 attacker write tag=LIT101.spoof_offset value=7.597298021970666
+2026-10-09 21:08:08,066 attacker write tag=LIT101.spoof_offset value=7.773101025595672
+2026-10-09 21:08:09,071 attacker write tag=LIT101.spoof_offset value=7.949192602941733
+2026-10-09 21:08:10,092 attacker write tag=LIT101.spoof_offset value=8.127934597720593
+2026-10-09 21:08:11,105 attacker write tag=LIT101.spoof_offset value=8.305162635100835
+2026-10-09 21:08:12,110 attacker write tag=LIT101.spoof_offset value=8.481448892156527
+2026-10-09 21:08:13,115 attacker write tag=LIT101.spoof_offset value=8.657479822658908
+2026-10-09 21:08:14,121 attacker write tag=LIT101.spoof_offset value=8.833787798969912
+2026-10-09 21:08:15,125 attacker write tag=LIT101.spoof_offset value=9.009738660602231
+2026-10-09 21:08:16,130 attacker write tag=LIT101.spoof_offset value=9.18567289865068
+2026-10-09 21:08:17,137 attacker write tag=LIT101.spoof_offset value=9.362203873238814
+2026-10-09 21:08:18,146 attacker write tag=LIT101.spoof_offset value=9.538661503572474
+2026-10-09 21:08:19,153 attacker write tag=LIT101.spoof_offset value=9.714956281259093
+2026-10-09 21:08:20,166 attacker write tag=LIT101.spoof_offset value=9.89279918240365
+2026-10-09 21:08:21,176 attacker write tag=LIT101.spoof_offset value=10.069736766511898
+2026-10-09 21:08:22,181 attacker write tag=LIT101.spoof_offset value=10.245724258503657
+2026-10-09 21:08:23,191 attacker write tag=LIT101.spoof_offset value=10.422898498959205
+2026-10-09 21:08:24,202 attacker write tag=LIT101.spoof_offset value=10.59946698103055
+2026-10-09 21:08:25,212 attacker write tag=LIT101.spoof_offset value=10.77676134567509
+2026-10-09 21:08:26,222 attacker write tag=LIT101.spoof_offset value=10.953547020299553
+2026-10-09 21:08:27,226 attacker write tag=LIT101.spoof_offset value=11.129602969713345
+2026-10-09 21:08:28,240 attacker write tag=LIT101.spoof_offset value=11.307680647654259
+2026-10-09 21:08:29,262 attacker write tag=LIT101.spoof_offset value=11.486598735472338
+2026-10-09 21:08:30,260 attacker write tag=LIT101.spoof_offset value=11.66103973295031
+2026-10-09 21:08:31,279 attacker write tag=LIT101.spoof_offset value=11.839675011003553
+2026-10-09 21:08:32,284 attacker write tag=LIT101.spoof_offset value=12.01557896739796
+2026-10-09 21:08:33,291 attacker write tag=LIT101.spoof_offset value=12.191914593991687
+2026-10-09 21:08:34,300 attacker write tag=LIT101.spoof_offset value=12.36890722805859
+2026-10-09 21:08:35,296 attacker write tag=LIT101.spoof_offset value=12.543227600133987
+2026-10-09 21:08:36,303 attacker write tag=LIT101.spoof_offset value=12.719782841813151
+2026-10-09 21:08:37,317 attacker write tag=LIT101.spoof_offset value=12.897290806980122
+2026-10-09 21:08:38,326 attacker write tag=LIT101.spoof_offset value=13.073261633620211
+2026-10-09 21:08:39,333 attacker write tag=LIT101.spoof_offset value=13.250666515860047
+2026-10-09 21:08:40,337 attacker write tag=LIT101.spoof_offset value=13.426233740261528
+2026-10-09 21:08:41,342 attacker write tag=LIT101.spoof_offset value=13.602426520983782
+2026-10-09 21:08:42,345 attacker write tag=LIT101.spoof_offset value=13.778257341962707
+2026-10-09 21:08:43,351 attacker write tag=LIT101.spoof_offset value=13.954173327483131
+2026-10-09 21:08:44,377 attacker write tag=LIT101.spoof_offset value=14.134650732529192
+2026-10-09 21:08:45,383 attacker write tag=LIT101.spoof_offset value=14.310797861047492
+2026-10-09 21:08:46,409 attacker write tag=LIT101.spoof_offset value=14.490651422252522
+2026-10-09 21:08:47,420 attacker write tag=LIT101.spoof_offset value=14.667453135711675
+2026-10-09 21:08:48,433 attacker write tag=LIT101.spoof_offset value=14.845203228807573
+2026-10-09 21:08:49,454 attacker write tag=LIT101.spoof_offset value=15.023880984712068
+2026-10-09 21:08:50,459 attacker write tag=LIT101.spoof_offset value=15.200141805178367
+2026-10-09 21:08:51,463 attacker write tag=LIT101.spoof_offset value=15.376050105423834
+2026-10-09 21:08:52,459 attacker write tag=LIT101.spoof_offset value=15.549855772916144
+2026-10-09 21:08:53,478 attacker write tag=LIT101.spoof_offset value=15.728079596384628
+2026-10-09 21:08:54,481 attacker write tag=LIT101.spoof_offset value=15.904079869322782
+2026-10-09 21:08:55,497 attacker write tag=LIT101.spoof_offset value=16.082024809199503
+2026-10-09 21:08:56,500 attacker write tag=LIT101.spoof_offset value=16.258497559476286
+2026-10-09 21:08:57,513 attacker write tag=LIT101.spoof_offset value=16.435329596357278
+2026-10-09 21:08:58,515 attacker write tag=LIT101.spoof_offset value=16.611372890128067
+2026-10-09 21:08:59,521 attacker write tag=LIT101.spoof_offset value=16.787680657600077
+2026-10-09 21:09:00,547 attacker write tag=LIT101.spoof_offset value=16.966800107975576
+2026-10-09 21:09:01,560 attacker write tag=LIT101.spoof_offset value=17.14451582617316
+2026-10-09 21:09:02,568 attacker write tag=LIT101.spoof_offset value=17.321261570782088
+2026-10-09 21:09:03,558 attacker write tag=LIT101.spoof_offset value=17.494351839418673
+2026-10-09 21:09:04,566 attacker write tag=LIT101.spoof_offset value=17.670543910088345
+2026-10-09 21:09:05,571 attacker write tag=LIT101.spoof_offset value=17.847006970235835
+2026-10-09 21:09:06,575 attacker write tag=LIT101.spoof_offset value=18.022773552340393
+2026-10-09 21:09:07,581 attacker write tag=LIT101.spoof_offset value=18.199711052913045
+2026-10-09 21:09:08,573 attacker write tag=LIT101.spoof_offset value=18.37343456314536
+2026-10-09 21:09:09,583 attacker write tag=LIT101.spoof_offset value=18.550308743735215
+2026-10-09 21:09:10,585 attacker write tag=LIT101.spoof_offset value=18.72593327355648
+2026-10-09 21:09:11,577 attacker write tag=LIT101.spoof_offset value=18.899369296030503
+2026-10-09 21:09:12,586 attacker write tag=LIT101.spoof_offset value=19.07612677739086
+2026-10-09 21:09:13,602 attacker write tag=LIT101.spoof_offset value=19.25369668420327
+2026-10-09 21:09:14,607 attacker write tag=LIT101.spoof_offset value=19.430249712189102
+2026-10-09 21:09:15,604 attacker write tag=LIT101.spoof_offset value=19.60517742982505
+2026-10-09 21:09:16,614 attacker write tag=LIT101.spoof_offset value=19.782059922206845
+2026-10-09 21:09:17,613 attacker write tag=LIT101.spoof_offset value=19.95714702576254
+2026-10-09 21:09:18,609 attacker write tag=LIT101.spoof_offset value=20.131704095953037
+2026-10-09 21:09:19,614 attacker write tag=LIT101.spoof_offset value=20.30706791117496
+2026-10-09 21:09:20,615 attacker write tag=LIT101.spoof_offset value=20.483116843598573
+2026-10-09 21:09:21,614 attacker write tag=LIT101.spoof_offset value=20.658081776343142
+2026-10-09 21:09:22,622 attacker write tag=LIT101.spoof_offset value=20.83433871240416
+2026-10-09 21:09:23,628 attacker write tag=LIT101.spoof_offset value=21.01061628175773
+2026-10-09 21:09:23,705 attacker write tag=LIT101.spoof_offset value=21.022421407072184
+2026-10-09 21:09:23,705 attacker write tag=LIT101.spoof_offset value=0.0
+2026-10-09 21:09:23,705 attacker clear id=atk_014 scenario=sensor_ramp target=LIT101
+2026-10-09 21:10:54,323 attack 15/30: sensor_ramp on FIT201
+2026-10-09 21:10:54,323 attacker write tag=FIT201.spoof_offset value=0.0
+2026-10-09 21:10:54,327 attacker launch id=atk_015 scenario=sensor_ramp target=FIT201 magnitude=4.1750325840392755 duration_s=120.0
+2026-10-09 21:10:55,334 attacker write tag=FIT201.spoof_offset value=0.03505829207825615
+2026-10-09 21:10:56,342 attacker write tag=FIT201.spoof_offset value=0.07012215842639608
+2026-10-09 21:10:57,349 attacker write tag=FIT201.spoof_offset value=0.10519602859816674
+2026-10-09 21:10:58,344 attacker write tag=FIT201.spoof_offset value=0.13982327698558839
+2026-10-09 21:10:59,351 attacker write tag=FIT201.spoof_offset value=0.1748329766933398
+2026-10-09 21:11:00,369 attacker write tag=FIT201.spoof_offset value=0.2103499432555597
+2026-10-09 21:11:01,392 attacker write tag=FIT201.spoof_offset value=0.24592961205892766
+2026-10-09 21:11:02,371 attacker write tag=FIT201.spoof_offset value=0.27988978126512354
+2026-10-09 21:11:03,385 attacker write tag=FIT201.spoof_offset value=0.3151625997834605
+2026-10-09 21:11:04,401 attacker write tag=FIT201.spoof_offset value=0.35049730762858755
+2026-10-09 21:11:05,409 attacker write tag=FIT201.spoof_offset value=0.38562729377619714
+2026-10-09 21:11:06,421 attacker write tag=FIT201.spoof_offset value=0.4209105059852549
+2026-10-09 21:11:07,444 attacker write tag=FIT201.spoof_offset value=0.4561165079203868
+2026-10-09 21:11:08,446 attacker write tag=FIT201.spoof_offset value=0.4910070410192835
+2026-10-09 21:11:09,471 attacker write tag=FIT201.spoof_offset value=0.5269717160166779
+2026-10-09 21:11:10,489 attacker write tag=FIT201.spoof_offset value=0.5621231365591977
+2026-10-09 21:11:11,512 attacker write tag=FIT201.spoof_offset value=0.5976208420281585
+2026-10-09 21:11:12,534 attacker write tag=FIT201.spoof_offset value=0.6334668481193664
+2026-10-09 21:11:13,535 attacker write tag=FIT201.spoof_offset value=0.6684024398998236
+2026-10-09 21:11:14,531 attacker write tag=FIT201.spoof_offset value=0.703063556953816
+2026-10-09 21:11:15,526 attacker write tag=FIT201.spoof_offset value=0.7376965206268774
+2026-10-09 21:11:16,539 attacker write tag=FIT201.spoof_offset value=0.7728811628224992
+2026-10-09 21:11:17,548 attacker write tag=FIT201.spoof_offset value=0.8079833273909567
+2026-10-09 21:11:18,560 attacker write tag=FIT201.spoof_offset value=0.8431926473438766
+2026-10-09 21:11:19,568 attacker write tag=FIT201.spoof_offset value=0.8780153269790093
+2026-10-09 21:11:20,567 attacker write tag=FIT201.spoof_offset value=0.9130682521634934
+2026-10-09 21:11:21,574 attacker write tag=FIT201.spoof_offset value=0.9481108085423902
+2026-10-09 21:11:22,589 attacker write tag=FIT201.spoof_offset value=0.9834134975158634
+2026-10-09 21:11:23,598 attacker write tag=FIT201.spoof_offset value=1.0184705038622266
+2026-10-09 21:11:24,591 attacker write tag=FIT201.spoof_offset value=1.0530240258943997
+2026-10-09 21:11:25,596 attacker write tag=FIT201.spoof_offset value=1.0880286822151135
+2026-10-09 21:11:26,599 attacker write tag=FIT201.spoof_offset value=1.1229532415864256
+2026-10-09 21:11:27,593 attacker write tag=FIT201.spoof_offset value=1.1575259832366356
+2026-10-09 21:11:28,589 attacker write tag=FIT201.spoof_offset value=1.1920641594365393
+2026-10-09 21:11:29,616 attacker write tag=FIT201.spoof_offset value=1.227830375494991
+2026-10-09 21:11:30,620 attacker write tag=FIT201.spoof_offset value=1.2627525044182737
+2026-10-09 21:11:31,634 attacker write tag=FIT201.spoof_offset value=1.2979790531785576
+2026-10-09 21:11:32,629 attacker write tag=FIT201.spoof_offset value=1.3326127136353545
+2026-10-09 21:11:33,629 attacker write tag=FIT201.spoof_offset value=1.3675333577456767
+2026-10-09 21:11:34,629 attacker write tag=FIT201.spoof_offset value=1.402284019804722
+2026-10-09 21:11:35,632 attacker write tag=FIT201.spoof_offset value=1.4372165175335918
+2026-10-09 21:11:36,654 attacker write tag=FIT201.spoof_offset value=1.4726909305176812
+2026-10-09 21:11:37,665 attacker write tag=FIT201.spoof_offset value=1.5078712012248672
+2026-10-09 21:11:38,677 attacker write tag=FIT201.spoof_offset value=1.5429076441559897
+2026-10-09 21:11:39,694 attacker write tag=FIT201.spoof_offset value=1.5784649992897337
+2026-10-09 21:11:40,698 attacker write tag=FIT201.spoof_offset value=1.6134186825621797
+2026-10-09 21:11:41,703 attacker write tag=FIT201.spoof_offset value=1.648372971372872
+2026-10-09 21:11:42,709 attacker write tag=FIT201.spoof_offset value=1.6834414746508706
+2026-10-09 21:11:43,709 attacker write tag=FIT201.spoof_offset value=1.718235951134806
+2026-10-09 21:11:44,707 attacker write tag=FIT201.spoof_offset value=1.752951118698564
+2026-10-09 21:11:45,705 attacker write tag=FIT201.spoof_offset value=1.7876706328656247
+2026-10-09 21:11:46,708 attacker write tag=FIT201.spoof_offset value=1.8225612820951438
+2026-10-09 21:11:47,709 attacker write tag=FIT201.spoof_offset value=1.8573849571356131
+2026-10-09 21:11:48,697 attacker write tag=FIT201.spoof_offset value=1.89166613626775
+2026-10-09 21:11:49,706 attacker write tag=FIT201.spoof_offset value=1.9268141309569038
+2026-10-09 21:11:50,717 attacker write tag=FIT201.spoof_offset value=1.9618953754232082
+2026-10-09 21:11:51,725 attacker write tag=FIT201.spoof_offset value=1.9970447719748774
+2026-10-09 21:11:52,749 attacker write tag=FIT201.spoof_offset value=2.0326585582961503
+2026-10-09 21:11:53,751 attacker write tag=FIT201.spoof_offset value=2.0675366405332976
+2026-10-09 21:11:54,762 attacker write tag=FIT201.spoof_offset value=2.102671164070232
+2026-10-09 21:11:55,771 attacker write tag=FIT201.spoof_offset value=2.1378022700488453
+2026-10-09 21:11:56,773 attacker write tag=FIT201.spoof_offset value=2.1727458084819045
+2026-10-09 21:11:57,778 attacker write tag=FIT201.spoof_offset value=2.2077163472847134
+2026-10-09 21:11:58,786 attacker write tag=FIT201.spoof_offset value=2.2427882598259887
+2026-10-09 21:11:59,784 attacker write tag=FIT201.spoof_offset value=2.2774655522166976
+2026-10-09 21:12:00,788 attacker write tag=FIT201.spoof_offset value=2.31239159640097
+2026-10-09 21:12:01,808 attacker write tag=FIT201.spoof_offset value=2.3479047472427337
+2026-10-09 21:12:02,806 attacker write tag=FIT201.spoof_offset value=2.38252402409242
+2026-10-09 21:12:03,800 attacker write tag=FIT201.spoof_offset value=2.417164536255949
+2026-10-09 21:12:04,799 attacker write tag=FIT201.spoof_offset value=2.451919113575984
+2026-10-09 21:12:05,815 attacker write tag=FIT201.spoof_offset value=2.4872946662200808
+2026-10-09 21:12:06,823 attacker write tag=FIT201.spoof_offset value=2.5223304040724233
+2026-10-09 21:12:07,850 attacker write tag=FIT201.spoof_offset value=2.558080030041935
+2026-10-09 21:12:08,870 attacker write tag=FIT201.spoof_offset value=2.5936139350849627
+2026-10-09 21:12:09,882 attacker write tag=FIT201.spoof_offset value=2.6287539001710694
+2026-10-09 21:12:10,888 attacker write tag=FIT201.spoof_offset value=2.6636962690028585
+2026-10-09 21:12:11,898 attacker write tag=FIT201.spoof_offset value=2.6988707829491827
+2026-10-09 21:12:12,918 attacker write tag=FIT201.spoof_offset value=2.7344858964775702
+2026-10-09 21:12:13,932 attacker write tag=FIT201.spoof_offset value=2.7696260938249226
+2026-10-09 21:12:14,941 attacker write tag=FIT201.spoof_offset value=2.8047656192736725
+2026-10-09 21:12:15,945 attacker write tag=FIT201.spoof_offset value=2.8396666373087793
+2026-10-09 21:12:16,965 attacker write tag=FIT201.spoof_offset value=2.875208173792719
+2026-10-09 21:12:17,970 attacker write tag=FIT201.spoof_offset value=2.910082664275611
+2026-10-09 21:12:18,972 attacker write tag=FIT201.spoof_offset value=2.945012656901051
+2026-10-09 21:12:19,972 attacker write tag=FIT201.spoof_offset value=2.979874489146082
+2026-10-09 21:12:20,968 attacker write tag=FIT201.spoof_offset value=3.0144400141076027
+2026-10-09 21:12:21,971 attacker write tag=FIT201.spoof_offset value=3.0493340311251766
+2026-10-09 21:12:22,950 attacker write tag=FIT201.spoof_offset value=3.083418460097532
+2026-10-09 21:12:23,960 attacker write tag=FIT201.spoof_offset value=3.118574899141956
+2026-10-09 21:12:24,982 attacker write tag=FIT201.spoof_offset value=3.1540737078518313
+2026-10-09 21:12:25,993 attacker write tag=FIT201.spoof_offset value=3.1890677382205794
+2026-10-09 21:12:27,010 attacker write tag=FIT201.spoof_offset value=3.2246763650241914
+2026-10-09 21:12:28,027 attacker write tag=FIT201.spoof_offset value=3.2599450443153377
+2026-10-09 21:12:29,047 attacker write tag=FIT201.spoof_offset value=3.2954572495220322
+2026-10-09 21:12:30,057 attacker write tag=FIT201.spoof_offset value=3.330641186638874
+2026-10-09 21:12:31,063 attacker write tag=FIT201.spoof_offset value=3.3657633173793706
+2026-10-09 21:12:32,062 attacker write tag=FIT201.spoof_offset value=3.4004845320305477
+2026-10-09 21:12:33,068 attacker write tag=FIT201.spoof_offset value=3.4354720176092086
+2026-10-09 21:12:34,078 attacker write tag=FIT201.spoof_offset value=3.4705529551588676
+2026-10-09 21:12:35,080 attacker write tag=FIT201.spoof_offset value=3.5055229713738747
+2026-10-09 21:12:36,071 attacker write tag=FIT201.spoof_offset value=3.5399700596904546
+2026-10-09 21:12:37,078 attacker write tag=FIT201.spoof_offset value=3.5750414081687065
+2026-10-09 21:12:38,102 attacker write tag=FIT201.spoof_offset value=3.61045973006209
+2026-10-09 21:12:39,107 attacker write tag=FIT201.spoof_offset value=3.6455801105482033
+2026-10-09 21:12:40,121 attacker write tag=FIT201.spoof_offset value=3.6808314200162298
+2026-10-09 21:12:41,139 attacker write tag=FIT201.spoof_offset value=3.7163258406475803
+2026-10-09 21:12:42,137 attacker write tag=FIT201.spoof_offset value=3.750910261720404
+2026-10-09 21:12:43,150 attacker write tag=FIT201.spoof_offset value=3.78614507234498
+2026-10-09 21:12:44,166 attacker write tag=FIT201.spoof_offset value=3.8214575992411945
+2026-10-09 21:12:45,189 attacker write tag=FIT201.spoof_offset value=3.8572269757115896
+2026-10-09 21:12:46,182 attacker write tag=FIT201.spoof_offset value=3.8917515812187404
+2026-10-09 21:12:47,194 attacker write tag=FIT201.spoof_offset value=3.9269434815782733
+2026-10-09 21:12:48,216 attacker write tag=FIT201.spoof_offset value=3.962388057287404
+2026-10-09 21:12:49,221 attacker write tag=FIT201.spoof_offset value=3.997365746418547
+2026-10-09 21:12:50,230 attacker write tag=FIT201.spoof_offset value=4.032499855203258
+2026-10-09 21:12:51,236 attacker write tag=FIT201.spoof_offset value=4.0675082442939825
+2026-10-09 21:12:52,239 attacker write tag=FIT201.spoof_offset value=4.102378869286151
+2026-10-09 21:12:53,247 attacker write tag=FIT201.spoof_offset value=4.137440321776351
+2026-10-09 21:12:54,250 attacker write tag=FIT201.spoof_offset value=4.172425119760604
+2026-10-09 21:12:54,326 attacker write tag=FIT201.spoof_offset value=4.1750325840392755
+2026-10-09 21:12:54,326 attacker write tag=FIT201.spoof_offset value=0.0
+2026-10-09 21:12:54,326 attacker clear id=atk_015 scenario=sensor_ramp target=FIT201
+2026-10-09 21:14:24,741 attack 16/30: sensor_ramp on FIT201
+2026-10-09 21:14:24,743 attacker write tag=FIT201.spoof_offset value=0.0
+2026-10-09 21:14:24,743 attacker launch id=atk_016 scenario=sensor_ramp target=FIT201 magnitude=-4.693730048781594 duration_s=120.0
+2026-10-09 21:14:25,757 attacker write tag=FIT201.spoof_offset value=-0.039640968637206536
+2026-10-09 21:14:26,780 attacker write tag=FIT201.spoof_offset value=-0.07967681131361712
+2026-10-09 21:14:27,792 attacker write tag=FIT201.spoof_offset value=-0.11932211635656322
+2026-10-09 21:14:28,794 attacker write tag=FIT201.spoof_offset value=-0.1585156332006741
+2026-10-09 21:14:29,795 attacker write tag=FIT201.spoof_offset value=-0.19767038351003377
+2026-10-09 21:14:30,796 attacker write tag=FIT201.spoof_offset value=-0.23683579298446933
+2026-10-09 21:14:31,803 attacker write tag=FIT201.spoof_offset value=-0.27615029088591186
+2026-10-09 21:14:32,828 attacker write tag=FIT201.spoof_offset value=-0.31623092443709033
+2026-10-09 21:14:33,833 attacker write tag=FIT201.spoof_offset value=-0.3555206535349969
+2026-10-09 21:14:34,838 attacker write tag=FIT201.spoof_offset value=-0.3944918200091117
+2026-10-09 21:14:35,860 attacker write tag=FIT201.spoof_offset value=-0.4344428276682907
+2026-10-09 21:14:36,886 attacker write tag=FIT201.spoof_offset value=-0.4745768969289049
+2026-10-09 21:14:37,903 attacker write tag=FIT201.spoof_offset value=-0.5147399501659461
+2026-10-09 21:14:38,907 attacker write tag=FIT201.spoof_offset value=-0.5539986623058102
+2026-10-09 21:14:39,917 attacker write tag=FIT201.spoof_offset value=-0.5935932733668203
+2026-10-09 21:14:40,925 attacker write tag=FIT201.spoof_offset value=-0.6329376318514414
+2026-10-09 21:14:41,945 attacker write tag=FIT201.spoof_offset value=-0.672847392365274
+2026-10-09 21:14:42,960 attacker write tag=FIT201.spoof_offset value=-0.7126131002781199
+2026-10-09 21:14:43,959 attacker write tag=FIT201.spoof_offset value=-0.7516315102607865
+2026-10-09 21:14:44,974 attacker write tag=FIT201.spoof_offset value=-0.7913916321369915
+2026-10-09 21:14:45,948 attacker write tag=FIT201.spoof_offset value=-0.8294334369190922
+2026-10-09 21:14:46,952 attacker write tag=FIT201.spoof_offset value=-0.8687514225963339
+2026-10-09 21:14:47,964 attacker write tag=FIT201.spoof_offset value=-0.9081938211530837
+2026-10-09 21:14:48,970 attacker write tag=FIT201.spoof_offset value=-0.9476890679062338
+2026-10-09 21:14:49,979 attacker write tag=FIT201.spoof_offset value=-0.987074393768089
+2026-10-09 21:14:51,000 attacker write tag=FIT201.spoof_offset value=-1.0270255413113243
+2026-10-09 21:14:52,002 attacker write tag=FIT201.spoof_offset value=-1.0662234784916083
+2026-10-09 21:14:52,995 attacker write tag=FIT201.spoof_offset value=-1.105116384499129
+2026-10-09 21:14:53,998 attacker write tag=FIT201.spoof_offset value=-1.1442765996122806
+2026-10-09 21:14:55,024 attacker write tag=FIT201.spoof_offset value=-1.1841712992760716
+2026-10-09 21:14:56,042 attacker write tag=FIT201.spoof_offset value=-1.2242161225088848
+2026-10-09 21:14:57,047 attacker write tag=FIT201.spoof_offset value=-1.2635779012212942
+2026-10-09 21:14:58,058 attacker write tag=FIT201.spoof_offset value=-1.3030326655286044
+2026-10-09 21:14:59,065 attacker write tag=FIT201.spoof_offset value=-1.3424207051411485
+2026-10-09 21:15:00,064 attacker write tag=FIT201.spoof_offset value=-1.3815462010315727
+2026-10-09 21:15:01,041 attacker write tag=FIT201.spoof_offset value=-1.4198627007974673
+2026-10-09 21:15:02,065 attacker write tag=FIT201.spoof_offset value=-1.459728649624925
+2026-10-09 21:15:03,081 attacker write tag=FIT201.spoof_offset value=-1.4995005124362397
+2026-10-09 21:15:04,085 attacker write tag=FIT201.spoof_offset value=-1.5387539183075754
+2026-10-09 21:15:05,088 attacker write tag=FIT201.spoof_offset value=-1.578001551630195
+2026-10-09 21:15:06,094 attacker write tag=FIT201.spoof_offset value=-1.617399122009762
+2026-10-09 21:15:07,098 attacker write tag=FIT201.spoof_offset value=-1.6566860907289613
+2026-10-09 21:15:08,111 attacker write tag=FIT201.spoof_offset value=-1.6962959678032954
+2026-10-09 21:15:09,118 attacker write tag=FIT201.spoof_offset value=-1.7357298614094336
+2026-10-09 21:15:10,129 attacker write tag=FIT201.spoof_offset value=-1.7751983996334697
+2026-10-09 21:15:11,140 attacker write tag=FIT201.spoof_offset value=-1.814709266772886
+2026-10-09 21:15:12,149 attacker write tag=FIT201.spoof_offset value=-1.8541065294075294
+2026-10-09 21:15:13,164 attacker write tag=FIT201.spoof_offset value=-1.8938850040718966
+2026-10-09 21:15:14,185 attacker write tag=FIT201.spoof_offset value=-1.9339242972216915
+2026-10-09 21:15:15,191 attacker write tag=FIT201.spoof_offset value=-1.9731631085231722
+2026-10-09 21:15:16,196 attacker write tag=FIT201.spoof_offset value=-2.012517781125531
+2026-10-09 21:15:17,204 attacker write tag=FIT201.spoof_offset value=-2.051972209711107
+2026-10-09 21:15:18,219 attacker write tag=FIT201.spoof_offset value=-2.0915792891043186
+2026-10-09 21:15:19,225 attacker write tag=FIT201.spoof_offset value=-2.130940629513352
+2026-10-09 21:15:20,219 attacker write tag=FIT201.spoof_offset value=-2.1698643846180476
+2026-10-09 21:15:21,226 attacker write tag=FIT201.spoof_offset value=-2.2093346480787757
+2026-10-09 21:15:22,243 attacker write tag=FIT201.spoof_offset value=-2.2490704021524057
+2026-10-09 21:15:23,248 attacker write tag=FIT201.spoof_offset value=-2.288409500996517
+2026-10-09 21:15:24,260 attacker write tag=FIT201.spoof_offset value=-2.3279855168036674
+2026-10-09 21:15:25,267 attacker write tag=FIT201.spoof_offset value=-2.3673350136959495
+2026-10-09 21:15:26,262 attacker write tag=FIT201.spoof_offset value=-2.4062207949422123
+2026-10-09 21:15:27,272 attacker write tag=FIT201.spoof_offset value=-2.445706772045244
+2026-10-09 21:15:28,299 attacker write tag=FIT201.spoof_offset value=-2.4860287708724464
+2026-10-09 21:15:29,307 attacker write tag=FIT201.spoof_offset value=-2.5253969935770404
+2026-10-09 21:15:30,303 attacker write tag=FIT201.spoof_offset value=-2.5642717426340775
+2026-10-09 21:15:31,307 attacker write tag=FIT201.spoof_offset value=-2.6035323478715013
+2026-10-09 21:15:32,300 attacker write tag=FIT201.spoof_offset value=-2.642509156335879
+2026-10-09 21:15:33,307 attacker write tag=FIT201.spoof_offset value=-2.68186991855748
+2026-10-09 21:15:34,317 attacker write tag=FIT201.spoof_offset value=-2.721403950496589
+2026-10-09 21:15:35,292 attacker write tag=FIT201.spoof_offset value=-2.759471540573034
+2026-10-09 21:15:36,309 attacker write tag=FIT201.spoof_offset value=-2.799260049587026
+2026-10-09 21:15:37,316 attacker write tag=FIT201.spoof_offset value=-2.838644032561943
+2026-10-09 21:15:38,314 attacker write tag=FIT201.spoof_offset value=-2.8776729245232144
+2026-10-09 21:15:39,322 attacker write tag=FIT201.spoof_offset value=-2.9172076465570003
+2026-10-09 21:15:40,337 attacker write tag=FIT201.spoof_offset value=-2.9568229884351265
+2026-10-09 21:15:41,345 attacker write tag=FIT201.spoof_offset value=-2.996170750765113
+2026-10-09 21:15:42,348 attacker write tag=FIT201.spoof_offset value=-3.035458838556761
+2026-10-09 21:15:43,338 attacker write tag=FIT201.spoof_offset value=-3.0742861575931713
+2026-10-09 21:15:44,357 attacker write tag=FIT201.spoof_offset value=-3.113985084857628
+2026-10-09 21:15:45,370 attacker write tag=FIT201.spoof_offset value=-3.1536686808295347
+2026-10-09 21:15:46,376 attacker write tag=FIT201.spoof_offset value=-3.1929686401147452
+2026-10-09 21:15:47,377 attacker write tag=FIT201.spoof_offset value=-3.2321337231930496
+2026-10-09 21:15:48,385 attacker write tag=FIT201.spoof_offset value=-3.2715894387119415
+2026-10-09 21:15:49,391 attacker write tag=FIT201.spoof_offset value=-3.3109691878627596
+2026-10-09 21:15:50,396 attacker write tag=FIT201.spoof_offset value=-3.3502170823022843
+2026-10-09 21:15:51,389 attacker write tag=FIT201.spoof_offset value=-3.3890917847313022
+2026-10-09 21:15:52,392 attacker write tag=FIT201.spoof_offset value=-3.4282837815020035
+2026-10-09 21:15:53,385 attacker write tag=FIT201.spoof_offset value=-3.467186861743206
+2026-10-09 21:15:54,398 attacker write tag=FIT201.spoof_offset value=-3.506755072020025
+2026-10-09 21:15:55,400 attacker write tag=FIT201.spoof_offset value=-3.5459798576134793
+2026-10-09 21:15:56,421 attacker write tag=FIT201.spoof_offset value=-3.5859949694727735
+2026-10-09 21:15:57,428 attacker write tag=FIT201.spoof_offset value=-3.6252961410864706
+2026-10-09 21:15:58,440 attacker write tag=FIT201.spoof_offset value=-3.6649781890081563
+2026-10-09 21:15:59,455 attacker write tag=FIT201.spoof_offset value=-3.7045290163596025
+2026-10-09 21:16:00,463 attacker write tag=FIT201.spoof_offset value=-3.744013781134148
+2026-10-09 21:16:01,477 attacker write tag=FIT201.spoof_offset value=-3.7835719384101343
+2026-10-09 21:16:02,484 attacker write tag=FIT201.spoof_offset value=-3.823083663505095
+2026-10-09 21:16:03,497 attacker write tag=FIT201.spoof_offset value=-3.862661376572126
+2026-10-09 21:16:04,499 attacker write tag=FIT201.spoof_offset value=-3.901987214407718
+2026-10-09 21:16:05,510 attacker write tag=FIT201.spoof_offset value=-3.9414305175480306
+2026-10-09 21:16:06,520 attacker write tag=FIT201.spoof_offset value=-3.980955345116247
+2026-10-09 21:16:07,524 attacker write tag=FIT201.spoof_offset value=-4.020207529333493
+2026-10-09 21:16:08,549 attacker write tag=FIT201.spoof_offset value=-4.060353675250951
+2026-10-09 21:16:09,554 attacker write tag=FIT201.spoof_offset value=-4.099618644870926
+2026-10-09 21:16:10,574 attacker write tag=FIT201.spoof_offset value=-4.139610023068699
+2026-10-09 21:16:11,584 attacker write tag=FIT201.spoof_offset value=-4.179112142791806
+2026-10-09 21:16:12,572 attacker write tag=FIT201.spoof_offset value=-4.2176786526683925
+2026-10-09 21:16:13,593 attacker write tag=FIT201.spoof_offset value=-4.257680093192603
+2026-10-09 21:16:14,587 attacker write tag=FIT201.spoof_offset value=-4.296417914409911
+2026-10-09 21:16:15,577 attacker write tag=FIT201.spoof_offset value=-4.3352667662653595
+2026-10-09 21:16:16,596 attacker write tag=FIT201.spoof_offset value=-4.375142385743897
+2026-10-09 21:16:17,619 attacker write tag=FIT201.spoof_offset value=-4.415150065097009
+2026-10-09 21:16:18,642 attacker write tag=FIT201.spoof_offset value=-4.455180069945477
+2026-10-09 21:16:19,649 attacker write tag=FIT201.spoof_offset value=-4.494538967046331
+2026-10-09 21:16:20,663 attacker write tag=FIT201.spoof_offset value=-4.5341355644609385
+2026-10-09 21:16:21,689 attacker write tag=FIT201.spoof_offset value=-4.574366536070025
+2026-10-09 21:16:22,700 attacker write tag=FIT201.spoof_offset value=-4.61388118940456
+2026-10-09 21:16:23,708 attacker write tag=FIT201.spoof_offset value=-4.6533222917023895
+2026-10-09 21:16:24,716 attacker write tag=FIT201.spoof_offset value=-4.692733542742645
+2026-10-09 21:16:24,747 attacker write tag=FIT201.spoof_offset value=-4.693730048781594
+2026-10-09 21:16:24,757 attacker write tag=FIT201.spoof_offset value=0.0
+2026-10-09 21:16:24,757 attacker clear id=atk_016 scenario=sensor_ramp target=FIT201
+2026-10-09 21:17:54,996 attack 17/30: sensor_ramp on FIT201
+2026-10-09 21:17:54,999 attacker write tag=FIT201.spoof_offset value=0.0
+2026-10-09 21:17:54,999 attacker launch id=atk_017 scenario=sensor_ramp target=FIT201 magnitude=-2.8093947072896417 duration_s=120.0
+2026-10-09 21:17:56,008 attacker write tag=FIT201.spoof_offset value=-0.023641881562926147
+2026-10-09 21:17:57,012 attacker write tag=FIT201.spoof_offset value=-0.04711679576591375
+2026-10-09 21:17:58,023 attacker write tag=FIT201.spoof_offset value=-0.0707830249911958
+2026-10-09 21:17:59,046 attacker write tag=FIT201.spoof_offset value=-0.09474464126184096
+2026-10-09 21:18:00,054 attacker write tag=FIT201.spoof_offset value=-0.11837631935691141
+2026-10-09 21:18:01,064 attacker write tag=FIT201.spoof_offset value=-0.141988824086509
+2026-10-09 21:18:02,072 attacker write tag=FIT201.spoof_offset value=-0.16555079150868565
+2026-10-09 21:18:03,079 attacker write tag=FIT201.spoof_offset value=-0.18919229909330415
+2026-10-09 21:18:04,091 attacker write tag=FIT201.spoof_offset value=-0.2128469517363473
+2026-10-09 21:18:05,105 attacker write tag=FIT201.spoof_offset value=-0.23668085720582263
+2026-10-09 21:18:06,127 attacker write tag=FIT201.spoof_offset value=-0.26055974612576244
+2026-10-09 21:18:07,129 attacker write tag=FIT201.spoof_offset value=-0.2840685583923647
+2026-10-09 21:18:08,131 attacker write tag=FIT201.spoof_offset value=-0.3075099150194506
+2026-10-09 21:18:09,148 attacker write tag=FIT201.spoof_offset value=-0.3312737972371481
+2026-10-09 21:18:10,161 attacker write tag=FIT201.spoof_offset value=-0.3549955371231659
+2026-10-09 21:18:11,151 attacker write tag=FIT201.spoof_offset value=-0.3782228051235529
+2026-10-09 21:18:12,170 attacker write tag=FIT201.spoof_offset value=-0.402036766943877
+2026-10-09 21:18:13,182 attacker write tag=FIT201.spoof_offset value=-0.4256624055683676
+2026-10-09 21:18:14,193 attacker write tag=FIT201.spoof_offset value=-0.44931482550509655
+2026-10-09 21:18:15,202 attacker write tag=FIT201.spoof_offset value=-0.4730033036487992
+2026-10-09 21:18:16,219 attacker write tag=FIT201.spoof_offset value=-0.496724887245375
+2026-10-09 21:18:17,228 attacker write tag=FIT201.spoof_offset value=-0.520268094352747
+2026-10-09 21:18:18,246 attacker write tag=FIT201.spoof_offset value=-0.5442796897542345
+2026-10-09 21:18:19,267 attacker write tag=FIT201.spoof_offset value=-0.568178070200297
+2026-10-09 21:18:20,270 attacker write tag=FIT201.spoof_offset value=-0.5916591578362432
+2026-10-09 21:18:21,263 attacker write tag=FIT201.spoof_offset value=-0.6149211109292206
+2026-10-09 21:18:22,272 attacker write tag=FIT201.spoof_offset value=-0.6385582033371029
+2026-10-09 21:18:23,284 attacker write tag=FIT201.spoof_offset value=-0.6621927169691924
+2026-10-09 21:18:24,295 attacker write tag=FIT201.spoof_offset value=-0.6859365773930176
+2026-10-09 21:18:25,314 attacker write tag=FIT201.spoof_offset value=-0.709760988278892
+2026-10-09 21:18:26,315 attacker write tag=FIT201.spoof_offset value=-0.7331718963736186
+2026-10-09 21:18:27,328 attacker write tag=FIT201.spoof_offset value=-0.7568570087125526
+2026-10-09 21:18:28,341 attacker write tag=FIT201.spoof_offset value=-0.7805746348371865
+2026-10-09 21:18:29,355 attacker write tag=FIT201.spoof_offset value=-0.8043097709610892
+2026-10-09 21:18:30,377 attacker write tag=FIT201.spoof_offset value=-0.8283398475890922
+2026-10-09 21:18:31,390 attacker write tag=FIT201.spoof_offset value=-0.851974015151703
+2026-10-09 21:18:32,401 attacker write tag=FIT201.spoof_offset value=-0.8756142724207856
+2026-10-09 21:18:33,421 attacker write tag=FIT201.spoof_offset value=-0.8995941410655489
+2026-10-09 21:18:34,426 attacker write tag=FIT201.spoof_offset value=-0.9230471635831263
+2026-10-09 21:18:35,438 attacker write tag=FIT201.spoof_offset value=-0.9467505841138365
+2026-10-09 21:18:36,444 attacker write tag=FIT201.spoof_offset value=-0.9703051612781132
+2026-10-09 21:18:37,462 attacker write tag=FIT201.spoof_offset value=-0.9941139153109596
+2026-10-09 21:18:38,481 attacker write tag=FIT201.spoof_offset value=-1.0180339641718008
+2026-10-09 21:18:39,497 attacker write tag=FIT201.spoof_offset value=-1.0417561226902525
+2026-10-09 21:18:40,512 attacker write tag=FIT201.spoof_offset value=-1.0655589377243033
+2026-10-09 21:18:41,518 attacker write tag=FIT201.spoof_offset value=-1.089083004956797
+2026-10-09 21:18:42,527 attacker write tag=FIT201.spoof_offset value=-1.1126846978060683
+2026-10-09 21:18:43,533 attacker write tag=FIT201.spoof_offset value=-1.1362952321723436
+2026-10-09 21:18:44,543 attacker write tag=FIT201.spoof_offset value=-1.1599042148077308
+2026-10-09 21:18:45,568 attacker write tag=FIT201.spoof_offset value=-1.1838605004920508
+2026-10-09 21:18:46,575 attacker write tag=FIT201.spoof_offset value=-1.2074871270890855
+2026-10-09 21:18:47,589 attacker write tag=FIT201.spoof_offset value=-1.2312617542059199
+2026-10-09 21:18:48,592 attacker write tag=FIT201.spoof_offset value=-1.2546950005273194
+2026-10-09 21:18:49,594 attacker write tag=FIT201.spoof_offset value=-1.278188435029183
+2026-10-09 21:18:50,602 attacker write tag=FIT201.spoof_offset value=-1.3017772619083192
+2026-10-09 21:18:51,625 attacker write tag=FIT201.spoof_offset value=-1.3257285463304953
+2026-10-09 21:18:52,636 attacker write tag=FIT201.spoof_offset value=-1.349455572148712
+2026-10-09 21:18:53,647 attacker write tag=FIT201.spoof_offset value=-1.3731136185053527
+2026-10-09 21:18:54,672 attacker write tag=FIT201.spoof_offset value=-1.3970900152917975
+2026-10-09 21:18:55,683 attacker write tag=FIT201.spoof_offset value=-1.4207758588420494
+2026-10-09 21:18:56,697 attacker write tag=FIT201.spoof_offset value=-1.4445273774485323
+2026-10-09 21:18:57,705 attacker write tag=FIT201.spoof_offset value=-1.468135801907341
+2026-10-09 21:18:58,716 attacker write tag=FIT201.spoof_offset value=-1.4917963600585848
+2026-10-09 21:18:59,710 attacker write tag=FIT201.spoof_offset value=-1.514973403330435
+2026-10-09 21:19:00,720 attacker write tag=FIT201.spoof_offset value=-1.538700886853446
+2026-10-09 21:19:01,729 attacker write tag=FIT201.spoof_offset value=-1.5622739954801304
+2026-10-09 21:19:02,739 attacker write tag=FIT201.spoof_offset value=-1.5859151681588013
+2026-10-09 21:19:03,760 attacker write tag=FIT201.spoof_offset value=-1.6098755396956765
+2026-10-09 21:19:04,763 attacker write tag=FIT201.spoof_offset value=-1.6332432393414582
+2026-10-09 21:19:05,779 attacker write tag=FIT201.spoof_offset value=-1.6570735836443626
+2026-10-09 21:19:06,786 attacker write tag=FIT201.spoof_offset value=-1.6806897388487838
+2026-10-09 21:19:07,793 attacker write tag=FIT201.spoof_offset value=-1.7042546199527004
+2026-10-09 21:19:08,801 attacker write tag=FIT201.spoof_offset value=-1.7278115916944992
+2026-10-09 21:19:09,812 attacker write tag=FIT201.spoof_offset value=-1.7515163462672318
+2026-10-09 21:19:10,818 attacker write tag=FIT201.spoof_offset value=-1.7750360932130078
+2026-10-09 21:19:11,831 attacker write tag=FIT201.spoof_offset value=-1.7987504484228916
+2026-10-09 21:19:12,836 attacker write tag=FIT201.spoof_offset value=-1.8222737621170042
+2026-10-09 21:19:13,834 attacker write tag=FIT201.spoof_offset value=-1.845655248724276
+2026-10-09 21:19:14,849 attacker write tag=FIT201.spoof_offset value=-1.869438415942762
+2026-10-09 21:19:15,851 attacker write tag=FIT201.spoof_offset value=-1.892914072520599
+2026-10-09 21:19:16,874 attacker write tag=FIT201.spoof_offset value=-1.9169065503742717
+2026-10-09 21:19:17,883 attacker write tag=FIT201.spoof_offset value=-1.9405080255346774
+2026-10-09 21:19:18,890 attacker write tag=FIT201.spoof_offset value=-1.9641029365385194
+2026-10-09 21:19:19,909 attacker write tag=FIT201.spoof_offset value=-1.9879191868828154
+2026-10-09 21:19:20,913 attacker write tag=FIT201.spoof_offset value=-2.0114561759031027
+2026-10-09 21:19:21,940 attacker write tag=FIT201.spoof_offset value=-2.0354759318461686
+2026-10-09 21:19:22,949 attacker write tag=FIT201.spoof_offset value=-2.059131834804748
+2026-10-09 21:19:23,960 attacker write tag=FIT201.spoof_offset value=-2.0828064645875366
+2026-10-09 21:19:24,977 attacker write tag=FIT201.spoof_offset value=-2.1065818564062835
+2026-10-09 21:19:26,004 attacker write tag=FIT201.spoof_offset value=-2.13063910507013
+2026-10-09 21:19:27,014 attacker write tag=FIT201.spoof_offset value=-2.1542594689259533
+2026-10-09 21:19:28,021 attacker write tag=FIT201.spoof_offset value=-2.17786273025141
+2026-10-09 21:19:29,034 attacker write tag=FIT201.spoof_offset value=-2.2015908333504233
+2026-10-09 21:19:30,042 attacker write tag=FIT201.spoof_offset value=-2.225192191293748
+2026-10-09 21:19:31,055 attacker write tag=FIT201.spoof_offset value=-2.248898536669729
+2026-10-09 21:19:32,074 attacker write tag=FIT201.spoof_offset value=-2.272766848143506
+2026-10-09 21:19:33,085 attacker write tag=FIT201.spoof_offset value=-2.296418587104809
+2026-10-09 21:19:34,100 attacker write tag=FIT201.spoof_offset value=-2.3201586240190712
+2026-10-09 21:19:35,097 attacker write tag=FIT201.spoof_offset value=-2.343534205118142
+2026-10-09 21:19:36,089 attacker write tag=FIT201.spoof_offset value=-2.3667659552764544
+2026-10-09 21:19:37,100 attacker write tag=FIT201.spoof_offset value=-2.390415121043731
+2026-10-09 21:19:38,102 attacker write tag=FIT201.spoof_offset value=-2.413879016841058
+2026-10-09 21:19:39,104 attacker write tag=FIT201.spoof_offset value=-2.4373316542167958
+2026-10-09 21:19:40,101 attacker write tag=FIT201.spoof_offset value=-2.4606810791613967
+2026-10-09 21:19:41,112 attacker write tag=FIT201.spoof_offset value=-2.484277620040848
+2026-10-09 21:19:42,121 attacker write tag=FIT201.spoof_offset value=-2.5078762317554055
+2026-10-09 21:19:43,127 attacker write tag=FIT201.spoof_offset value=-2.5314843659623936
+2026-10-09 21:19:44,138 attacker write tag=FIT201.spoof_offset value=-2.5551046070193695
+2026-10-09 21:19:45,143 attacker write tag=FIT201.spoof_offset value=-2.5786518329981067
+2026-10-09 21:19:46,152 attacker write tag=FIT201.spoof_offset value=-2.602241430160921
+2026-10-09 21:19:47,159 attacker write tag=FIT201.spoof_offset value=-2.6257977879084833
+2026-10-09 21:19:48,166 attacker write tag=FIT201.spoof_offset value=-2.649410013549792
+2026-10-09 21:19:49,192 attacker write tag=FIT201.spoof_offset value=-2.6734295406404605
+2026-10-09 21:19:50,190 attacker write tag=FIT201.spoof_offset value=-2.696839455180877
+2026-10-09 21:19:51,208 attacker write tag=FIT201.spoof_offset value=-2.7205081738736996
+2026-10-09 21:19:52,214 attacker write tag=FIT201.spoof_offset value=-2.744183149725967
+2026-10-09 21:19:53,233 attacker write tag=FIT201.spoof_offset value=-2.7680668612915458
+2026-10-09 21:19:54,239 attacker write tag=FIT201.spoof_offset value=-2.791580278514921
+2026-10-09 21:19:55,002 attacker write tag=FIT201.spoof_offset value=-2.8093947072896417
+2026-10-09 21:19:55,002 attacker write tag=FIT201.spoof_offset value=0.0
+2026-10-09 21:19:55,002 attacker clear id=atk_017 scenario=sensor_ramp target=FIT201
+2026-10-09 21:21:25,353 attack 18/30: sensor_ramp on FIT201
+2026-10-09 21:21:25,356 attacker write tag=FIT201.spoof_offset value=0.0
+2026-10-09 21:21:25,356 attacker launch id=atk_018 scenario=sensor_ramp target=FIT201 magnitude=-2.871961411166442 duration_s=120.0
+2026-10-09 21:21:26,370 attacker write tag=FIT201.spoof_offset value=-0.02430012348495179
+2026-10-09 21:21:27,382 attacker write tag=FIT201.spoof_offset value=-0.048550290286278275
+2026-10-09 21:21:28,392 attacker write tag=FIT201.spoof_offset value=-0.07264773399940015
+2026-10-09 21:21:29,396 attacker write tag=FIT201.spoof_offset value=-0.09675810767769565
+2026-10-09 21:21:30,395 attacker write tag=FIT201.spoof_offset value=-0.12062775347834587
+2026-10-09 21:21:31,397 attacker write tag=FIT201.spoof_offset value=-0.14465245044566089
+2026-10-09 21:21:32,421 attacker write tag=FIT201.spoof_offset value=-0.16912141667972436
+2026-10-09 21:21:33,438 attacker write tag=FIT201.spoof_offset value=-0.19349708288706513
+2026-10-09 21:21:34,451 attacker write tag=FIT201.spoof_offset value=-0.21773754936147408
+2026-10-09 21:21:35,459 attacker write tag=FIT201.spoof_offset value=-0.24184997152057156
+2026-10-09 21:21:36,452 attacker write tag=FIT201.spoof_offset value=-0.265644354196491
+2026-10-09 21:21:37,456 attacker write tag=FIT201.spoof_offset value=-0.289672366393182
+2026-10-09 21:21:38,469 attacker write tag=FIT201.spoof_offset value=-0.31387158935996745
+2026-10-09 21:21:39,474 attacker write tag=FIT201.spoof_offset value=-0.3379505111547515
+2026-10-09 21:21:40,470 attacker write tag=FIT201.spoof_offset value=-0.36180639960940275
+2026-10-09 21:21:41,487 attacker write tag=FIT201.spoof_offset value=-0.3860959725623131
+2026-10-09 21:21:42,494 attacker write tag=FIT201.spoof_offset value=-0.41002416839502265
+2026-10-09 21:21:43,515 attacker write tag=FIT201.spoof_offset value=-0.43463430862218416
+2026-10-09 21:21:44,527 attacker write tag=FIT201.spoof_offset value=-0.4586561011974986
+2026-10-09 21:21:45,535 attacker write tag=FIT201.spoof_offset value=-0.4828139322987194
+2026-10-09 21:21:46,539 attacker write tag=FIT201.spoof_offset value=-0.5070427241443793
+2026-10-09 21:21:47,556 attacker write tag=FIT201.spoof_offset value=-0.5313790469669576
+2026-10-09 21:21:48,541 attacker write tag=FIT201.spoof_offset value=-0.5549104880165906
+2026-10-09 21:21:49,543 attacker write tag=FIT201.spoof_offset value=-0.5788901355244856
+2026-10-09 21:21:50,557 attacker write tag=FIT201.spoof_offset value=-0.6031308188297316
+2026-10-09 21:21:51,562 attacker write tag=FIT201.spoof_offset value=-0.6271856039287149
+2026-10-09 21:21:52,571 attacker write tag=FIT201.spoof_offset value=-0.6513032870886466
+2026-10-09 21:21:53,588 attacker write tag=FIT201.spoof_offset value=-0.6757531379726078
+2026-10-09 21:21:54,592 attacker write tag=FIT201.spoof_offset value=-0.6997013849516633
+2026-10-09 21:21:55,617 attacker write tag=FIT201.spoof_offset value=-0.7242616540863195
+2026-10-09 21:21:56,633 attacker write tag=FIT201.spoof_offset value=-0.7486150380721232
+2026-10-09 21:21:57,656 attacker write tag=FIT201.spoof_offset value=-0.7730600901472977
+2026-10-09 21:21:58,663 attacker write tag=FIT201.spoof_offset value=-0.7971361703169022
+2026-10-09 21:21:59,689 attacker write tag=FIT201.spoof_offset value=-0.8217176432249851
+2026-10-09 21:22:00,696 attacker write tag=FIT201.spoof_offset value=-0.8457677664609734
+2026-10-09 21:22:01,701 attacker write tag=FIT201.spoof_offset value=-0.8698482003655418
+2026-10-09 21:22:02,703 attacker write tag=FIT201.spoof_offset value=-0.8938133487377323
+2026-10-09 21:22:03,707 attacker write tag=FIT201.spoof_offset value=-0.9179320932275503
+2026-10-09 21:22:04,703 attacker write tag=FIT201.spoof_offset value=-0.941710601603773
+2026-10-09 21:22:05,709 attacker write tag=FIT201.spoof_offset value=-0.9657553440113592
+2026-10-09 21:22:06,706 attacker write tag=FIT201.spoof_offset value=-0.9896420852116831
+2026-10-09 21:22:07,711 attacker write tag=FIT201.spoof_offset value=-1.013697241205519
+2026-10-09 21:22:08,699 attacker write tag=FIT201.spoof_offset value=-1.0373120879484188
+2026-10-09 21:22:09,707 attacker write tag=FIT201.spoof_offset value=-1.061456310061582
+2026-10-09 21:22:10,698 attacker write tag=FIT201.spoof_offset value=-1.0852007931146226
+2026-10-09 21:22:11,706 attacker write tag=FIT201.spoof_offset value=-1.1093598681401189
+2026-10-09 21:22:12,712 attacker write tag=FIT201.spoof_offset value=-1.1333876749181222
+2026-10-09 21:22:13,704 attacker write tag=FIT201.spoof_offset value=-1.1571108571944668
+2026-10-09 21:22:14,709 attacker write tag=FIT201.spoof_offset value=-1.1812074564085395
+2026-10-09 21:22:15,705 attacker write tag=FIT201.spoof_offset value=-1.2050292453610383
+2026-10-09 21:22:16,714 attacker write tag=FIT201.spoof_offset value=-1.2291404635383831
+2026-10-09 21:22:17,724 attacker write tag=FIT201.spoof_offset value=-1.2533740199563819
+2026-10-09 21:22:18,730 attacker write tag=FIT201.spoof_offset value=-1.2774314640861557
+2026-10-09 21:22:19,735 attacker write tag=FIT201.spoof_offset value=-1.3014912362943896
+2026-10-09 21:22:20,747 attacker write tag=FIT201.spoof_offset value=-1.3256504140292296
+2026-10-09 21:22:21,756 attacker write tag=FIT201.spoof_offset value=-1.3498139740294064
+2026-10-09 21:22:22,763 attacker write tag=FIT201.spoof_offset value=-1.373937500209787
+2026-10-09 21:22:23,776 attacker write tag=FIT201.spoof_offset value=-1.3981392281433473
+2026-10-09 21:22:24,798 attacker write tag=FIT201.spoof_offset value=-1.4226971349630952
+2026-10-09 21:22:25,809 attacker write tag=FIT201.spoof_offset value=-1.4468910512804494
+2026-10-09 21:22:26,793 attacker write tag=FIT201.spoof_offset value=-1.4703984241071775
+2026-10-09 21:22:27,808 attacker write tag=FIT201.spoof_offset value=-1.494697018364121
+2026-10-09 21:22:28,827 attacker write tag=FIT201.spoof_offset value=-1.519125791008298
+2026-10-09 21:22:29,834 attacker write tag=FIT201.spoof_offset value=-1.543146470899054
+2026-10-09 21:22:30,841 attacker write tag=FIT201.spoof_offset value=-1.5672476749153754
+2026-10-09 21:22:31,853 attacker write tag=FIT201.spoof_offset value=-1.591546617242873
+2026-10-09 21:22:32,871 attacker write tag=FIT201.spoof_offset value=-1.6158093545266698
+2026-10-09 21:22:33,876 attacker write tag=FIT201.spoof_offset value=-1.6399138680662921
+2026-10-09 21:22:34,885 attacker write tag=FIT201.spoof_offset value=-1.6640104045135435
+2026-10-09 21:22:35,890 attacker write tag=FIT201.spoof_offset value=-1.6881165043419206
+2026-10-09 21:22:36,897 attacker write tag=FIT201.spoof_offset value=-1.7121560713397925
+2026-10-09 21:22:37,903 attacker write tag=FIT201.spoof_offset value=-1.7362829755163707
+2026-10-09 21:22:38,925 attacker write tag=FIT201.spoof_offset value=-1.7607485352238637
+2026-10-09 21:22:39,939 attacker write tag=FIT201.spoof_offset value=-1.7849505142247086
+2026-10-09 21:22:40,948 attacker write tag=FIT201.spoof_offset value=-1.809115266794489
+2026-10-09 21:22:41,961 attacker write tag=FIT201.spoof_offset value=-1.833363813070613
+2026-10-09 21:22:42,972 attacker write tag=FIT201.spoof_offset value=-1.8576054549964012
+2026-10-09 21:22:43,988 attacker write tag=FIT201.spoof_offset value=-1.8819204827483578
+2026-10-09 21:22:45,000 attacker write tag=FIT201.spoof_offset value=-1.9061397340371908
+2026-10-09 21:22:46,011 attacker write tag=FIT201.spoof_offset value=-1.9303485146790273
+2026-10-09 21:22:47,029 attacker write tag=FIT201.spoof_offset value=-1.9547027374578059
+2026-10-09 21:22:48,044 attacker write tag=FIT201.spoof_offset value=-1.9789620510968078
+2026-10-09 21:22:49,051 attacker write tag=FIT201.spoof_offset value=-2.003066085326159
+2026-10-09 21:22:50,057 attacker write tag=FIT201.spoof_offset value=-2.027068323183623
+2026-10-09 21:22:51,080 attacker write tag=FIT201.spoof_offset value=-2.0516482326272496
+2026-10-09 21:22:52,088 attacker write tag=FIT201.spoof_offset value=-2.0757730769108758
+2026-10-09 21:22:53,097 attacker write tag=FIT201.spoof_offset value=-2.099890474767075
+2026-10-09 21:22:54,102 attacker write tag=FIT201.spoof_offset value=-2.1239703894188495
+2026-10-09 21:22:55,110 attacker write tag=FIT201.spoof_offset value=-2.148138645518469
+2026-10-09 21:22:56,124 attacker write tag=FIT201.spoof_offset value=-2.172416538136556
+2026-10-09 21:22:57,141 attacker write tag=FIT201.spoof_offset value=-2.1967271550928023
+2026-10-09 21:22:58,148 attacker write tag=FIT201.spoof_offset value=-2.220814128158928
+2026-10-09 21:22:59,157 attacker write tag=FIT201.spoof_offset value=-2.244971919317626
+2026-10-09 21:23:00,159 attacker write tag=FIT201.spoof_offset value=-2.2689757719942176
+2026-10-09 21:23:01,157 attacker write tag=FIT201.spoof_offset value=-2.2927897208001378
+2026-10-09 21:23:02,153 attacker write tag=FIT201.spoof_offset value=-2.316615812132928
+2026-10-09 21:23:03,159 attacker write tag=FIT201.spoof_offset value=-2.340788730095543
+2026-10-09 21:23:04,167 attacker write tag=FIT201.spoof_offset value=-2.3649117712595777
+2026-10-09 21:23:05,169 attacker write tag=FIT201.spoof_offset value=-2.388818426660456
+2026-10-09 21:23:06,176 attacker write tag=FIT201.spoof_offset value=-2.412903653667736
+2026-10-09 21:23:07,184 attacker write tag=FIT201.spoof_offset value=-2.437039938631051
+2026-10-09 21:23:08,188 attacker write tag=FIT201.spoof_offset value=-2.4611564919882003
+2026-10-09 21:23:09,201 attacker write tag=FIT201.spoof_offset value=-2.4852930964916955
+2026-10-09 21:23:10,210 attacker write tag=FIT201.spoof_offset value=-2.5094708931481424
+2026-10-09 21:23:11,216 attacker write tag=FIT201.spoof_offset value=-2.5335605880118797
+2026-10-09 21:23:12,214 attacker write tag=FIT201.spoof_offset value=-2.5574902046571792
+2026-10-09 21:23:13,229 attacker write tag=FIT201.spoof_offset value=-2.581745278682711
+2026-10-09 21:23:14,237 attacker write tag=FIT201.spoof_offset value=-2.605869067342526
+2026-10-09 21:23:15,241 attacker write tag=FIT201.spoof_offset value=-2.629853713371821
+2026-10-09 21:23:16,255 attacker write tag=FIT201.spoof_offset value=-2.6541334889945443
+2026-10-09 21:23:17,268 attacker write tag=FIT201.spoof_offset value=-2.6783846600650105
+2026-10-09 21:23:18,274 attacker write tag=FIT201.spoof_offset value=-2.7024839981949187
+2026-10-09 21:23:19,282 attacker write tag=FIT201.spoof_offset value=-2.726612420187356
+2026-10-09 21:23:20,289 attacker write tag=FIT201.spoof_offset value=-2.7506702466241313
+2026-10-09 21:23:21,294 attacker write tag=FIT201.spoof_offset value=-2.774779764391228
+2026-10-09 21:23:22,302 attacker write tag=FIT201.spoof_offset value=-2.7988779784244286
+2026-10-09 21:23:23,315 attacker write tag=FIT201.spoof_offset value=-2.82308809999381
+2026-10-09 21:23:24,315 attacker write tag=FIT201.spoof_offset value=-2.8471261948244204
+2026-10-09 21:23:25,324 attacker write tag=FIT201.spoof_offset value=-2.8711692311156845
+2026-10-09 21:23:25,368 attacker write tag=FIT201.spoof_offset value=-2.871961411166442
+2026-10-09 21:23:25,370 attacker write tag=FIT201.spoof_offset value=0.0
+2026-10-09 21:23:25,370 attacker clear id=atk_018 scenario=sensor_ramp target=FIT201
+2026-10-09 21:24:56,024 attack 19/30: actuator_force on P101
+2026-10-09 21:24:56,024 attacker write tag=P101.force value=1.0
+2026-10-09 21:24:56,024 attacker launch id=atk_019 scenario=actuator_force target=P101 magnitude=1.0 duration_s=120.0
+2026-10-09 21:26:56,043 attacker write tag=P101.force value=-1.0
+2026-10-09 21:26:56,043 attacker clear id=atk_019 scenario=actuator_force target=P101
+2026-10-09 21:28:26,356 attack 20/30: actuator_force on MV101
+2026-10-09 21:28:26,356 attacker write tag=MV101.force value=1.0
+2026-10-09 21:28:26,360 attacker launch id=atk_020 scenario=actuator_force target=MV101 magnitude=1.0 duration_s=120.0
+2026-10-09 21:30:26,367 attacker write tag=MV101.force value=-1.0
+2026-10-09 21:30:26,367 attacker clear id=atk_020 scenario=actuator_force target=MV101
+2026-10-09 21:31:57,054 attack 21/30: actuator_force on P101
+2026-10-09 21:31:57,054 attacker write tag=P101.force value=1.0
+2026-10-09 21:31:57,054 attacker launch id=atk_021 scenario=actuator_force target=P101 magnitude=1.0 duration_s=120.0
+2026-10-09 21:33:57,065 attacker write tag=P101.force value=-1.0
+2026-10-09 21:33:57,065 attacker clear id=atk_021 scenario=actuator_force target=P101
+2026-10-09 21:35:27,457 attack 22/30: actuator_force on P101
+2026-10-09 21:35:27,458 attacker write tag=P101.force value=1.0
+2026-10-09 21:35:27,458 attacker launch id=atk_022 scenario=actuator_force target=P101 magnitude=1.0 duration_s=120.0
+2026-10-09 21:45:29,231 attacker write tag=P101.force value=-1.0
+2026-10-09 21:45:29,231 attacker clear id=atk_022 scenario=actuator_force target=P101
+2026-10-09 21:46:39,351 attack 23/30: actuator_force on MV101
+2026-10-09 21:46:39,353 attacker write tag=MV101.force value=0.0
+2026-10-09 21:46:39,353 attacker launch id=atk_023 scenario=actuator_force target=MV101 magnitude=0.0 duration_s=120.0
+2026-10-09 21:48:39,378 attacker write tag=MV101.force value=-1.0
+2026-10-09 21:48:39,378 attacker clear id=atk_023 scenario=actuator_force target=MV101
+2026-10-09 21:50:09,757 attack 24/30: actuator_force on P101
+2026-10-09 21:50:09,757 attacker write tag=P101.force value=1.0
+2026-10-09 21:50:09,757 attacker launch id=atk_024 scenario=actuator_force target=P101 magnitude=1.0 duration_s=120.0
+2026-10-09 21:52:09,761 attacker write tag=P101.force value=-1.0
+2026-10-09 21:52:09,761 attacker clear id=atk_024 scenario=actuator_force target=P101
+2026-10-09 21:53:40,252 attack 25/30: rogue_setpoint on PLC1
+2026-10-09 21:53:40,252 attacker write tag=PLC1.setpoint_delta value=23.411231598339267
+2026-10-09 21:53:40,252 attacker launch id=atk_025 scenario=rogue_setpoint target=PLC1 magnitude=23.411231598339267 duration_s=120.0
+2026-10-09 21:55:40,252 attacker write tag=PLC1.setpoint_delta value=0.0
+2026-10-09 21:55:40,254 attacker clear id=atk_025 scenario=rogue_setpoint target=PLC1
+2026-10-09 21:57:10,708 attack 26/30: rogue_setpoint on PLC1
+2026-10-09 21:57:10,710 attacker write tag=PLC1.setpoint_delta value=15.766816055304137
+2026-10-09 21:57:10,710 attacker launch id=atk_026 scenario=rogue_setpoint target=PLC1 magnitude=15.766816055304137 duration_s=120.0
+2026-10-09 21:59:10,717 attacker write tag=PLC1.setpoint_delta value=0.0
+2026-10-09 21:59:10,717 attacker clear id=atk_026 scenario=rogue_setpoint target=PLC1
+2026-10-09 22:00:41,219 attack 27/30: rogue_setpoint on PLC1
+2026-10-09 22:00:41,219 attacker write tag=PLC1.setpoint_delta value=26.093953650245474
+2026-10-09 22:00:41,219 attacker launch id=atk_027 scenario=rogue_setpoint target=PLC1 magnitude=26.093953650245474 duration_s=120.0
+2026-10-09 22:02:41,222 attacker write tag=PLC1.setpoint_delta value=0.0
+2026-10-09 22:02:41,223 attacker clear id=atk_027 scenario=rogue_setpoint target=PLC1
+2026-10-09 22:04:11,537 attack 28/30: rogue_setpoint on PLC1
+2026-10-09 22:04:11,539 attacker write tag=PLC1.setpoint_delta value=-29.33581280488496
+2026-10-09 22:04:11,539 attacker launch id=atk_028 scenario=rogue_setpoint target=PLC1 magnitude=-29.33581280488496 duration_s=120.0
+2026-10-09 22:06:11,543 attacker write tag=PLC1.setpoint_delta value=0.0
+2026-10-09 22:06:11,550 attacker clear id=atk_028 scenario=rogue_setpoint target=PLC1
+2026-10-09 22:07:41,907 attack 29/30: rogue_setpoint on PLC1
+2026-10-09 22:07:41,909 attacker write tag=PLC1.setpoint_delta value=-17.55871692056026
+2026-10-09 22:07:41,911 attacker launch id=atk_029 scenario=rogue_setpoint target=PLC1 magnitude=-17.55871692056026 duration_s=120.0
+2026-10-09 22:09:41,941 attacker write tag=PLC1.setpoint_delta value=0.0
+2026-10-09 22:09:41,941 attacker clear id=atk_029 scenario=rogue_setpoint target=PLC1
+2026-10-09 22:11:12,764 attack 30/30: rogue_setpoint on PLC1
+2026-10-09 22:11:12,764 attacker write tag=PLC1.setpoint_delta value=-17.94975881979026
+2026-10-09 22:11:12,764 attacker launch id=atk_030 scenario=rogue_setpoint target=PLC1 magnitude=-17.94975881979026 duration_s=120.0
+2026-10-09 22:13:12,773 attacker write tag=PLC1.setpoint_delta value=0.0
+2026-10-09 22:13:12,773 attacker clear id=atk_030 scenario=rogue_setpoint target=PLC1
+2026-10-09 22:14:43,429 ERROR: received pdu without a corresponding request, IGNORING
+2026-10-09 22:14:43,431 Task exception was never retrieved
+future: <Task finished name='Task-77611' coro=<TransactionManager.execute() done, defined at D:\VIT\attacktrace\backend\.venv\Lib\site-packages\pymodbus\transaction\transaction.py:182> exception=ModbusIOException('[Input/Output] Request cancelled outside library.')>
+Traceback (most recent call last):
+  File "D:\VIT\attacktrace\backend\.venv\Lib\site-packages\pymodbus\transaction\transaction.py", line 206, in execute
+    response: ModbusPDU = await asyncio.wait_for(
+                          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MOHAMED BAASIL\AppData\Local\Programs\Python\Python311\Lib\asyncio\tasks.py", line 476, in wait_for
+    await waiter
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\VIT\attacktrace\backend\.venv\Lib\site-packages\pymodbus\transaction\transaction.py", line 228, in execute
+    raise self._io_exception_from_request(
+pymodbus.exceptions.ModbusIOException: Modbus Error: [Input/Output] Request cancelled outside library.
+2026-10-09 22:14:43,469 wrote ..\reports\live_metrics.json: F1=0.951 FA/h=0.00 Top-1=0.83 Top-3=0.87 p95=2.4ms

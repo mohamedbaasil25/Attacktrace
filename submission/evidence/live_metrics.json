@@ -1,0 +1,300 @@
+{
+ "detection": {
+  "precision": 1.0,
+  "recall": 0.90624559424785,
+  "f1": 0.9508172472450263,
+  "false_alarm_per_hour": 0.0
+ },
+ "localization": {
+  "top1": 0.8333333333333334,
+  "top3": 0.8666666666666667,
+  "top1_given_detected": 0.8620689655172413,
+  "top3_given_detected": 0.896551724137931,
+  "mean_time_to_localize_s": 8.143344566739838,
+  "mean_detection_delay_s": 8.144267164427658
+ },
+ "latency_ms": {
+  "p50": 1.5697999915573746,
+  "p95": 2.4010000051930547,
+  "p99": 3.0282000079751015
+ },
+ "latency_note": "Modbus read round-trip per poll: the dominant, directly measurable freshness cost. Excludes the up-to-poll-interval wait for a changed value and browser rendering (this evaluation has no browser client).",
+ "samples_per_s": 33.637155420988236,
+ "dropped": 0,
+ "n_attacks": 30,
+ "n_detected": 29,
+ "n_clean_runs": 1,
+ "uptime_s": 10377.898952245712,
+ "attacks": [
+  {
+   "scenario": "sensor_freeze",
+   "target": "FIT201",
+   "detected": true,
+   "top1": true,
+   "top3": true,
+   "time_to_localize_s": 5.110629320144653,
+   "detection_delay_s": 5.113968372344971
+  },
+  {
+   "scenario": "sensor_freeze",
+   "target": "LIT101",
+   "detected": true,
+   "top1": true,
+   "top3": true,
+   "time_to_localize_s": 5.0898659229278564,
+   "detection_delay_s": 5.0898659229278564
+  },
+  {
+   "scenario": "sensor_freeze",
+   "target": "FIT201",
+   "detected": true,
+   "top1": true,
+   "top3": true,
+   "time_to_localize_s": 5.1083762645721436,
+   "detection_delay_s": 5.1083762645721436
+  },
+  {
+   "scenario": "sensor_freeze",
+   "target": "FIT201",
+   "detected": true,
+   "top1": true,
+   "top3": true,
+   "time_to_localize_s": 5.0940046310424805,
+   "detection_delay_s": 5.095011234283447
+  },
+  {
+   "scenario": "sensor_freeze",
+   "target": "FIT201",
+   "detected": true,
+   "top1": true,
+   "top3": true,
+   "time_to_localize_s": 5.077185392379761,
+   "detection_delay_s": 5.077185392379761
+  },
+  {
+   "scenario": "sensor_freeze",
+   "target": "FIT201",
+   "detected": true,
+   "top1": true,
+   "top3": true,
+   "time_to_localize_s": 4.580581426620483,
+   "detection_delay_s": 4.580581426620483
+  },
+  {
+   "scenario": "sensor_offset",
+   "target": "FIT201",
+   "detected": true,
+   "top1": true,
+   "top3": true,
+   "time_to_localize_s": 1.536327838897705,
+   "detection_delay_s": 1.5380172729492188
+  },
+  {
+   "scenario": "sensor_offset",
+   "target": "LIT101",
+   "detected": true,
+   "top1": true,
+   "top3": true,
+   "time_to_localize_s": 1.5526256561279297,
+   "detection_delay_s": 1.5526256561279297
+  },
+  {
+   "scenario": "sensor_offset",
+   "target": "FIT201",
+   "detected": true,
+   "top1": true,
+   "top3": true,
+   "time_to_localize_s": 1.5302586555480957,
+   "detection_delay_s": 1.5302586555480957
+  },
+  {
+   "scenario": "sensor_offset",
+   "target": "FIT201",
+   "detected": true,
+   "top1": true,
+   "top3": true,
+   "time_to_localize_s": 1.5335543155670166,
+   "detection_delay_s": 1.5335543155670166
+  },
+  {
+   "scenario": "sensor_offset",
+   "target": "FIT201",
+   "detected": true,
+   "top1": true,
+   "top3": true,
+   "time_to_localize_s": 1.5157744884490967,
+   "detection_delay_s": 1.5157744884490967
+  },
+  {
+   "scenario": "sensor_offset",
+   "target": "FIT201",
+   "detected": true,
+   "top1": true,
+   "top3": true,
+   "time_to_localize_s": 1.5189478397369385,
+   "detection_delay_s": 1.5189478397369385
+  },
+  {
+   "scenario": "sensor_ramp",
+   "target": "FIT201",
+   "detected": true,
+   "top1": true,
+   "top3": true,
+   "time_to_localize_s": 12.171571254730225,
+   "detection_delay_s": 12.171571254730225
+  },
+  {
+   "scenario": "sensor_ramp",
+   "target": "LIT101",
+   "detected": true,
+   "top1": true,
+   "top3": true,
+   "time_to_localize_s": 121.48434853553772,
+   "detection_delay_s": 121.48434853553772
+  },
+  {
+   "scenario": "sensor_ramp",
+   "target": "FIT201",
+   "detected": true,
+   "top1": false,
+   "top3": false,
+   "time_to_localize_s": 10.594070434570312,
+   "detection_delay_s": 10.594070434570312
+  },
+  {
+   "scenario": "sensor_ramp",
+   "target": "FIT201",
+   "detected": true,
+   "top1": false,
+   "top3": true,
+   "time_to_localize_s": 9.59898066520691,
+   "detection_delay_s": 9.599987030029297
+  },
+  {
+   "scenario": "sensor_ramp",
+   "target": "FIT201",
+   "detected": true,
+   "top1": true,
+   "top3": true,
+   "time_to_localize_s": 14.147960662841797,
+   "detection_delay_s": 14.147960662841797
+  },
+  {
+   "scenario": "sensor_ramp",
+   "target": "FIT201",
+   "detected": true,
+   "top1": true,
+   "top3": true,
+   "time_to_localize_s": 12.044105052947998,
+   "detection_delay_s": 12.044105052947998
+  },
+  {
+   "scenario": "actuator_force",
+   "target": "P101",
+   "detected": true,
+   "top1": true,
+   "top3": true,
+   "time_to_localize_s": 1.520442008972168,
+   "detection_delay_s": 1.5285987854003906
+  },
+  {
+   "scenario": "actuator_force",
+   "target": "MV101",
+   "detected": true,
+   "top1": true,
+   "top3": true,
+   "time_to_localize_s": 1.5502891540527344,
+   "detection_delay_s": 1.5502891540527344
+  },
+  {
+   "scenario": "actuator_force",
+   "target": "P101",
+   "detected": false,
+   "top1": false,
+   "top3": false,
+   "time_to_localize_s": null,
+   "detection_delay_s": null
+  },
+  {
+   "scenario": "actuator_force",
+   "target": "P101",
+   "detected": true,
+   "top1": true,
+   "top3": true,
+   "time_to_localize_s": 1.5218722820281982,
+   "detection_delay_s": 1.5218722820281982
+  },
+  {
+   "scenario": "actuator_force",
+   "target": "MV101",
+   "detected": true,
+   "top1": true,
+   "top3": true,
+   "time_to_localize_s": 1.524167776107788,
+   "detection_delay_s": 1.524167776107788
+  },
+  {
+   "scenario": "actuator_force",
+   "target": "P101",
+   "detected": true,
+   "top1": false,
+   "top3": false,
+   "time_to_localize_s": 1.5243451595306396,
+   "detection_delay_s": 1.5243451595306396
+  },
+  {
+   "scenario": "rogue_setpoint",
+   "target": "PLC1",
+   "detected": true,
+   "top1": true,
+   "top3": true,
+   "time_to_localize_s": 1.5287420749664307,
+   "detection_delay_s": 1.529245138168335
+  },
+  {
+   "scenario": "rogue_setpoint",
+   "target": "PLC1",
+   "detected": true,
+   "top1": true,
+   "top3": true,
+   "time_to_localize_s": 1.5291469097137451,
+   "detection_delay_s": 1.5291469097137451
+  },
+  {
+   "scenario": "rogue_setpoint",
+   "target": "PLC1",
+   "detected": true,
+   "top1": false,
+   "top3": false,
+   "time_to_localize_s": 1.5495190620422363,
+   "detection_delay_s": 1.5500435829162598
+  },
+  {
+   "scenario": "rogue_setpoint",
+   "target": "PLC1",
+   "detected": true,
+   "top1": true,
+   "top3": true,
+   "time_to_localize_s": 1.527754306793213,
+   "detection_delay_s": 1.5293004512786865
+  },
+  {
+   "scenario": "rogue_setpoint",
+   "target": "PLC1",
+   "detected": true,
+   "top1": true,
+   "top3": true,
+   "time_to_localize_s": 1.5419645309448242,
+   "detection_delay_s": 1.54396390914917
+  },
+  {
+   "scenario": "rogue_setpoint",
+   "target": "PLC1",
+   "detected": true,
+   "top1": true,
+   "top3": true,
+   "time_to_localize_s": 1.5495808124542236,
+   "detection_delay_s": 1.5565648078918457
+  }
+ ]
+}

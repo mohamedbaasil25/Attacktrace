@@ -1,0 +1,8 @@
+[ 1/15] sensor_freeze   LIT101  detected=Y rank=1 detect=6.5s localized=16.5s top3=['LIT101', 'PLC2', 'LIT301']
+[ 2/15] sensor_freeze   LIT301  detected=Y rank=1 detect=7.0s localized=17.0s top3=['LIT301', 'PLC1', 'MV101']
+[ 3/15] sensor_freeze   FIT201  detected=Y rank=1 detect=6.5s localized=16.5s top3=['FIT201', 'PLC2', 'LIT301']
+[ 4/15] sensor_offset   LIT101  detected=Y rank=1 detect=1.5s localized=11.5s top3=['LIT101', 'PLC1', 'MV101']
+[ 5/15] sensor_offset   LIT301  detected=Y rank=1 detect=1.5s localized=11.5s top3=['LIT301', 'PLC2', 'P301']
+[ 6/15] sensor_offset   PIT301  detected=Y rank=1 detect=1.5s localized=11.5s top3=['PIT301', 'PLC1', 'LIT301']
+[ 7/15] sensor_ramp     LIT101  detected=N rank=None detect=Nones localized=Nones top3=[]
+[ 8/15] sensor_ramp     LIT301  detected=N rank=None detect=Nones localized=Nones top3=[]

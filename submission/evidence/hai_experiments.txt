@@ -1,0 +1,74 @@
+current {'alpha': 0.25, 'persist': 3, 'threshold': 32.70558347059645, 'tune_f1': 0.799253584757415}  (stored tune_f1 from training: 0.799253584757415 )
+experiment 1: min duration
+   {'alpha': 0.25, 'persist': 3, 'threshold': 32.70558347059645, 'tune_f1': 0.799253584757415}
+   {'alpha': 0.25, 'persist': 10, 'threshold': 32.45868913645026, 'tune_f1': 0.7894789081885856}
+   {'alpha': 0.25, 'persist': 20, 'threshold': 32.45868913645026, 'tune_f1': 0.7760711398544866}
+   {'alpha': 0.25, 'persist': 40, 'threshold': 32.70558347059645, 'tune_f1': 0.750465549348231}
+experiment 2: smoothing
+   {'alpha': 0.25, 'persist': 3, 'threshold': 32.70558347059645, 'tune_f1': 0.799253584757415}
+   {'alpha': 0.1, 'persist': 3, 'threshold': 32.60480733500303, 'tune_f1': 0.8061304178055447}
+   {'alpha': 0.05, 'persist': 3, 'threshold': 32.60931572094923, 'tune_f1': 0.8079805352798054}
+best variant {'alpha': 0.05, 'persist': 3, 'threshold': 32.60931572094923, 'tune_f1': 0.8079805352798054}; tuning-day gain +0.009 (bar 0.02)
+{
+ "current": {
+  "alpha": 0.25,
+  "persist": 3,
+  "threshold": 32.70558347059645,
+  "tune_f1": 0.799253584757415
+ },
+ "experiment_1": [
+  {
+   "alpha": 0.25,
+   "persist": 3,
+   "threshold": 32.70558347059645,
+   "tune_f1": 0.799253584757415
+  },
+  {
+   "alpha": 0.25,
+   "persist": 10,
+   "threshold": 32.45868913645026,
+   "tune_f1": 0.7894789081885856
+  },
+  {
+   "alpha": 0.25,
+   "persist": 20,
+   "threshold": 32.45868913645026,
+   "tune_f1": 0.7760711398544866
+  },
+  {
+   "alpha": 0.25,
+   "persist": 40,
+   "threshold": 32.70558347059645,
+   "tune_f1": 0.750465549348231
+  }
+ ],
+ "experiment_2": [
+  {
+   "alpha": 0.25,
+   "persist": 3,
+   "threshold": 32.70558347059645,
+   "tune_f1": 0.799253584757415
+  },
+  {
+   "alpha": 0.1,
+   "persist": 3,
+   "threshold": 32.60480733500303,
+   "tune_f1": 0.8061304178055447
+  },
+  {
+   "alpha": 0.05,
+   "persist": 3,
+   "threshold": 32.60931572094923,
+   "tune_f1": 0.8079805352798054
+  }
+ ],
+ "best": {
+  "alpha": 0.05,
+  "persist": 3,
+  "threshold": 32.60931572094923,
+  "tune_f1": 0.8079805352798054
+ },
+ "tuning_gain": 0.008726950522390364,
+ "min_gain": 0.02,
+ "held_out_scored": false
+}

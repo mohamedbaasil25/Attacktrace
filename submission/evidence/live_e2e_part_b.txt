@@ -1,0 +1,2 @@
+actuator_force: truth=P101 detected 1.5s after the write, top3 after 15 s window=['P101', 'FIT201', 'PIT301'] ambiguous=False | worst step 11 ms | modbus p50=0.8 ms p95=1.9 ms, 35 samples/s, dropped=0
+sensor_offset: truth=LIT101 detected 1.5s after the write, top3 after 15 s window=['LIT101', 'PLC1', 'MV101'] ambiguous=True | worst step 11 ms | modbus p50=0.9 ms p95=2.1 ms, 36 samples/s, dropped=0

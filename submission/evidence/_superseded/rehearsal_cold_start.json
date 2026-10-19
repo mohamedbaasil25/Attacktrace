@@ -1,0 +1,301 @@
+[
+ {
+  "scenario": "sensor_freeze",
+  "target": "LIT101",
+  "magnitude": 0.0,
+  "attack_id": "atk_001",
+  "detected": true,
+  "detect_s": 7.5,
+  "localized_s": 17.5,
+  "origin_top3": [
+   "LIT101",
+   "LIT301",
+   "PLC2"
+  ],
+  "origin_conf": [
+   1.0,
+   0.0,
+   0.0
+  ],
+  "mitre": "T0856",
+  "rank": 1
+ },
+ {
+  "scenario": "sensor_freeze",
+  "target": "LIT301",
+  "magnitude": 0.0,
+  "attack_id": "atk_001",
+  "detected": true,
+  "detect_s": 6.5,
+  "localized_s": 16.5,
+  "origin_top3": [
+   "LIT301",
+   "PLC2",
+   "MV101"
+  ],
+  "origin_conf": [
+   1.0,
+   0.0,
+   0.0
+  ],
+  "mitre": "T0856",
+  "rank": 1
+ },
+ {
+  "scenario": "sensor_freeze",
+  "target": "FIT201",
+  "magnitude": 0.0,
+  "attack_id": "atk_001",
+  "detected": true,
+  "detect_s": 7.5,
+  "localized_s": 17.5,
+  "origin_top3": [
+   "FIT201",
+   "MV101",
+   "PLC1"
+  ],
+  "origin_conf": [
+   1.0,
+   0.0,
+   0.0
+  ],
+  "mitre": "T0856",
+  "rank": 1
+ },
+ {
+  "scenario": "sensor_offset",
+  "target": "LIT101",
+  "magnitude": -25.0,
+  "attack_id": "atk_001",
+  "detected": true,
+  "detect_s": 2.5,
+  "localized_s": 12.5,
+  "origin_top3": [
+   "LIT101",
+   "PLC1",
+   "MV101"
+  ],
+  "origin_conf": [
+   0.55,
+   0.24,
+   0.11
+  ],
+  "mitre": "T0856",
+  "rank": 1
+ },
+ {
+  "scenario": "sensor_offset",
+  "target": "LIT301",
+  "magnitude": 25.0,
+  "attack_id": "atk_001",
+  "detected": true,
+  "detect_s": 2.5,
+  "localized_s": 12.5,
+  "origin_top3": [
+   "LIT301",
+   "PLC2",
+   "P301"
+  ],
+  "origin_conf": [
+   0.66,
+   0.27,
+   0.07
+  ],
+  "mitre": "T0856",
+  "rank": 1
+ },
+ {
+  "scenario": "sensor_offset",
+  "target": "PIT301",
+  "magnitude": 0.6,
+  "attack_id": "atk_001",
+  "detected": true,
+  "detect_s": 2.5,
+  "localized_s": 12.5,
+  "origin_top3": [
+   "PIT301",
+   "PLC1",
+   "LIT301"
+  ],
+  "origin_conf": [
+   1.0,
+   0.0,
+   0.0
+  ],
+  "mitre": "T0856",
+  "rank": 1
+ },
+ {
+  "scenario": "sensor_ramp",
+  "target": "LIT101",
+  "magnitude": 30.0,
+  "attack_id": "atk_001",
+  "detected": false,
+  "detect_s": null,
+  "localized_s": null,
+  "origin_top3": [],
+  "origin_conf": [],
+  "mitre": null,
+  "rank": null
+ },
+ {
+  "scenario": "sensor_ramp",
+  "target": "LIT301",
+  "magnitude": 30.0,
+  "attack_id": "atk_001",
+  "detected": false,
+  "detect_s": null,
+  "localized_s": null,
+  "origin_top3": [],
+  "origin_conf": [],
+  "mitre": null,
+  "rank": null
+ },
+ {
+  "scenario": "sensor_ramp",
+  "target": "FIT201",
+  "magnitude": 3.6,
+  "attack_id": "atk_001",
+  "detected": true,
+  "detect_s": 31.0,
+  "localized_s": 41.0,
+  "origin_top3": [
+   "FIT201",
+   "PLC2",
+   "LIT301"
+  ],
+  "origin_conf": [
+   0.74,
+   0.16,
+   0.07
+  ],
+  "mitre": "T0856",
+  "rank": 1
+ },
+ {
+  "scenario": "actuator_force",
+  "target": "MV101",
+  "magnitude": 1.0,
+  "attack_id": "atk_001",
+  "detected": true,
+  "detect_s": 2.5,
+  "localized_s": 12.5,
+  "origin_top3": [
+   "PLC1",
+   "MV101",
+   "LIT101"
+  ],
+  "origin_conf": [
+   0.97,
+   0.03,
+   0.0
+  ],
+  "mitre": "T0855",
+  "rank": 2
+ },
+ {
+  "scenario": "actuator_force",
+  "target": "P101",
+  "magnitude": 0.0,
+  "attack_id": "atk_001",
+  "detected": true,
+  "detect_s": 2.5,
+  "localized_s": 12.5,
+  "origin_top3": [
+   "LIT101",
+   "P101",
+   "FIT201"
+  ],
+  "origin_conf": [
+   0.68,
+   0.28,
+   0.02
+  ],
+  "mitre": "T0856",
+  "rank": 2
+ },
+ {
+  "scenario": "actuator_force",
+  "target": "P301",
+  "magnitude": 0.0,
+  "attack_id": "atk_001",
+  "detected": true,
+  "detect_s": 2.5,
+  "localized_s": 12.5,
+  "origin_top3": [
+   "P301",
+   "LIT301",
+   "PLC2"
+  ],
+  "origin_conf": [
+   1.0,
+   0.0,
+   0.0
+  ],
+  "mitre": "T0831",
+  "rank": 1
+ },
+ {
+  "scenario": "rogue_setpoint",
+  "target": "PLC1",
+  "magnitude": 25.0,
+  "attack_id": "atk_001",
+  "detected": true,
+  "detect_s": 2.5,
+  "localized_s": 12.5,
+  "origin_top3": [
+   "LIT101",
+   "PLC1",
+   "MV101"
+  ],
+  "origin_conf": [
+   0.47,
+   0.19,
+   0.16
+  ],
+  "mitre": "T0856",
+  "rank": 2
+ },
+ {
+  "scenario": "rogue_setpoint",
+  "target": "PLC2",
+  "magnitude": -25.0,
+  "attack_id": "atk_001",
+  "detected": true,
+  "detect_s": 2.5,
+  "localized_s": 12.5,
+  "origin_top3": [
+   "PLC2",
+   "P301",
+   "LIT301"
+  ],
+  "origin_conf": [
+   0.93,
+   0.07,
+   0.0
+  ],
+  "mitre": "T0855",
+  "rank": 1
+ },
+ {
+  "scenario": "rogue_setpoint",
+  "target": "PLC1",
+  "magnitude": -25.0,
+  "attack_id": "atk_001",
+  "detected": true,
+  "detect_s": 2.5,
+  "localized_s": 12.5,
+  "origin_top3": [
+   "LIT101",
+   "PLC1",
+   "P101"
+  ],
+  "origin_conf": [
+   0.6,
+   0.18,
+   0.1
+  ],
+  "mitre": "T0856",
+  "rank": 2
+ }
+]

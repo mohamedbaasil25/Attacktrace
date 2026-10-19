@@ -1,0 +1,3 @@
+engine loaded: True mlp
+clean 2 min: alert/incident ticks=0; attack: (1.5220799446105957, ['P101', 'FIT201', 'PIT301']); final top3=['P101', 'FIT201', 'PIT301']; worst step 15 ms
+source: connected modbus p50=1.6ms 35/s

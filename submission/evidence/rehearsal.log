@@ -1,0 +1,17 @@
+[ 1/15] sensor_freeze   LIT101  detected=Y rank=1 detect=6.5s localized=16.5s top3=['LIT101', 'PLC2', 'MV101']
+[ 2/15] sensor_freeze   LIT301  detected=Y rank=1 detect=7.5s localized=17.5s top3=['LIT301', 'PLC2', 'PLC1']
+[ 3/15] sensor_freeze   FIT201  detected=Y rank=1 detect=7.0s localized=17.0s top3=['FIT201', 'PLC2', 'LIT301']
+[ 4/15] sensor_offset   LIT101  detected=Y rank=1 detect=1.5s localized=11.5s top3=['LIT101', 'PLC1', 'MV101']
+[ 5/15] sensor_offset   LIT301  detected=Y rank=1 detect=1.5s localized=11.5s top3=['LIT301', 'P301', 'PLC2']
+[ 6/15] sensor_offset   PIT301  detected=Y rank=1 detect=1.5s localized=11.5s top3=['PIT301', 'PLC2', 'PLC1']
+[ 7/15] sensor_ramp     LIT101  detected=Y rank=1 detect=61.5s localized=71.5s top3=['LIT101', 'PLC1', 'MV101']
+[ 8/15] sensor_ramp     LIT301  detected=Y rank=1 detect=45.0s localized=55.0s top3=['LIT301', 'PLC2', 'FIT201']
+[ 9/15] sensor_ramp     FIT201  detected=Y rank=2 detect=9.5s localized=19.5s top3=['PLC2', 'FIT201', 'LIT301']
+[10/15] actuator_force  MV101   detected=Y rank=1 detect=1.5s localized=11.5s top3=['MV101', 'PLC1', 'PLC2']
+[11/15] actuator_force  P101    detected=Y rank=1 detect=1.5s localized=11.5s top3=['P101', 'FIT201', 'PIT301']
+[12/15] actuator_force  P301    detected=Y rank=1 detect=1.5s localized=11.5s top3=['P301', 'PLC2', 'LIT301']
+[13/15] rogue_setpoint  PLC1    detected=Y rank=1 detect=1.5s localized=11.5s top3=['PLC1', 'MV101', 'P101']
+[14/15] rogue_setpoint  PLC2    detected=Y rank=2 detect=1.5s localized=11.5s top3=['P301', 'PLC2', 'LIT301']
+[15/15] rogue_setpoint  PLC1    detected=Y rank=1 detect=1.5s localized=11.5s top3=['PLC1', 'P101', 'MV101']
+
+detected 15/15; true origin ranked 1st in 13/15
