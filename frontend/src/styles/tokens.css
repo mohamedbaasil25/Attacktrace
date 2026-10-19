@@ -1,0 +1,77 @@
+:root {
+  /* Surfaces (Phase 15: 4 elevation steps, was bg/surface) */
+  --bg-0: #080b10;
+  --bg-1: #0d1219;
+  --bg-2: #131a24;
+  --bg-3: #1a2330;
+
+  /* Borders (2 steps + focus ring) */
+  --line-1: #1b2431;
+  --line-2: #263244;
+  --focus: #4c8dff;
+
+  /* Elevation: a near-invisible top-edge highlight for raised cards */
+  --elevation-highlight: rgba(255, 255, 255, 0.03);
+
+  /* Text (3 steps) */
+  --text-1: #e8eef5;
+  --text-2: #a5b1c0;
+  --text-3: #828ea0;
+
+  /* Accent */
+  --accent: #4c8dff;
+  /* 0.14 (the source prompt's own value) reads fine for ink-1/ink-2 text sitting on it, but accent
+     text ON it (Chip tone="accent") dropped to 4.0:1 against bg-3 -- below 4.5:1. Lowered to 0.06,
+     the highest alpha that still clears 4.5:1 on every surface (axe-flagged, not caught by the
+     literal-hex contrast script until Part E extended it for composited fills). */
+  --accent-soft: rgba(76, 141, 255, 0.06);
+
+  /* Status: never colour alone, always paired with a shape + label */
+  --normal: #2ea97d;
+  --suspect: #e3b341;
+  --affected: #f0883e;
+  --origin: #ff5c57;
+  --info: #4c8dff;
+  --neutral: #6f7c8e;
+
+  /* Radius */
+  --r-sm: 6px;
+  --r-md: 10px;
+  --r-lg: 14px;
+
+  /* Space: 4-pt scale */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-14: 56px;
+
+  /* Motion */
+  --motion-fast: 120ms;
+  --motion-base: 200ms;
+  --motion-slow: 320ms;
+  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+
+  /* Type scale (px): caption 12, label 13, body 14, title 16, heading 20, value 28, kpi 40 */
+  --text-caption: 12px;
+  --text-label: 13px;
+  --text-body: 14px;
+  --text-title: 16px;
+  --text-heading: 20px;
+  --text-value: 28px;
+  --text-kpi: 40px;
+
+  color-scheme: dark;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion-fast: 0ms;
+    --motion-base: 0ms;
+    --motion-slow: 0ms;
+  }
+}

@@ -1,0 +1,18 @@
+# Phase 14 B8: local-development override. Use with the base file:
+#   docker compose -f docker-compose.yml -f docker-compose.dev.yml up --build
+# Restores the pre-B8 behaviour: Vite's own dev server with hot reload, instead of the static
+# nginx build docker-compose.yml now uses by default. AT_HOST stays loopback-safe here since this
+# is explicitly local development, so an unset AT_API_KEY still works (Phase 14 B3).
+services:
+  backend:
+    environment:
+      AT_HOST: "127.0.0.1"
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+      args: {}
+    ports: !override ["5173:5173"]
+    environment:
+      VITE_API_PROXY: http://backend:8000
+      VITE_API_KEY: ${VITE_API_KEY:-}

@@ -1,0 +1,159 @@
+@import "./tokens.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  @apply bg-surface-0 font-sans text-ink-1 antialiased;
+  margin: 0;
+}
+
+/* ---- Phase 15: Skeleton loading shimmer, runs once (~1.2s) then holds static */
+@keyframes shimmer {
+  0% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.6;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  [class*="animate-[shimmer"] {
+    animation: none;
+    opacity: 0.8;
+  }
+}
+
+/* ---- twin motion: purposeful only (flow, rotation, origin pulse, attack pulse) */
+@keyframes flow {
+  to {
+    stroke-dashoffset: -12;
+  }
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes pulse-ring {
+  from {
+    opacity: 0.9;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(1.18);
+  }
+}
+@keyframes travel {
+  from {
+    stroke-dashoffset: 0.1;
+  }
+  to {
+    stroke-dashoffset: -1;
+  }
+}
+
+.flow {
+  animation: flow 1s linear infinite;
+}
+.spin {
+  animation: spin 1s linear infinite;
+}
+.pulse-ring {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: pulse-ring 1.2s ease-out infinite;
+}
+.attack-pulse {
+  stroke-dasharray: 0.1 1;
+  animation: travel 1.4s linear infinite backwards;
+}
+
+/* Phase 15 §4.2: suspect pulses slowly (noticeable but not alarming); origin's ring expands
+ * outward twice, 1.6s apart, then repeats -- the "something is actively wrong here" signal. */
+@keyframes suspect-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.55;
+  }
+}
+@keyframes origin-pulse {
+  0% {
+    opacity: 0.9;
+    transform: scale(0.6);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(2.2);
+  }
+}
+.status-suspect-pulse {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: suspect-pulse 2.4s ease-in-out infinite;
+}
+.status-origin-pulse {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: origin-pulse 1.6s ease-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flow,
+  .spin,
+  .pulse-ring,
+  .attack-pulse,
+  .status-suspect-pulse,
+  .status-origin-pulse {
+    animation: none;
+  }
+  .status-origin-pulse {
+    opacity: 0;
+  }
+  .attack-pulse {
+    stroke-dasharray: none;
+  }
+}
+
+/* ---- React Flow on the dark SOC theme */
+.react-flow {
+  --xy-background-color: transparent;
+  --xy-edge-stroke-default: var(--text-2);
+  background: transparent;
+}
+.react-flow__attribution {
+  background: transparent !important;
+  opacity: 0.5;
+}
+.react-flow__attribution a {
+  color: var(--text-2);
+}
+.origin-halo {
+  animation: halo 1.2s ease-out infinite;
+}
+@keyframes halo {
+  from {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--origin) 70%, transparent);
+  }
+  to {
+    box-shadow: 0 0 0 10px transparent;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .origin-halo {
+    animation: none;
+  }
+}

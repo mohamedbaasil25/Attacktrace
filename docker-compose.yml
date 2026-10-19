@@ -1,0 +1,56 @@
+services:
+  # Emulated plant: the simulator physics behind Modbus TCP (no hardware). The Modbus port has
+  # writable attack-surface registers and no authentication, so it is published on loopback only.
+  plant-emulator:
+    build:
+      context: .
+      dockerfile: plant_emulator/Dockerfile
+    environment:
+      EMU_SEED: ${AT_SEED:-42}
+    ports:
+      - "127.0.0.1:5020:5020"
+      - "127.0.0.1:8081:8081"
+    restart: unless-stopped
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    env_file:
+      - path: .env
+        required: false
+    ports: ["8000:8000"]
+    environment:
+      AT_HOST: "0.0.0.0"  # declares this deployment non-loopback; .env must set AT_API_KEY (B3)
+      AT_HAI_DIR: /data/hai
+      AT_REPORTS_DIR: /reports
+      AT_LIVE_HOST: plant-emulator
+      AT_LIVE_TAGMAP: /config/tagmap.yaml
+      AT_LIVE_DB: /data/live/incidents.sqlite
+    volumes:
+      - ./data/hai:/data/hai:ro
+      - ./reports:/reports
+      - ./config:/config:ro
+      - ./data/live:/data/live
+      # Trained detectors persist here, so only the very first start trains (about a minute including the metrics).
+      - ./backend/models:/app/models
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - import urllib.request; urllib.request.urlopen("http://localhost:8000/api/status", timeout=3)
+      interval: 5s
+      timeout: 5s
+      retries: 60
+      start_period: 360s
+    restart: unless-stopped
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        VITE_API_KEY: ${VITE_API_KEY:-}
+    ports: ["5173:80"]
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped
