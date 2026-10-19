@@ -15,6 +15,7 @@ node_modules/
 data/live/*
 !data/live/.gitkeep
 data/history.sqlite*
+data/live_incidents.sqlite*
 backend/models/live/
 dist/
 test-results/

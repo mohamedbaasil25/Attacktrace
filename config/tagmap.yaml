@@ -1,0 +1,35 @@
+# Tag map shared by the plant emulator, the live connectors and the attacker tool.
+# Columns: tag, node_id, protocol, table, address, type, scale, unit, access, min, max, role.
+# float32 uses 2 registers (big-endian words and bytes); int16 uses 1. engineering = raw * scale.
+# role "value": what AttackTrace reads (input registers, read-only).
+# The other roles are the emulator's attack surface (holding registers, read/write): a rogue
+# Modbus client writes them and the emulated physics reacts.
+version: 1
+device_id: 1
+tags:
+  # --- process values: input registers, read-only ------------------------------------------
+  - {tag: LIT101, node_id: LIT101, protocol: modbus, table: input, address: 0,  type: float32, scale: 1.0, unit: "%",    access: ro, min: 0, max: 100, role: value}
+  - {tag: FIT201, node_id: FIT201, protocol: modbus, table: input, address: 2,  type: float32, scale: 1.0, unit: "L/s", access: ro, min: 0, max: 12,  role: value}
+  - {tag: PIT301, node_id: PIT301, protocol: modbus, table: input, address: 4,  type: float32, scale: 1.0, unit: "bar", access: ro, min: 0, max: 2.5, role: value}
+  - {tag: LIT301, node_id: LIT301, protocol: modbus, table: input, address: 6,  type: float32, scale: 1.0, unit: "%",    access: ro, min: 0, max: 100, role: value}
+  - {tag: MV101,  node_id: MV101,  protocol: modbus, table: input, address: 10, type: float32, scale: 1.0, unit: "open",  access: ro, min: 0, max: 1,   role: value}
+  - {tag: P101,   node_id: P101,   protocol: modbus, table: input, address: 12, type: float32, scale: 1.0, unit: "speed", access: ro, min: 0, max: 1,   role: value}
+  - {tag: P301,   node_id: P301,   protocol: modbus, table: input, address: 14, type: float32, scale: 1.0, unit: "speed", access: ro, min: 0, max: 1,   role: value}
+  - {tag: PLC1,   node_id: PLC1,   protocol: modbus, table: input, address: 20, type: float32, scale: 1.0, unit: "out",   access: ro, min: 0, max: 1,   role: value}
+  - {tag: PLC2,   node_id: PLC2,   protocol: modbus, table: input, address: 22, type: float32, scale: 1.0, unit: "out",   access: ro, min: 0, max: 1,   role: value}
+  # --- sensor spoof layer (emulated man-in-the-middle): holding registers, read/write --------
+  - {tag: LIT101.spoof_offset, node_id: LIT101, protocol: modbus, table: holding, address: 100, type: float32, scale: 1.0, unit: "%",    access: rw, min: -100, max: 100, role: spoof_offset}
+  - {tag: FIT201.spoof_offset, node_id: FIT201, protocol: modbus, table: holding, address: 102, type: float32, scale: 1.0, unit: "L/s", access: rw, min: -12,  max: 12,  role: spoof_offset}
+  - {tag: PIT301.spoof_offset, node_id: PIT301, protocol: modbus, table: holding, address: 104, type: float32, scale: 1.0, unit: "bar", access: rw, min: -2.5, max: 2.5, role: spoof_offset}
+  - {tag: LIT301.spoof_offset, node_id: LIT301, protocol: modbus, table: holding, address: 106, type: float32, scale: 1.0, unit: "%",    access: rw, min: -100, max: 100, role: spoof_offset}
+  - {tag: LIT101.spoof_freeze, node_id: LIT101, protocol: modbus, table: holding, address: 200, type: int16, scale: 1.0, unit: "flag", access: rw, min: 0, max: 1, role: spoof_freeze}
+  - {tag: FIT201.spoof_freeze, node_id: FIT201, protocol: modbus, table: holding, address: 201, type: int16, scale: 1.0, unit: "flag", access: rw, min: 0, max: 1, role: spoof_freeze}
+  - {tag: PIT301.spoof_freeze, node_id: PIT301, protocol: modbus, table: holding, address: 202, type: int16, scale: 1.0, unit: "flag", access: rw, min: 0, max: 1, role: spoof_freeze}
+  - {tag: LIT301.spoof_freeze, node_id: LIT301, protocol: modbus, table: holding, address: 203, type: int16, scale: 1.0, unit: "flag", access: rw, min: 0, max: 1, role: spoof_freeze}
+  # --- actuator command override (-1 = none, 0..1 = forced command) -------------------------
+  - {tag: MV101.force, node_id: MV101, protocol: modbus, table: holding, address: 300, type: float32, scale: 1.0, unit: "open",  access: rw, min: -1, max: 1, role: force}
+  - {tag: P101.force,  node_id: P101,  protocol: modbus, table: holding, address: 302, type: float32, scale: 1.0, unit: "speed", access: rw, min: -1, max: 1, role: force}
+  - {tag: P301.force,  node_id: P301,  protocol: modbus, table: holding, address: 304, type: float32, scale: 1.0, unit: "speed", access: rw, min: -1, max: 1, role: force}
+  # --- controller setpoint delta (0 = authorized setpoint) -----------------------------------
+  - {tag: PLC1.setpoint_delta, node_id: PLC1, protocol: modbus, table: holding, address: 400, type: float32, scale: 1.0, unit: "%", access: rw, min: -100, max: 100, role: setpoint_delta}
+  - {tag: PLC2.setpoint_delta, node_id: PLC2, protocol: modbus, table: holding, address: 402, type: float32, scale: 1.0, unit: "%", access: rw, min: -100, max: 100, role: setpoint_delta}
