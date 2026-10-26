@@ -20,6 +20,7 @@ from app.detect.baseline import BaselineDetector
 from app.detect.detector import PERSIST, aggregate
 from app.detect.hai_pipeline import TOP_K, WINDOW, HaiLoaded
 from app.engine import origin_candidate
+from app.evidence import classify_transition
 from app.localize import Weights
 from app.localize.incident import FORWARD_S, LOOKBACK_S
 from app.localize.locator import localize
@@ -37,6 +38,7 @@ from app.schemas import (
     TopologyEdge,
     TopologyNode,
 )
+from app.storage import IncidentStoreLike
 
 F64 = NDArray[np.float64]
 
@@ -72,6 +74,7 @@ class HaiEngine:
         replay: HaiFile,
         settings: Settings,
         clock: Callable[[], float] = time.time,
+        store: IncidentStoreLike | None = None,
     ) -> None:
         self.loaded, self.baseline, self.replay, self.settings = loaded, baseline, replay, settings
         self.graph = loaded.graph
@@ -84,7 +87,23 @@ class HaiEngine:
         self._start = max(0, (windows[0][0] if windows else 0) - round(START_LEAD_S * SAMPLE_HZ))
         self.incidents: list[Incident] = []
         self.latest: LiveMessage | None = None
+        self.store = store
+        self._saved: dict[str, Incident] = {}
         self._init_state()
+        if store is not None:  # restart recovery (Phase 3), same convention as SIM/LIVE
+            self.incidents = store.load(mode=self.mode)
+
+    def _next_id_from_store(self) -> int:
+        """See `Engine._next_id_from_store`: never derived from `len(self.incidents)` alone,
+        which `reset()` clears -- that would let a post-reset incident collide with, and
+        `INSERT OR REPLACE` clobber, an already-persisted row's current-state entry."""
+        if self.store is None:
+            return len(self.incidents) + 1
+        ids = self.store.load(mode=self.mode)
+        max_n = max(
+            (int(i.id.removeprefix("inc_")) for i in ids if i.id.startswith("inc_")), default=0
+        )
+        return max(max_n + 1, len(self.incidents) + 1)
 
     # ------------------------------------------------------------------ lifecycle
     def _init_state(self) -> None:
@@ -218,7 +237,7 @@ class HaiEngine:
         origin, path, edges, text, action = self._analysis(alert_k)
         return Incident(
             mode="hai",
-            id=base.id if base else f"inc_{len(self.incidents) + 1:03d}",
+            id=base.id if base else f"inc_{self._next_id_from_store():03d}",
             status=base.status if base else "localizing",
             detected_at=base.detected_at if base else self._clock(),
             origin=origin,
@@ -241,6 +260,7 @@ class HaiEngine:
         inc = self._make(k, None, alarms)
         self._open = _Open(inc, k, alarms)
         self.incidents.append(inc)
+        self._persist(inc)
 
     def _advance_incident(self, alerting: bool, rows: int) -> None:
         op = self._open
@@ -260,6 +280,21 @@ class HaiEngine:
         for i, old in enumerate(self.incidents):
             if old.id == op.inc.id:
                 self.incidents[i] = op.inc
+        self._persist(op.inc)
+
+    def _persist(self, inc: Incident) -> None:
+        """Durable persistence (Phase 3): a no-op without a store. See `Engine._persist` -- same
+        diff-then-classify shape, duplicated rather than shared because `HaiEngine` does not
+        inherit from `Engine` (a separate, simpler single-incident lifecycle; see module
+        docstring)."""
+        if self.store is None:
+            return
+        old = self._saved.get(inc.id)
+        if old is not None and old.model_dump_json() == inc.model_dump_json():
+            return
+        event_type, detail = classify_transition(old, inc)
+        self.store.save(inc, event_type=event_type, detail=detail)
+        self._saved[inc.id] = inc
 
     # --------------------------------------------------------------------- message
     def _unusual(self, i: int, thr: float) -> bool:

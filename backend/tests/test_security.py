@@ -6,7 +6,7 @@ from pathlib import Path
 import pytest
 from fastapi.testclient import TestClient
 
-from app.api.security import RateLimiter
+from app.api.security import LoginLockout, RateLimiter
 from app.config import Settings
 from app.engine import Engine
 from app.main import create_app
@@ -104,6 +104,38 @@ def test_no_key_fails_closed_outside_loopback_dev(
         assert "AT_API_KEY" in r.json()["detail"]
 
 
+# -------------------------------- Phase 5: the published .env.example placeholder is never real
+def test_the_published_placeholder_key_fails_closed_outside_loopback_dev(
+    engine: Engine, tmp_path: Path
+) -> None:
+    """`.env.example` ships `AT_API_KEY=change-me-demo-key` -- a value published in this very
+    repo. A deployment that copies the file without changing it must not end up "protected" by a
+    publicly known key; it must fail closed exactly as if no key were set at all."""
+    app = create_app(engine, run_loop=False)
+    app.state.hai_dir = tmp_path / "no-hai"
+    app.state.settings = Settings(api_key="change-me-demo-key", host="0.0.0.0")  # type: ignore[arg-type]
+    with TestClient(app) as c:
+        r = c.post("/api/reset")
+        assert r.status_code == 503
+        assert "placeholder" in r.json()["detail"]
+        # and the placeholder itself must never work as a credential, even sent explicitly
+        r2 = c.post("/api/reset", headers={"X-API-Key": "change-me-demo-key"})
+        assert r2.status_code == 503
+
+
+def test_the_published_placeholder_key_still_leaves_writes_open_for_loopback_dev(
+    engine: Engine, tmp_path: Path
+) -> None:
+    """Locally (loopback + demo mode), a deployment that never touched the placeholder behaves
+    exactly like one that left AT_API_KEY empty -- open for casual local development, same as
+    before this fix, not newly broken by it."""
+    app = create_app(engine, run_loop=False)
+    app.state.hai_dir = tmp_path / "no-hai"
+    app.state.settings = Settings(api_key="change-me-demo-key")  # type: ignore[arg-type]
+    with TestClient(app) as c:
+        assert c.post("/api/reset").status_code == 200
+
+
 @pytest.mark.parametrize("host", ["127.0.0.1", "localhost", "::1"])
 def test_loopback_variants_all_count_as_loopback(engine: Engine, tmp_path: Path, host: str) -> None:
     app = create_app(engine, run_loop=False)
@@ -154,3 +186,21 @@ def test_rate_limiter_window_slides() -> None:
     assert rl.check("b") is None  # clients are independent
     now[0] = 61.0
     assert rl.check("a") is None
+
+
+def test_login_lockout_expires_and_is_per_username() -> None:
+    now = [0.0]
+    lo = LoginLockout(threshold=2, lock_s=30.0, clock=lambda: now[0])
+    assert lo.check("alice") is None
+    lo.record_failure("alice")
+    assert lo.check("alice") is None  # one failure: not locked yet
+    lo.record_failure("alice")
+    wait = lo.check("alice")
+    assert wait is not None and 0 < wait <= 30
+    assert lo.check("bob") is None  # a different account is untouched
+    now[0] = 30.1
+    assert lo.check("alice") is None  # the lock expired
+    lo.record_failure("alice")
+    assert lo.check("alice") is None  # the failure count also reset on expiry
+    lo.record_success("alice")  # clearing a never-locked account is a no-op
+    assert lo.check("alice") is None

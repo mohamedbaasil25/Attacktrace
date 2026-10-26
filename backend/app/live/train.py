@@ -130,7 +130,7 @@ def train_live(
         torch.manual_seed(SEED)
         model = build_model(kind, len(NODE_IDS), WINDOW, adj)
         if warm:
-            model.load_state_dict(torch.load(sim_dir / f"{kind}.pt"))
+            model.load_state_dict(torch.load(sim_dir / f"{kind}.pt", weights_only=True))
             mse = train(model, tr_xy, val_xy, epochs=WARM_EPOCHS, lr=WARM_LR)
         else:
             mse = train(model, tr_xy, val_xy, epochs=epochs)

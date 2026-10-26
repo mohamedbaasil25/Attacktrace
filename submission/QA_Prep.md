@@ -6,7 +6,7 @@ Numbers are from `reports/metrics.json` unless a file or command is named.
 numbers cover all scenarios.
 
 **1. Why three signals instead of one?**
-Each signal fails alone. Deviation ties a spoofed sensor with its own PLC, onset is noisy at 0.5 s resolution, and causal rank ignores magnitude. Combined with a tie rule, Top-1 rose from 0.66 to 0.88 on the earlier tuning set; the final held-out Top-1 is 0.84.
+Each signal fails alone. Deviation ties a spoofed sensor with its own PLC, onset is noisy at 0.5 s resolution, and causal rank ignores magnitude. Combined with a tie rule, Top-1 rose from 0.66 to 0.88 on the same 50-attack protocol as the final test set. We call this an **iterative tuning win, not a held-out result**, and volunteer why rather than wait to be asked: the tie rule's logic (earliest onset, then downstream reachability, then node-type order) was designed by a person observing specific failures on that 50-attack set and adjusting the rule until they resolved, then fixing it as deterministic code. That's a human-in-the-loop dependency on the exact set later reported as the headline number — closer to tuning than to a clean train/test split, distinct from grid-tuning the signal weights (which used a separate 400-419 tuning split). The final, independently-measured held-out Top-1 is 0.84.
 
 **2. What if several components are attacked at once?**
 We did not evaluate that. All 50 held-out attacks are single-origin, and the tool ranks one origin. Behaviour with concurrent origins is untested, so we do not claim it.
@@ -30,7 +30,10 @@ Both, for different claims. Simulator numbers (F1 0.904, Top-1 0.84) test the me
 Most HAI attacks are slow, and clean-train thresholds do not transfer across recording days. The mean delay on detected attacks is 143 s. Point-adjusted F1 is 0.915, but we report strict F1 0.428 as the honest figure.
 
 **9. Does the origin on HAI mean the right component?**
-No. HAI labels name the attacked process (P1–P3), so we score process-level Top-1: 0.714 overall and 0.909 on detected attacks. Always answering "P1" scores 0.864 on detected attacks, so the gain is small (0.045 on 22 attacks).
+No. HAI labels name the attacked process (P1–P3), so we score process-level Top-1: 0.714 overall and 0.909 on detected attacks. Always answering "P1" scores 0.864 on detected attacks, a gain of 1 attack out of 22 — an exact sign test puts that at p = 1.00, not distinguishable from chance. We treat HAI as real evidence of *detection*, not of component- or process-level localization skill.
+
+**9a. Is the 0.077 HAI baseline an unfair comparison — was its threshold ever tuned?**
+We checked: tuning the baseline's own 3-sigma threshold on `test2` (same procedure as our own detector threshold, swept wide) picks sigma≈50, not the shipped 3, and only raises its held-out strict F1 from 0.077 to 0.091 — still far below our 0.428. The reason: one or two real HAI channels have near-zero clean-period variance, so the per-node breach rule alarms on nearly every sample from sigma=3 through roughly sigma=500 regardless of any attack. That's a structural limit of a per-node-OR baseline on real sensor data, not an untuned number we left unfavorable on purpose.
 
 **10. How reliable is the confidence number?**
 At the earlier calibration, mean top-1 confidence was 0.87 against 0.88 accuracy. We recalibrated afterwards (temperature 0.062) and did not re-measure that pair as its own figure. Sensor-versus-PLC near-ties show as close confidences on purpose.
@@ -42,7 +45,7 @@ Slow `sensor_ramp`: detection F1 0.673, Top-1 0.5, and 1 of 10 runs undetected. 
 Yes. Training is seeded and deterministic; `python -m eval.run` regenerated `reports/metrics.json` byte-identical in our final check (17.7 s with trained models). The Linux container differs in the last digits (23.7 s vs 23.3 s time-to-localize).
 
 **13. What if the top origin is wrong?**
-The Ambiguous gate flags close calls and shows the top 3 (Top-3 is 1.00 on the held-out attacks), but it catches only 2 of the 8 wrong Top-1 answers. If the operator isolates a wrong node it does not contain (0 of 48 in the eval); the UI reads Not contained after 30 s and offers the next candidate. In the eval the Top-1 isolate click contained 40 of 48.
+The Ambiguous gate flags close calls and shows the top 3 (Top-3 is 1.00 on the held-out attacks), but its tuning-set performance (0.952) does not transfer to the test set (0.864) — it catches only 2 of the 8 wrong Top-1 answers (25%). We're explicit that "not flagged" is not a safety signal: 6 of 8 wrong answers on the test set were never flagged. If the operator isolates a wrong node it does not contain (0 of 48 in the eval); the UI reads Not contained after 30 s and offers the next candidate. In the eval the Top-1 isolate click contained 40 of 48.
 
 **14. Is the demo app itself secure?**
 The write endpoints (attack, isolate, reset, mode) need an API key, the attack endpoint is limited to 10 per minute, and demo mode off returns 403. The key is part of the browser build, so this deters misuse of an exposed demo; it is not user authentication. Read-only endpoints and the live stream are open, and an empty key leaves writes open for local development.

@@ -1,6 +1,39 @@
+import { ChevronRight } from "lucide-react";
 import type { Incident } from "../../lib/types";
 
-export function PathChips({ incident }: { incident: Incident }) {
+/** Vertical: a dotted timeline (fits the narrow incident column). Horizontal: a wrapping chip
+ *  flow ("LIT101 +0.0s › PLC1 +0.0s › ...") for wider pages (e.g. Investigations). Same
+ *  data (`incident.path`) either way -- this is presentation only. */
+export function PathChips({
+  incident,
+  orientation = "vertical",
+}: {
+  incident: Incident;
+  orientation?: "vertical" | "horizontal";
+}) {
+  if (orientation === "horizontal") {
+    return (
+      <ol className="flex flex-wrap items-center gap-x-1 gap-y-2" aria-label="Attack path">
+        {incident.path.map((s, i) => {
+          const origin = i === 0;
+          const last = i === incident.path.length - 1;
+          return (
+            <li key={s.id} className="flex items-center gap-1">
+              <span
+                className={`flex items-center gap-1.5 rounded-sm border px-2 py-1 font-mono text-caption ${
+                  origin ? "border-origin/40 bg-origin/10 text-origin" : "border-line-1 text-ink-2"
+                }`}
+              >
+                <span className={origin ? "font-semibold" : ""}>{s.id}</span>
+                <span className="text-ink-3">+{s.t.toFixed(1)}s</span>
+              </span>
+              {!last && <ChevronRight size={14} className="shrink-0 text-ink-3" aria-hidden />}
+            </li>
+          );
+        })}
+      </ol>
+    );
+  }
   return (
     <ol className="flex flex-col" aria-label="Attack path">
       {incident.path.map((s, i) => {

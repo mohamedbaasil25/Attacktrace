@@ -83,6 +83,10 @@ export function createLiveClient(opts: LiveClientOptions): () => void {
   };
 }
 
-export function liveUrl(loc: Pick<Location, "protocol" | "host">): string {
-  return `${loc.protocol === "https:" ? "wss" : "ws"}://${loc.host}/ws/live`;
+export function liveUrl(loc: Pick<Location, "protocol" | "host">, authToken?: string): string {
+  const base = `${loc.protocol === "https:" ? "wss" : "ws"}://${loc.host}/ws/live`;
+  // A browser's native WebSocket API can't set a custom Authorization header on the handshake,
+  // so the operator token travels as a query parameter instead -- required by the backend only
+  // once AT_AUTH_SECRET is configured (app/api/ws.py:_ws_operator_ok); harmless to send always.
+  return authToken ? `${base}?token=${encodeURIComponent(authToken)}` : base;
 }

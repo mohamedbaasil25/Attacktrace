@@ -43,3 +43,18 @@ def merge_write(key: str, data: object) -> Path:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(existing, indent=1))
     return path
+
+
+def final_analysis_path() -> Path:
+    return get_settings().reports_dir / "final_analysis.json"
+
+
+def merge_write_final(key: str, data: object) -> Path:
+    """Phase 16: read-modify-write one top-level key of reports/final_analysis.json (kept
+    separate from fix_analysis.json per the Phase 16 prompt's rule 1); other keys untouched."""
+    path = final_analysis_path()
+    existing: dict[str, object] = json.loads(path.read_text()) if path.exists() else {}
+    existing[key] = data
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(existing, indent=1))
+    return path

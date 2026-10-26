@@ -8,6 +8,7 @@ import { Panel } from "../../components/ui/Panel";
 import { postAttack, postReset } from "../../lib/api";
 import { SCENARIOS, magnitudeFor, validTargets } from "../../lib/scenarios";
 import type { Scenario } from "../../lib/types";
+import { useAuth } from "../../store/auth";
 import { useLive } from "../../store/live";
 import { noticeIfLocked } from "../../store/ui";
 import { MagnitudeField } from "./MagnitudeField";
@@ -21,6 +22,7 @@ export function AttackConsole() {
   const topology = useLive((s) => s.topology);
   const clear = useLive((s) => s.clear);
   const hai = useLive((s) => s.latest?.mode === "hai");
+  const authToken = useAuth((s) => s.token);
   const [scenario, setScenario] = useState<Scenario>("sensor_offset");
   const [target, setTarget] = useState("LIT101");
   const [magnitude, setMagnitude] = useState(0);
@@ -42,7 +44,7 @@ export function AttackConsole() {
     if (!node) return;
     setBusy(true);
     try {
-      const r = await postAttack({ scenario, target: node.id, magnitude });
+      const r = await postAttack({ scenario, target: node.id, magnitude }, authToken || undefined);
       setNote({ text: r.attack_id, error: false });
     } catch (e) {
       if (!noticeIfLocked(e)) setNote({ text: e instanceof Error ? e.message : "Failed", error: true });
@@ -51,7 +53,7 @@ export function AttackConsole() {
     }
   };
   const reset = async () => {
-    await postReset().catch((e: unknown) => noticeIfLocked(e));
+    await postReset(authToken || undefined).catch((e: unknown) => noticeIfLocked(e));
     clear();
     setNote(null);
   };

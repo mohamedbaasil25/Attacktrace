@@ -23,6 +23,7 @@ from app.live.quality import excluded_from_ranking
 from app.live.source import LiveSource, Snapshot, SourceNotReadyError
 from app.schemas import AttackRequest, Impact, LiveMessage
 from app.sim import NODE_IDS
+from app.storage import IncidentStoreLike
 
 LIVE_READ_ONLY = "live-read-only"
 
@@ -39,11 +40,12 @@ class LiveEngine(Engine):
         source: LiveSource,
         detector_kind: str | None = None,
         clock: Callable[[], float] = time.time,
+        store: IncidentStoreLike | None = None,
     ) -> None:
         self.source = source
         self.last_snapshot: Snapshot | None = None
         self.masked: list[str] = []  # nodes neutralised on the last tick (data faults)
-        super().__init__(loaded, baseline, graph, settings, detector_kind, clock)
+        super().__init__(loaded, baseline, graph, settings, detector_kind, clock, store)
 
     # -- the seam -----------------------------------------------------------------------
     def _setup_source(self) -> None:

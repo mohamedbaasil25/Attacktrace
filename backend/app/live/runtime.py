@@ -17,12 +17,12 @@ import networkx as nx
 from app.config import Settings
 from app.detect.pipeline import load_baseline, load_detector
 from app.engine import topology_of
+from app.evidence import IncidentStore, classify_transition
 from app.graph import load_graph, merge_graph
 from app.live.config import LiveConfig, LiveConfigError, load_live
 from app.live.engine import LIVE_READ_ONLY, LiveEngine
 from app.live.quality import excluded_from_ranking
 from app.live.source import LiveSource, Snapshot, SourceNotReadyError
-from app.live.store import IncidentStore
 from app.live.tagmap import TagMap
 from app.live.train import SAMPLE_S, LiveRecorder, live_dir, live_models_ready, train_live
 from app.schemas import (
@@ -35,6 +35,7 @@ from app.schemas import (
     Topology,
 )
 from app.sim import NODE_IDS
+from app.storage import IncidentStoreLike
 
 log = logging.getLogger("attacktrace.live")
 
@@ -50,20 +51,25 @@ class LiveRuntime:
         cfg: LiveConfig,
         tagmap: TagMap,
         source: LiveSource | None = None,
-        store: IncidentStore | None = None,
+        store: IncidentStoreLike | None = None,
         clock: Callable[[], float] = time.time,
+        close_store_on_stop: bool = True,
     ) -> None:
         self._clock = clock
         self.settings, self.cfg, self.tagmap = settings, cfg, tagmap
         self.source = source or LiveSource(cfg, tagmap)
         self.store = store
+        # False when `store` is shared with other modes (Phase 3: one IncidentStore for SIM, HAI
+        # and LIVE alike, owned and closed by `create_app`'s lifespan) -- stopping LIVE must not
+        # close a database SIM/HAI are still writing to.
+        self._close_store_on_stop = close_store_on_stop
         self.latest: LiveMessage | None = None
         self.detector_kind: str | None = None
         self.engine: LiveEngine | None = None
         self.train_error: str | None = None
         self._started = time.time()
-        self._history: list[Incident] = store.load() if store else []
-        self._saved: dict[str, str] = {}
+        self._history: list[Incident] = store.load(mode="live") if store else []
+        self._saved: dict[str, Incident] = {}
         self._training: asyncio.Task[None] | None = None
         self.recorder = LiveRecorder(self._target_samples())
         self._graph = self._load_graph()
@@ -96,6 +102,10 @@ class LiveRuntime:
             self.source,
             detector_kind=self.detector_kind,
             clock=self._clock,
+            # No `store=` here: `LiveRuntime` itself persists via `_persist` below, independent
+            # of however `self.engine` gets constructed or swapped (tests assign it directly) --
+            # that already worked before Phase 3, and `Engine`'s own internal persistence hook
+            # would double-write for LIVE if both were active at once.
         )
         self.engine.incidents = list(self._history)  # ids continue after a restart
         max_n = max(
@@ -234,10 +244,11 @@ class LiveRuntime:
         if self.store is None or self.engine is None:
             return
         for inc in self.engine.incidents[-5:]:  # only recent incidents can still change
-            body = inc.model_dump_json()
-            if self._saved.get(inc.id) != body:
-                self.store.save(inc)
-                self._saved[inc.id] = body
+            old = self._saved.get(inc.id)
+            if old is None or old.model_dump_json() != inc.model_dump_json():
+                event_type, detail = classify_transition(old, inc)
+                self.store.save(inc, event_type=event_type, detail=detail)
+                self._saved[inc.id] = inc
 
     # ------------------------------------------------------------------ lifecycle
     def reset(self) -> None:
@@ -265,16 +276,28 @@ class LiveRuntime:
         if self._training is not None:
             self._training.cancel()
         await self.source.stop()
-        if self.store is not None:
+        if self.store is not None and self._close_store_on_stop:
             self.store.close()
 
 
-def build_live_runtime(settings: Settings) -> tuple[LiveRuntime | None, str | None]:
-    """The LIVE runtime, or (None, reason). A bad LIVE setting never stops SIM or HAI."""
+def build_live_runtime(
+    settings: Settings, store: IncidentStoreLike | None = None
+) -> tuple[LiveRuntime | None, str | None]:
+    """The LIVE runtime, or (None, reason). A bad LIVE setting never stops SIM or HAI. `store`:
+    the shared `IncidentStore` built once in `create_app` (Phase 3: one store for every mode); a
+    caller with no shared instance (e.g. a direct test) gets its own, same as before Phase 3."""
     try:
         cfg, tagmap = load_live(settings)
-        store = IncidentStore(settings.live_db)
-        return LiveRuntime(settings, cfg, tagmap, store=store), None
+        return (
+            LiveRuntime(
+                settings,
+                cfg,
+                tagmap,
+                store=store or IncidentStore(settings.live_db),
+                close_store_on_stop=store is None,
+            ),
+            None,
+        )
     except LiveConfigError as exc:
         log.error("LIVE disabled: %s", exc)
         return None, str(exc)

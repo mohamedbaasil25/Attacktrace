@@ -75,3 +75,40 @@
     --motion-slow: 0ms;
   }
 }
+
+/* Light theme: opt-in only (NavBar's toggle sets this attribute + localStorage, read back
+   synchronously by index.html's inline script before paint, same "no flash" trick as any
+   light/dark toggle) -- dark stays the default for everyone until they switch, so nothing about
+   the established look changes on its own. Every component reads these as Tailwind utilities
+   (surface-0/1/2/3, ink-1/2/3, line-1/2, accent, normal/suspect/affected/origin) or `var(--x)`
+   directly in the twin's SVG, so redefining the tokens here is enough -- no component changes. */
+:root[data-theme="light"] {
+  --bg-0: #f6f7f9;
+  --bg-1: #ffffff;
+  --bg-2: #eef1f5;
+  --bg-3: #e2e7ee;
+
+  --line-1: #e1e5eb;
+  --line-2: #c9d0da;
+  --focus: #2563eb;
+
+  --elevation-highlight: rgba(16, 21, 28, 0.04);
+
+  --text-1: #12161d;
+  --text-2: #4b5563;
+  --text-3: #70798a;
+
+  --accent: #2563eb;
+  --accent-soft: rgba(37, 99, 235, 0.08);
+
+  /* Darkened from the dark-theme hues (chosen for a near-black canvas) so each still clears
+     ~4.5:1 as text on a white/near-white surface -- same hue family, not a different palette. */
+  --normal: #15793e;
+  --suspect: #9a6300;
+  --affected: #c2410c;
+  --origin: #d6342c;
+  --info: #2563eb;
+  --neutral: #5b6472;
+
+  color-scheme: light;
+}

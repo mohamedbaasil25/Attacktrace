@@ -10,6 +10,13 @@ services:
     ports:
       - "127.0.0.1:5020:5020"
       - "127.0.0.1:8081:8081"
+    # Measured (Phase 16 B3, 16 min of LIVE-mode load): mean 6.6% / max 28.3% of one core, memory
+    # flat around 55 MiB. Limits set generously above that, not guessed.
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 256M
     restart: unless-stopped
   backend:
     build:
@@ -18,7 +25,20 @@ services:
     env_file:
       - path: .env
         required: false
-    ports: ["8000:8000"]
+    # Phase 5.1: loopback by default, same stated policy plant-emulator already follows above --
+    # not directly internet-facing. A real deployment puts a reverse proxy (with TLS termination,
+    # which nothing in this stack provides) in front and exposes only that, not this port
+    # directly; override this binding (e.g. a docker-compose.override.yml) when doing so.
+    ports: ["127.0.0.1:8000:8000"]
+    # Measured (Phase 16 B3, 16 min of LIVE-mode load incl. attack bursts): mean 13.5% / max 40.8%
+    # of one core, memory flat around 560 MiB. First-start model training is the heaviest phase
+    # (~1 min, not captured by that measurement window) and can burst higher; the limits below
+    # leave headroom above the steady-state numbers for it rather than being a tight fit.
+    deploy:
+      resources:
+        limits:
+          cpus: "1.5"
+          memory: 1.5G
     environment:
       AT_HOST: "0.0.0.0"  # declares this deployment non-loopback; .env must set AT_API_KEY (B3)
       AT_HAI_DIR: /data/hai
@@ -26,6 +46,11 @@ services:
       AT_LIVE_HOST: plant-emulator
       AT_LIVE_TAGMAP: /config/tagmap.yaml
       AT_LIVE_DB: /data/live/incidents.sqlite
+      # Phase 5.1: explicit, inside an already-mounted, persistent directory. Previously unset,
+      # defaulting to /data/history.sqlite -- outside any bind mount and outside /app entirely;
+      # harmless as root (which can mkdir anywhere) but fatal once the backend runs as a non-root
+      # user (found by actually running this compose file after that change).
+      AT_HISTORY_DB: /data/live/history.sqlite
     volumes:
       - ./data/hai:/data/hai:ro
       - ./reports:/reports
@@ -49,8 +74,27 @@ services:
       context: ./frontend
       args:
         VITE_API_KEY: ${VITE_API_KEY:-}
-    ports: ["5173:80"]
+    # Phase 5.1: loopback by default -- same rationale as the backend binding above.
+    ports: ["127.0.0.1:5173:80"]
     depends_on:
       backend:
         condition: service_healthy
     restart: unless-stopped
+  # Phase 5.3: TLS termination (see Caddyfile for the local-vs-production variants). Loopback and
+  # a non-standard port here deliberately -- this is the staging-verification config, not the
+  # production one; see the Caddyfile's own production-variant comment for what changes.
+  caddy:
+    image: caddy:2.10-alpine
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+    ports: ["127.0.0.1:8443:8443"]
+    depends_on:
+      backend:
+        condition: service_healthy
+      frontend:
+        condition: service_started
+    restart: unless-stopped
+
+volumes:
+  caddy_data: # the internal CA root + issued certs persist here across restarts

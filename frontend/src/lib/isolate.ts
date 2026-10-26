@@ -37,8 +37,12 @@ export interface IsolateAvailability {
   hai: boolean;
   live: boolean;
   replaying: boolean;
-  /** An operator name is set at the top bar. Isolate is attributed, never anonymous. */
+  /** An operator name is set at the top bar, or (when `authRequired`) a verified login token is
+   *  present. Isolate is attributed, never anonymous. */
   operatorSet: boolean;
+  /** AT_AUTH_SECRET is configured server-side (Status.auth_required): the operator-name field
+   *  alone no longer reads as sufficient, only a logged-in token does. Defaults false. */
+  authRequired?: boolean;
 }
 
 /** Why the Isolate button is disabled right now, or null when it may be clicked. AttackTrace
@@ -48,9 +52,26 @@ export function disabledReason(incident: Incident, a: IsolateAvailability): stri
   if (a.hai) return "HAI replay is read-only";
   if (a.live) return "Read-only";
   if (a.replaying) return "Replay is read-only";
-  if (!a.operatorSet) return "Set operator name (top bar)";
+  if (!a.operatorSet) return a.authRequired ? "Log in to isolate (top bar)" : "Set operator name (top bar)";
   if (!isActive(incident)) return "Incident is not active";
   return null;
+}
+
+/** How a failed isolate request should be shown, decided from the HTTP status alone (kept pure
+ *  and separate from IsolateButton so it's testable without rendering). `hadToken` distinguishes
+ *  "never logged in" from "the token we sent was rejected" -- only the latter is a stale session
+ *  worth clearing. Returns null for anything not auth-shaped, so the caller falls through to its
+ *  existing generic-error handling (e.g. the demo API-key lock). */
+export function classifyIsolateError(
+  status: number,
+  authRequired: boolean,
+  hadToken: boolean,
+): { logout: boolean; note: string } | null {
+  if (!authRequired || (status !== 401 && status !== 403)) return null;
+  if (status === 403) return { logout: false, note: "Your role cannot isolate" };
+  return hadToken
+    ? { logout: true, note: "Session expired, please log in again (top bar)" }
+    : { logout: false, note: "Log in to isolate (top bar)" };
 }
 
 /** The server applied the action: wait for containment. */

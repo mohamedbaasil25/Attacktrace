@@ -14,12 +14,12 @@ from app.config import Settings
 from app.detect.baseline import BaselineDetector
 from app.detect.pipeline import Loaded, load_detector
 from app.engine import Engine
+from app.evidence import IncidentStore
 from app.graph import static_graph
 from app.live.config import load_live
 from app.live.engine import LiveEngine
 from app.live.runtime import LiveRuntime
 from app.live.source import LiveSource
-from app.live.store import IncidentStore
 from app.live.train import MIN_SAMPLES, LiveRecorder, live_dir, live_models_ready, train_live
 from app.main import create_app
 from app.schemas import AttackRequest

@@ -37,24 +37,27 @@ export function NodeBadge({ node, at, topo, h = 46, ageMs }: Props) {
           y={y}
           width={w}
           height={height}
-          rx={8}
+          rx={9}
           fill="none"
           stroke={color}
           strokeWidth={2}
         />
       )}
-      <rect
-        x={x}
-        y={y}
-        width={w}
-        height={height}
-        rx={8}
-        fill="var(--bg-1)"
-        stroke={color}
-        strokeWidth={flagged ? 2 : 1}
-        style={{ transition: "stroke var(--motion-fast)" }}
-      />
-      <text x={x + 8} y={y + 17} className="fill-muted font-mono" fontSize={TEXT}>
+      <g filter={flagged ? "url(#equip-shadow)" : undefined}>
+        <rect
+          x={x}
+          y={y}
+          width={w}
+          height={height}
+          rx={9}
+          fill="url(#badge-fill)"
+          stroke={color}
+          strokeWidth={flagged ? 2 : 1}
+          style={{ transition: "stroke var(--motion-fast)" }}
+        />
+        <line x1={x + 6} x2={x + w - 6} y1={y + 1.5} y2={y + 1.5} stroke="var(--text-1)" strokeWidth={1} opacity={0.08} />
+      </g>
+      <text x={x + 8} y={y + 17} className="fill-ink-2 font-mono" fontSize={TEXT}>
         {node.id}
       </text>
       <StatusGlyph status={node.status} cx={x + w - 12} cy={y + 13} />
@@ -68,7 +71,7 @@ export function NodeBadge({ node, at, topo, h = 46, ageMs }: Props) {
           </g>
         </HoverLabel>
       )}
-      <text x={x + 8} y={y + 37} className="fill-text font-mono" fontSize={TEXT}>
+      <text x={x + 8} y={y + 37} className="fill-ink-1 font-mono" fontSize={TEXT}>
         {value}
       </text>
       {truth && (

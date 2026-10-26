@@ -75,7 +75,7 @@ Score breakdown: every ranked candidate carries its own `weight x signal` contri
 
 Tie rule: a spoofed sensor and its own PLC deviate in the same 0.5 s sample. Candidates scoring at least 60% of the best, with onset within 1 sample, form a tie group. Order inside the group: earliest onset, then most group members downstream over the P&ID, then sensor before controller before actuator.
 
-Effect: Top-1 moved from 0.66 to 0.88 on the earlier 50-attack set.
+Effect: Top-1 moved from 0.66 to 0.88 on the same 50-attack protocol as the final test set, measured before vs. after adding this rule. **We label this an iterative tuning win, not a held-out generalization result**: the rule itself (earliest onset, then downstream reachability, then node-type order) was designed by a person observing specific failures on that 50-attack set and iterating the logic until they resolved, then fixing it as deterministic code. That is a human-in-the-loop dependency on the exact set later reported as the headline number — methodologically closer to tuning than to a clean train/test split, even though the data range itself is the same one used for the final held-out number (`CLAUDE.md`'s development log calls it "held-out," a looser use of that word than we use here). We'd rather under-claim this figure than let "held-out" imply more independence than the rule's own development process had.
 
 ### 3.4 Propagation and explanation
 - Path: nodes with a detected onset, ordered by onset time. Same-sample onsets are ordered by weighted P&ID distance from the origin.
@@ -178,7 +178,9 @@ Weakest case: `sensor_ramp`, F1 0.673 and Top-1 0.5. The baseline equals AttackT
 
 Read these with care. Strict F1 is 0.428 because recall is 0.276; point-adjusted F1 rewards one hit inside a long attack and is the optimistic number.
 
-On detected attacks the process answer beats always answering "P1" by 0.909 − 0.864 = 0.045, on 22 attacks.
+On detected attacks the process answer beats always answering "P1" by 0.909 − 0.864 = 0.045, on 22 attacks — **this difference is 1 discordant attack out of 22, and is not statistically distinguishable from chance** (exact two-sided sign test, p = 1.00). HAI provides no evidence of localization skill beyond a constant guess at this sample size; it is only meaningful evidence of *detection*.
+
+**Is the 0.077 baseline F1 an unfair comparison?** The baseline's SIGMA=3.0 per-node breach threshold was never separately tuned for HAI (it is the same constant used for SIM). Tuning it on `test2` — the identical procedure AttackTrace's own detector threshold uses, swept across a grid wide enough to actually matter — picks sigma≈50, not 3, and only raises held-out strict F1 from 0.077 to 0.091. The reason sigma barely matters: one or two real HAI channels (`P1_PCV02Z`, max |z| up to ~2126; `P2_SIT01`, up to ~542) have near-zero clean-period variance, so tiny absolute deviations alone produce z-scores in the hundreds to thousands — the per-node OR-based breach rule alarms on nearly every sample purely from that noise floor, from sigma=3 through roughly sigma=500, regardless of any attack. This is a structural limitation of the baseline's per-node-OR design on real sensor data, not an undertuned threshold; even its best achievable threshold (0.091) stays far below AttackTrace's 0.428.
 
 ### 5.4 Confidence gate and isolation (`ambiguity` and `isolation` in `metrics.json`)
 
@@ -191,7 +193,7 @@ Gate, 50 held-out attacks (margin 0.21):
 | Top-1 on ambiguous incidents | 0.667 (6 incidents) |
 | Top-3 on ambiguous incidents | 1.00 |
 
-The gate is weakly informative: of the 8 wrong Top-1 answers it flags 2. On the 140 tuning incidents Top-1 was 0.952 on non-ambiguous incidents (0.943 overall), where the weights were also tuned, so that figure is optimistic.
+**The gate's tuning-set performance does not transfer to the test set, and operators should not treat an unflagged result as safe.** On the 140 tuning incidents (the gate margin was selected to reach this number) Top-1 on non-ambiguous incidents was 0.952. On the 50 held-out test attacks it is 0.864 — a real generalization gap, not noise. Put differently: of the 8 wrong Top-1 answers in the held-out set, the gate flags only 2 (25%); the other 6 are wrong and unflagged. "Not flagged Ambiguous" means the top two candidates were not especially close — it does **not** mean the ranking is reliable, and should not be read that way in the UI or in operator training. The origin card's confidence-margin display (the `+NN% margin` number, not just the binary Ambiguous flag) exists specifically so an operator isn't relying on the gate alone.
 
 Isolation, 50 held-out attacks, 48 detected, 60 s allowed after the action:
 
@@ -216,8 +218,9 @@ Top-1 isolation by scenario: freeze 9 of 10, offset 9 of 10, ramp 3 of 8 detecte
 | Origin Top-3 | 0.867 | 1.00 |
 | Mean time to localize | 8.1 s | 23.3 s |
 | Modbus read latency (p50 / p95 / p99) | 1.6 / 2.4 / 3.0 ms | n/a |
+| Client-observed end-to-end latency (p50 / p95 / p99, n=2 of 5 attempts) | 1.27 / 5.48 / 5.48 s | n/a |
 
-LIVE's lower Top-3 than the simulator's (0.867 vs 1.00) comes from `sensor_ramp`: 2 of 6 live runs ranked the origin outside the top 3 (both the live detector's threshold and the 20-minute warm-start sample are smaller than the simulator's). Latency is the Modbus read round-trip only; it excludes the up-to-poll-interval wait for a changed register and browser rendering, since this evaluation has no browser client.
+LIVE's lower Top-3 than the simulator's (0.867 vs 1.00) comes from `sensor_ramp`: 2 of 6 live runs ranked the origin outside the top 3 (both the live detector's threshold and the 20-minute warm-start sample are smaller than the simulator's). The Modbus read latency row above is the read round-trip only, measured inside the backend process; it excludes the up-to-poll-interval wait for a changed register, HTTP round-trip, and WebSocket delivery to a real client. The client-observed row is a separate, later measurement of exactly that larger figure: wall-clock from a real client's `POST /api/attack` to the first `/ws/live` message carrying the resulting incident, against the live docker stack. **It does not meet the 1.0 s target** and should be read as directional, not a robust percentile: only 2 of 5 scripted attacks produced a usable reading (the other 3 were excluded as inconclusive — their origin incident could not be unambiguously attributed to that specific attack rather than residual admission-window state from the previous one — not silently dropped as failures of the system itself). Re-running with full isolation per attack (a dedicated reset and a longer settle window per attempt) would be needed for a defensible n≥5 percentile; not done here given the cost of repeated ~20-minute live runs. Evidence: `reports/final_analysis.json:b2_live_e2e_latency`.
 
 Fault injection (`python -m eval.live_faults`, 3 checks, each against a real emulator instance): emulator killed mid-run → source reports `down`, no exception, no false origin (pass); every read delayed past `stale_after_s` (simulated slow network) → quality turns `stale`, no exception (pass); an extreme `sensor_offset` (1.0e6) drives LIT101's input register out of range → quality turns `out_of_range`, the corrupted node is excluded from the origin ranking (pass). 3 of 3 passed.
 
@@ -227,7 +230,7 @@ Soak (`python -m eval.live_soak`, 60 minutes, real time, `reports/live_soak.json
 
 ### Novelty
 - Localization is the output, not a by-product. The detector's alert opens an incident that carries origin, confidence, path and action.
-- The three signals address different failure modes; the tie rule resolves sensor-versus-PLC ties that deviation alone cannot (Top-1 0.66 → 0.88 on the earlier set).
+- The three signals address different failure modes; the tie rule resolves sensor-versus-PLC ties that deviation alone cannot (Top-1 0.66 → 0.88, an iterative tuning win, not a held-out result — see 3.3 for how the rule was developed).
 - Confidence is calibrated: held-out mean top-1 confidence 0.87 vs accuracy 0.88 at the earlier calibration. It was recalibrated afterwards (temperature 0.062) and was not re-measured as a separate figure.
 - Same pipeline runs on the simulator, on real HAI data, and over a real Modbus TCP read, through one UI and one API contract.
 - Detect, locate, contain: the operator can act on the answer (Isolate) and the plant visibly recovers, or does not when the wrong node is chosen. Containment is never assumed.
@@ -253,14 +256,17 @@ Soak (`python -m eval.live_soak`, 60 minutes, real time, `reports/live_soak.json
 
 - **Simulator vs real data.** The simulator is our own model. Results on it do not predict results on a real plant. HAI is the only real data, and results there are weaker.
 - **HAI recall is low.** Recall 0.276, 6 of 28 attacks missed, mean delay 143 s. Most HAI attacks are slow.
-- **HAI labels are per process.** Localization there is scored per process (P1–P3), not per component. Component-level accuracy on real data is unknown.
+- **HAI labels are per process.** Localization there is scored per process (P1–P3), not per component. Component-level accuracy on real data is unknown. The measured process-level edge over a constant "always P1" guess (0.909 vs 0.864) is 1 attack out of 22 and not statistically distinguishable from chance (exact sign test, p = 1.00, see 5.3) — treat HAI as evidence of detection, not of localization skill.
 - **HAI thresholds do not transfer between days.** Clean-train thresholds fail on test days. One labelled tuning day was needed (`test2`).
 - **Multiple simultaneous attacks.** Evaluation injects one attack at a time. Behaviour with several concurrent origins is not measured.
 - **Slow drift.** `sensor_ramp` on a self-consistent loop: Top-1 0.5 and one of 10 runs undetected.
 - **The Top-1 click can be wrong.** 8 of 48 detected incidents were not contained when the Top-1 node was isolated (3 of 8 `sensor_ramp` contained). The UI then offers the next candidate after 30 s.
 - **Containment uses simulator truth.** The simulator decides whether an attack still acts. A real plant would need an independent check. A wrong isolation changes nothing in the model; real side effects of manual mode are not simulated.
-- **The confidence gate is weak.** It flags 2 of the 8 wrong Top-1 answers and is calibrated on the simulator only.
-- **Demo security is a deterrent.** The key is in the browser build, the rate limit is per process, and an empty key leaves writes open.
+- **The confidence gate does not transfer from tuning to test.** 0.952 on the tuning set vs. 0.864 held-out; it flags only 2 of the 8 wrong Top-1 answers (25%) on the test set, and is calibrated on the simulator only. An unflagged result is not a safety guarantee — see 5.4.
+- **The demo API key is a deterrent, not authentication.** It is compiled into the browser build (anyone can read it from devtools), the rate limit is per process (not shared across replicas), and an empty/placeholder key leaves writes open on loopback-only local dev. Once `AT_AUTH_SECRET` is configured, real operator login is required for every write endpoint *and* for reading incident detail (`/api/incidents`, `/api/history`, `/api/metrics`, `/api/live/health`, `/ws/live`) — the key alone can no longer do either.
+- **The tamper-evident evidence ledger has a known blind spot.** It detects ordinary tampering (editing a row, deleting an entry) via its hash chain, but a full, internally-consistent database rewrite by an attacker who already has disk access is **not** detected — proven empirically by an adversarial test, not just asserted. Mitigating this fully needs an off-host, independent copy of the ledger's root hash (e.g. a scheduled export); not built, tracked as a roadmap item.
+- **Persistence is single-host SQLite**, for every mode and for the evidence ledger alike. This is an appropriate choice at this project's scale (a handful of concurrent incidents, one operator console) and is used correctly (WAL mode, busy-timeout, retry-with-backoff on init) — but it is a hard ceiling: a multi-site or very high incident-volume deployment would need Postgres with the same schema, not a redesign, just a different connection string.
+- **No stated Purdue-model placement.** AttackTrace reads Modbus TCP only, in a read-only role, from whatever host `AT_LIVE_HOST` names. It is designed to sit at Level 2/3 (a historian/DMZ segment with read access to the control network), never directly on Level 0/1, and has no write path to a real controller by architecture (see 3.10) — but this document never says so explicitly, and a deployer should not have to infer it.
 - **HAI improvement attempts failed.** Two time-boxed experiments (longer minimum alert duration, slower smoothing) raised tuning-day F1 by at most 0.009 against a bar of 0.02. HAI strict F1 stays 0.428 (`submission/evidence/hai_experiments.txt`).
 - **Learned graph quality.** The 45 learned simulator edges and 185 HAI edges are statistical and are not validated against plant documentation.
 - **Sample size.** 50 simulator attacks (10 per scenario) and 28 HAI windows. Differences of a few points are within noise.

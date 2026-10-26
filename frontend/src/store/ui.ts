@@ -2,9 +2,11 @@ import { create } from "zustand";
 
 export type CenterView = "twin" | "graph";
 export type ViewRole = "operator" | "analyst";
+export type Theme = "dark" | "light";
 
 const OPERATOR_KEY = "at_operator";
 const ROLE_KEY = "at_view_role";
+const THEME_KEY = "at_theme";
 
 function readStoredOperator(): string {
   try {
@@ -19,6 +21,18 @@ function readStoredRole(): ViewRole {
     return localStorage.getItem(ROLE_KEY) === "operator" ? "operator" : "analyst";
   } catch {
     return "analyst";
+  }
+}
+
+/** Reads the DOM attribute `index.html`'s inline script already applied before React mounted
+ *  (same source of truth, not a second localStorage read that could disagree with what's
+ *  actually painted). Wrapped like the readers above: this module loads in non-DOM test
+ *  environments too, where `document` itself is undefined, not just empty. */
+function readCurrentTheme(): Theme {
+  try {
+    return document.documentElement.dataset.theme === "light" ? "light" : "dark";
+  } catch {
+    return "dark";
   }
 }
 
@@ -39,6 +53,14 @@ interface UiState {
   /** Which open incident the triage list, twin and graph highlight. Ephemeral: not persisted,
    *  resets to the most severe (index 0) on reload or when the selection closes. */
   selectedIncidentId: string | null;
+  /** Ask AI's global slide-over (`AskAiDrawer`, rendered once per page by `NavBar`). A page-local
+   *  React state would do too, but this lets any other component (e.g. the Incident panel's own
+   *  "Ask AI" button) open the same drawer without prop-drilling a setter down to it. */
+  askAiOpen: boolean;
+  /** Dark is the default and the only theme anyone sees until they opt into light (NavBar's
+   *  toggle); persisted to localStorage and applied pre-paint by index.html's inline script, the
+   *  standard no-flash trick. */
+  theme: Theme;
   setView: (v: CenterView) => void;
   toggleSplit: () => void;
   notify: (text: string) => void;
@@ -47,6 +69,8 @@ interface UiState {
   setOperatorName: (name: string) => void;
   setViewRole: (role: ViewRole) => void;
   setSelectedIncidentId: (id: string | null) => void;
+  setAskAiOpen: (open: boolean) => void;
+  setTheme: (theme: Theme) => void;
 }
 
 let noticeId = 0;
@@ -59,6 +83,8 @@ export const useUi = create<UiState>((set) => ({
   operatorName: readStoredOperator(),
   viewRole: readStoredRole(),
   selectedIncidentId: null,
+  askAiOpen: false,
+  theme: readCurrentTheme(),
   setView: (view) => set({ view }),
   toggleSplit: () => set((s) => ({ split: !s.split })),
   notify: (text) => set({ notice: { text, id: ++noticeId } }),
@@ -81,6 +107,20 @@ export const useUi = create<UiState>((set) => ({
     set({ viewRole: role });
   },
   setSelectedIncidentId: (id) => set({ selectedIncidentId: id }),
+  setAskAiOpen: (askAiOpen) => set({ askAiOpen }),
+  setTheme: (theme) => {
+    try {
+      if (theme === "light") {
+        document.documentElement.dataset.theme = "light";
+      } else {
+        delete document.documentElement.dataset.theme;
+      }
+      localStorage.setItem(THEME_KEY, theme);
+    } catch {
+      /* best effort; the in-memory state below still updates this tab's session */
+    }
+    set({ theme });
+  },
 }));
 
 /** Shows `Demo locked` for an API 401/403; returns true when it did. */

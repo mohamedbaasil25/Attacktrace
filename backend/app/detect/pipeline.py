@@ -125,7 +125,7 @@ def load_detector(models_dir: Path, kind: str | None = None) -> Loaded:
     graph = load_graph(models_dir / "graph.json")
     adj = adjacency(graph, float(meta["learned_min_weight"]))
     model = build_model(kind, len(NODE_IDS), int(meta["window"]), adj)
-    model.load_state_dict(torch.load(models_dir / f"{kind}.pt"))
+    model.load_state_dict(torch.load(models_dir / f"{kind}.pt", weights_only=True))
     norm = Norm(np.array(meta["norm"]["mu"]), np.array(meta["norm"]["sd"]))
     m = meta["models"][kind]
     det = ForecastDetector(model, norm, np.array(m["err_sd"]))

@@ -18,7 +18,7 @@ from numpy.typing import NDArray
 
 from app.data.hai import HaiData, HaiFile, load_hai, node_kind
 from app.detect.baseline import BaselineDetector
-from app.detect.detector import ForecastDetector, aggregate, best_threshold, fit_err_sd
+from app.detect.detector import FLAT_WIN, ForecastDetector, aggregate, best_threshold, fit_err_sd
 from app.detect.forecaster import Norm, build_model, train
 from app.graph import adjacency, learn_var_edges, learned_graph, load_graph, save_graph
 
@@ -35,6 +35,19 @@ KINDS = ("gdn", "mlp")
 # Delta form (last value + learned change) is robust to the level shifts between HAI recording
 # days; the absolute form used for SIM treats any shift outside the training range as an anomaly.
 RESIDUAL = True
+# Stuck-sensor check (detector.py's FLAT_WIN/FLAT_ERR), restored for HAI: SIM applies it to every
+# sensor unconditionally because the simulator's sensors always vary continuously when healthy, so
+# "exactly constant" is itself the attack signature (sensor_freeze). HAI was trained with the
+# check off entirely (`stuck_cols=[]`) because that assumption doesn't hold for a real plant: some
+# tags legitimately sit flat for long stretches in clean operation (a discrete status word, a slow
+# setpoint), and flagging those as "stuck" would just be a false alarm generator. Measured on
+# train1 (see `compute_stuck_cols`): most of HAI's 30 "sensor"-typed columns are flat in well
+# under 1% of clean FLAT_WIN-length windows -- those get the check; the handful that sit flat a
+# meaningful fraction of the time (P4_ST_PS is flat 100% of clean windows; P4_ST_PT01, P4_ST_TT01,
+# P4_HT_LD, P4_HT_PO, P3_LT01, P4_HT_FD, P1_TIT01, P1_TIT02, P2_SIT01 all exceed 3%) are excluded,
+# the same reasoning SIM's own SENSOR_COLS already applies, just data-driven instead of hand-picked
+# because HAI's tag semantics aren't documented the way SIM's P&ID is.
+STUCK_FLAT_FRACTION_MAX = 0.01
 
 
 @dataclass(frozen=True)
@@ -61,6 +74,26 @@ def _windows(xn: F64, stride: int) -> tuple[NDArray[np.float32], NDArray[np.floa
     return xn[idx].astype(np.float32), xn[starts + WINDOW].astype(np.float32)
 
 
+def compute_stuck_cols(
+    x_clean: F64, types: list[str], max_flat_fraction: float = STUCK_FLAT_FRACTION_MAX
+) -> list[int]:
+    """Sensor-typed columns (`types[i] == "sensor"`) that are rarely flat in clean data --
+    candidates for the stuck-sensor check. `x_clean` must be attack-free (train1's clean portion):
+    a column's own flat-window fraction is only meaningful as a "this is normal" baseline when
+    computed on data with no injected freeze."""
+    from numpy.lib.stride_tricks import sliding_window_view
+
+    cols = []
+    for i, kind in enumerate(types):
+        if kind != "sensor":
+            continue
+        windows = sliding_window_view(x_clean[:, i], FLAT_WIN)
+        flat_fraction = float(np.mean(windows.max(axis=1) == windows.min(axis=1)))
+        if flat_fraction <= max_flat_fraction:
+            cols.append(i)
+    return cols
+
+
 def train_hai(
     models_dir: Path, hai_dir: Path, epochs: int = 12, log: bool = True
 ) -> dict[str, object]:
@@ -76,6 +109,7 @@ def train_hai(
     x_all = data.train_x
     cut = int(len(x_all) * (1 - VAL_FRACTION))
     x_tr, x_val = x_all[:cut], x_all[cut:]
+    stuck_cols = compute_stuck_cols(x_tr, types)
     norm = Norm.fit(x_tr)
     graph = learned_graph(names, dict(zip(names, types, strict=True)), learn_var_edges(x_tr, names))
     save_graph(graph, out / "graph.json")
@@ -98,7 +132,11 @@ def train_hai(
             epochs=epochs,
         )
         det = ForecastDetector(
-            model, norm, fit_err_sd(model, norm, [x_val], WINDOW), window=WINDOW, stuck_cols=[]
+            model,
+            norm,
+            fit_err_sd(model, norm, [x_val], WINDOW),
+            window=WINDOW,
+            stuck_cols=stuck_cols,
         )
         clean = aggregate(det.score_run(x_val), TOP_K)
         pairs = [
@@ -120,6 +158,7 @@ def train_hai(
         "active": best[0],
         "window": WINDOW,
         "residual": RESIDUAL,
+        "stuck_cols": stuck_cols,
         "top_k": TOP_K,
         "features": list(names),
         "types": types,
@@ -157,11 +196,15 @@ def load_hai_detector(models_dir: Path, kind: str | None = None) -> HaiLoaded:
         adjacency(graph, 0.0, names),
         residual=bool(meta.get("residual", False)),
     )
-    model.load_state_dict(torch.load(d / f"{kind}.pt"))
+    model.load_state_dict(torch.load(d / f"{kind}.pt", weights_only=True))
     norm = Norm(np.array(meta["norm"]["mu"]), np.array(meta["norm"]["sd"]))
     m = meta["models"][kind]
     det = ForecastDetector(
-        model, norm, np.array(m["err_sd"]), window=int(meta["window"]), stuck_cols=[]
+        model,
+        norm,
+        np.array(m["err_sd"]),
+        window=int(meta["window"]),
+        stuck_cols=meta.get("stuck_cols", []),
     )
     return HaiLoaded(
         det, float(m["threshold"]), np.array(m["node_thr"]), names, list(meta["types"]), graph, kind
