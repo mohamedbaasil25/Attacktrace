@@ -50,6 +50,16 @@ class Settings(BaseModel):
     # undirected graph hops of that incident's localized path; otherwise it opens a new one.
     # A heuristic, not a physically-derived constant -- tune against the demo scenarios.
     zone_hops: int = 2
+    # Causality-aware admission (post-submission hardening, see engine.py's `_fold_target`):
+    # spatial nearness alone isn't enough -- an incident that has stopped alerting (`op.quiet`
+    # exceeds this many seconds) stops absorbing new, spatially-nearby crossings, on the theory
+    # that a crossing which shows up only after this incident's own propagation has gone cold is
+    # more plausibly a second, unrelated attack reusing the same neighbourhood. Deliberately well
+    # under engine.py's CLOSE_SAMPLES (30 s quiet before the incident closes outright): this gate
+    # needs to fire while the incident is still open, or it would never have any effect before the
+    # status check already excludes it. 10 s is a heuristic, not a physically-derived constant --
+    # same caveat as zone_hops above.
+    admission_window_s: float = 10.0
     # LIVE mode (Phase 13): Modbus ingestion from an external plant emulator. All AT_LIVE_*.
     live_host: str = "127.0.0.1"
     live_port: int = 5020
@@ -64,7 +74,10 @@ class Settings(BaseModel):
     live_backoff_base_s: float = 0.25
     live_backoff_max_s: float = 5.0
     live_train_min: float = 20.0  # minutes of clean traffic recorded for the LIVE detector
-    live_db: Path = Path("../data/live_incidents.sqlite")  # LIVE incidents survive a restart
+    # Phase 3: the shared incident store + tamper-evident audit ledger for every mode (SIM, HAI,
+    # LIVE alike), not just LIVE -- kept under its original LIVE-era name/default/env var
+    # (AT_LIVE_DB) for continuity; see `app/evidence.py`'s module docstring for the migration note.
+    live_db: Path = Path("../data/live_incidents.sqlite")
     live_include_bad_quality: bool = False  # True: stale/missing/out-of-range tags are scored too
     # Attacker tool (Phase 13 Part D): extra allowed write targets, beyond loopback and the
     # docker-compose service name, as a comma-separated list. Empty by default.
@@ -80,6 +93,14 @@ class Settings(BaseModel):
     auth_secret: str = ""
     auth_token_ttl_s: float = 8 * 3600.0
     operators: str = ""
+    # Account lockout (post-submission hardening): `login_limiter` above already rate-limits by
+    # client address, but an attacker rotating source IPs (or behind a shared NAT) could still
+    # grind through a weak password against ONE account unbounded. This locks the targeted
+    # *username* itself after `auth_lockout_threshold` consecutive failures, independent of who's
+    # asking -- cleared on a successful login. Deliberately not tied to attack_rate_per_min or
+    # login_rate_per_min: a different attack shape needs a different key (username, not client).
+    auth_lockout_threshold: int = 5
+    auth_lockout_s: float = 300.0
     # Tag-level historian (Phase 2 MVP): raw per-node samples across all modes, independent of
     # incident snapshots -- the engine itself only keeps a 5-minute in-memory ring buffer. Built
     # only on a true production start (no explicit `engine=` override), same convention as LIVE.
@@ -89,6 +110,15 @@ class Settings(BaseModel):
     # in every mode. Empty = off.
     siem_webhook_url: str = ""
     siem_webhook_timeout_s: float = 3.0
+    # Ask AI: free-text Q&A grounded in this session's own incident/topology data (app/ai.py),
+    # answered by a real Google Gemini API call. Empty key = disabled (503) -- this is the one
+    # feature that makes a real external network call and costs real money per question, so it is
+    # opt-in and independently rate-limited (ai_rate_per_min), never gated by attack_rate_per_min.
+    # The key is read server-side only and never reaches the browser.
+    ai_api_key: str = ""
+    ai_model: str = "gemini-flash-lite-latest"
+    ai_rate_per_min: int = 10
+    ai_timeout_s: float = 20.0
 
 
 def _from_env() -> dict[str, object]:

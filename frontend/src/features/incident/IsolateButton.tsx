@@ -6,6 +6,7 @@ import {
   advance,
   begin,
   candidateFor,
+  classifyIsolateError,
   disabledReason,
   refused,
   type IsoState,
@@ -23,6 +24,7 @@ export function IsolateButton({ incident }: { incident: Incident }) {
   const replaying = useLive((s) => s.cursor !== null);
   const operatorName = useUi((s) => s.operatorName);
   const authToken = useAuth((s) => s.token);
+  const authRequired = useLive((s) => s.status?.auth_required ?? false);
   const [iso, setIso] = useState<IsoState>(IDLE);
 
   // Messages arrive twice a second; each one is a chance for pending to resolve or time out.
@@ -32,10 +34,12 @@ export function IsolateButton({ incident }: { incident: Incident }) {
 
   const tried = iso.incidentId === incident.id ? iso.tried : [];
   const next = candidateFor(incident, tried);
-  // A verified login (Production Transition Roadmap, Phase 1) identifies the operator just as
-  // well as the free-text name field -- the server prefers the token identity either way.
-  const operatorSet = operatorName.trim().length > 0 || authToken.length > 0;
-  const reason = disabledReason(incident, { hai, live, replaying, operatorSet });
+  // When the server requires a real login (Production Transition Roadmap, Phase 1), the
+  // operator-name field is a per-browser convenience only and must not read as authorization by
+  // itself -- only a verified token does. Without auth configured, the name field is still the
+  // whole story, same as before this phase.
+  const operatorSet = authRequired ? authToken.length > 0 : operatorName.trim().length > 0 || authToken.length > 0;
+  const reason = disabledReason(incident, { hai, live, replaying, operatorSet, authRequired });
 
   const click = async () => {
     if (!next) return;
@@ -48,6 +52,13 @@ export function IsolateButton({ incident }: { incident: Incident }) {
         r.accepted ? begin(s, incident, next, Date.now()) : refused(s, r.reason ?? "Refused"),
       );
     } catch (e) {
+      const status = e instanceof ApiError ? e.status : 0;
+      const auth = classifyIsolateError(status, authRequired, authToken.length > 0);
+      if (auth) {
+        if (auth.logout) useAuth.getState().logout();
+        setIso((s) => refused(s, auth.note));
+        return;
+      }
       if (!noticeIfLocked(e)) setIso((s) => refused(s, e instanceof ApiError ? e.message : "Failed"));
     }
   };

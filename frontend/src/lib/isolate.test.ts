@@ -1,5 +1,14 @@
 import { describe, expect, it } from "vitest";
-import { IDLE, NOT_CONTAINED_MS, advance, begin, candidateFor, disabledReason, refused } from "./isolate";
+import {
+  IDLE,
+  NOT_CONTAINED_MS,
+  advance,
+  begin,
+  candidateFor,
+  classifyIsolateError,
+  disabledReason,
+  refused,
+} from "./isolate";
 import type { Incident, IncidentStatus } from "./types";
 
 function inc(status: IncidentStatus, id = "inc_001", extra: Partial<Incident> = {}): Incident {
@@ -104,5 +113,44 @@ describe("disabledReason (Phase 13: LIVE is read-only)", () => {
     expect(disabledReason(open, { ...none, operatorSet: false, replaying: true })).toBe(
       "Replay is read-only",
     );
+  });
+
+  it("asks for a login instead, when the server requires real auth", () => {
+    expect(disabledReason(open, { ...none, operatorSet: false, authRequired: true })).toBe(
+      "Log in to isolate (top bar)",
+    );
+  });
+});
+
+describe("classifyIsolateError (Production Transition Roadmap, Phase 1)", () => {
+  it("is null for anything not auth-shaped, so the caller's generic handling applies", () => {
+    expect(classifyIsolateError(500, true, true)).toBeNull();
+    expect(classifyIsolateError(422, true, false)).toBeNull();
+  });
+
+  it("is null for a 401/403 when the server does not require auth (the demo API-key lock, not this)", () => {
+    expect(classifyIsolateError(401, false, false)).toBeNull();
+    expect(classifyIsolateError(403, false, false)).toBeNull();
+  });
+
+  it("asks for a first login on 401 with no token sent", () => {
+    expect(classifyIsolateError(401, true, false)).toEqual({
+      logout: false,
+      note: "Log in to isolate (top bar)",
+    });
+  });
+
+  it("treats a 401 with a token sent as an expired/invalid session and signs out", () => {
+    expect(classifyIsolateError(401, true, true)).toEqual({
+      logout: true,
+      note: "Session expired, please log in again (top bar)",
+    });
+  });
+
+  it("reports 403 as an insufficient role, without signing out", () => {
+    expect(classifyIsolateError(403, true, true)).toEqual({
+      logout: false,
+      note: "Your role cannot isolate",
+    });
   });
 });

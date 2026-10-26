@@ -57,6 +57,12 @@ export function OriginCard({ incident }: { incident: Incident }) {
   if (!top) return null;
   if (incident.ambiguous) return <Ambiguous incident={incident} />;
   const Icon = KIND_ICON[top.type];
+  // The confidence gate only flags "Ambiguous" when the top two scores are close enough to miss a
+  // wrong guess most of the time it matters (held-out: it catches 2 of 8 wrong-Top-1 cases on the
+  // test set). Showing the actual margin here, not just that binary flag, lets an operator judge
+  // a narrow call for themselves even when the gate itself doesn't fire.
+  const second = rest[0];
+  const margin = second ? top.confidence - second.confidence : null;
   return (
     <div className="flex flex-col gap-2">
       <div className="flex items-center gap-3">
@@ -69,9 +75,20 @@ export function OriginCard({ incident }: { incident: Incident }) {
           <span data-testid="origin-id" className="font-mono text-value font-semibold text-origin">
             {top.id}
           </span>
-          <Chip tone="origin" icon={<Icon size={11} aria-hidden />}>
-            {top.type}
-          </Chip>
+          <div className="flex items-center gap-1.5">
+            <Chip tone="origin" icon={<Icon size={11} aria-hidden />}>
+              {top.type}
+            </Chip>
+            {second && margin !== null && (
+              <span
+                data-testid="origin-margin"
+                className="font-mono text-xs text-ink-2"
+                title={`Confidence margin over the #2 candidate (${second.id}): a narrow margin means the ranking is less certain, even when the gate didn't flag it`}
+              >
+                +{pct(margin)} margin
+              </span>
+            )}
+          </div>
         </div>
         <span className="sr-only" aria-live="polite">
           {`Incident: ${top.id} origin, confidence ${pct(top.confidence)}`}

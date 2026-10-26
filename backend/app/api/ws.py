@@ -8,6 +8,7 @@ from typing import Any
 
 from fastapi import APIRouter, WebSocket, WebSocketDisconnect
 
+from app.api.auth import decode_token
 from app.runtime import active_runtime
 
 router = APIRouter()
@@ -59,9 +60,43 @@ async def run_loop(state: Any, hub: Hub, period_s: float) -> None:
         await asyncio.sleep(max(0.0, next_t - time.monotonic()))
 
 
+def _origin_allowed(ws: WebSocket) -> bool:
+    """Cross-Site WebSocket Hijacking (CSWSH) guard: a browser always sends `Origin` on a
+    cross-origin (and same-origin, in most browsers) WS handshake, so a present-but-disallowed
+    Origin is rejected. A MISSING Origin is allowed through -- that's how every non-browser client
+    connects (the `websockets` Python client used by this project's own eval tooling, `wscat`,
+    etc.), and CSWSH is specifically a browser-mediated attack that always sends the header."""
+    origin = ws.headers.get("origin")
+    if origin is None:
+        return True
+    settings = ws.app.state.settings
+    return origin in settings.cors_origins
+
+
+def _ws_operator_ok(ws: WebSocket) -> bool:
+    """Mirrors `require_read_access_when_configured`: open when AT_AUTH_SECRET isn't configured,
+    otherwise requires a valid operator/analyst token. A browser's native WebSocket API cannot set
+    a custom Authorization header on the handshake, so the token travels as a query parameter
+    instead (`?token=...`) -- the same short-lived bearer token issued by `/api/auth/login`, never
+    a separate long-lived credential."""
+    settings = ws.app.state.settings
+    if not settings.auth_secret:
+        return True
+    token = ws.query_params.get("token")
+    if not token:
+        return False
+    return decode_token(token, settings.auth_secret) is not None
+
+
 @router.websocket("/ws/live")
 async def live(ws: WebSocket) -> None:
     hub: Hub = ws.app.state.hub
+    if not _origin_allowed(ws):
+        await ws.close(code=4403)
+        return
+    if not _ws_operator_ok(ws):
+        await ws.close(code=4401)
+        return
     await ws.accept()
     hub.clients.add(ws)
     try:

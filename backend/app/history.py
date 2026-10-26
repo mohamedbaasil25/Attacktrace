@@ -1,7 +1,7 @@
 """Tag-level historian (Production Transition Roadmap, Phase 2 MVP): raw per-node samples across
 every mode, independent of incident snapshots. The engine itself only keeps a 5-minute in-memory
 ring buffer (`frontend/src/store/live.ts`'s `RING_CAPACITY`); this is what survives longer than
-that -- forensics, audit, and future retraining data. SQLite, same shape as `live/store.py`'s
+that -- forensics, audit, and future retraining data. SQLite, same shape as `app/evidence.py`'s
 `IncidentStore`.
 """
 

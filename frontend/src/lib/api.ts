@@ -2,6 +2,7 @@ import type {
   AttackRequest,
   AttackResponse,
   HistorySample,
+  Incident,
   IsolateRequest,
   IsolateResponse,
   LoginResponse,
@@ -9,6 +10,7 @@ import type {
   Status,
   TagHealth,
   Topology,
+  VerifyLedgerResponse,
 } from "./types";
 
 /** Demo key for the write endpoints. It is bundled into the build, so it deters misuse of an
@@ -43,21 +45,56 @@ async function json<T>(path: string, init?: RequestInit): Promise<T> {
   return (await res.json()) as T;
 }
 
-const post = <T>(path: string, body?: unknown): Promise<T> =>
+/** `authToken`: the operator's session token (`useAuth`), attached when present -- required by
+ *  the server (Phase 5.3) once AT_AUTH_SECRET is configured, since the demo key alone (`KEY`
+ *  above) is visible to every browser user and is not authentication. Without a configured
+ *  AT_AUTH_SECRET server-side, the server ignores this header entirely and the demo key alone
+ *  still works, exactly as before Phase 5.3. */
+const post = <T>(path: string, body?: unknown, authToken?: string): Promise<T> =>
   json<T>(path, {
     method: "POST",
-    headers: { "content-type": "application/json", ...(KEY ? { "x-api-key": KEY } : {}) },
+    headers: {
+      "content-type": "application/json",
+      ...(KEY ? { "x-api-key": KEY } : {}),
+      ...(authToken ? { authorization: `Bearer ${authToken}` } : {}),
+    },
     body: body === undefined ? undefined : JSON.stringify(body),
+  });
+
+/** GET with the operator's session token attached when present -- same rationale as `post`
+ *  above: required once AT_AUTH_SECRET is configured, ignored otherwise. */
+const getAuthed = <T>(path: string, authToken?: string): Promise<T> =>
+  json<T>(path, authToken ? { headers: { authorization: `Bearer ${authToken}` } } : undefined);
+
+/** POST gated like a read endpoint (login once AT_AUTH_SECRET is configured; no demo key) --
+ *  for /api/ai/ask, which reads data but never mutates plant state. */
+const postAuthed = <T>(path: string, body: unknown, authToken?: string): Promise<T> =>
+  json<T>(path, {
+    method: "POST",
+    headers: {
+      "content-type": "application/json",
+      ...(authToken ? { authorization: `Bearer ${authToken}` } : {}),
+    },
+    body: JSON.stringify(body),
   });
 
 export const getStatus = (): Promise<Status> => json<Status>("/api/status");
 /** Per-tag LIVE quality and age; 404 when LIVE is not configured. */
-export const getLiveHealth = (): Promise<TagHealth[]> => json<TagHealth[]>("/api/live/health");
+export const getLiveHealth = (authToken?: string): Promise<TagHealth[]> =>
+  getAuthed<TagHealth[]>("/api/live/health", authToken);
 export const getTopology = (): Promise<Topology> => json<Topology>("/api/topology");
-export const setMode = (mode: Mode): Promise<Status> => post<Status>("/api/mode", { mode });
-export const postAttack = (req: AttackRequest): Promise<AttackResponse> =>
-  post<AttackResponse>("/api/attack", req);
-export const postReset = (): Promise<Status> => post<Status>("/api/reset");
+/** Newest-first; requires login once AT_AUTH_SECRET is configured. */
+export const getIncidents = (authToken?: string): Promise<Incident[]> =>
+  getAuthed<Incident[]>("/api/incidents", authToken);
+/** Audit-ledger hash-chain integrity; requires login once AT_AUTH_SECRET is configured. */
+export const getEvidenceVerification = (authToken?: string): Promise<VerifyLedgerResponse> =>
+  getAuthed<VerifyLedgerResponse>("/api/evidence/verify", authToken);
+export const setMode = (mode: Mode, authToken?: string): Promise<Status> =>
+  post<Status>("/api/mode", { mode }, authToken);
+export const postAttack = (req: AttackRequest, authToken?: string): Promise<AttackResponse> =>
+  post<AttackResponse>("/api/attack", req, authToken);
+export const postReset = (authToken?: string): Promise<Status> =>
+  post<Status>("/api/reset", undefined, authToken);
 /** `authToken`: the operator's session token (`useAuth`), attached when AT_AUTH_SECRET is
  *  configured server-side. Without one, the server falls back to trusting `req.operator`. */
 export const postIsolate = (req: IsolateRequest, authToken?: string): Promise<IsolateResponse> =>
@@ -75,11 +112,22 @@ export const reportUrl = (incidentId: string): string =>
 export const postLogin = (username: string, password: string): Promise<LoginResponse> =>
   post<LoginResponse>("/api/auth/login", { username, password });
 /** Retained samples for one node, beyond the 5-minute ring buffer (GET /api/history). `sinceS`
- *  is a unix-seconds lower bound; omitted = the historian's full retention window. */
-export const getHistory = (node: string, sinceS?: number): Promise<HistorySample[]> =>
-  json<HistorySample[]>(
+ *  is a unix-seconds lower bound; omitted = the historian's full retention window. Requires
+ *  login once AT_AUTH_SECRET is configured, same as `getIncidents`/`getLiveHealth`. */
+export const getHistory = (
+  node: string,
+  sinceS?: number,
+  authToken?: string,
+): Promise<HistorySample[]> =>
+  getAuthed<HistorySample[]>(
     `/api/history?${new URLSearchParams({
       node,
       ...(sinceS !== undefined ? { since: String(sinceS) } : {}),
     }).toString()}`,
+    authToken,
   );
+/** Ask AI: a real LLM call, grounded in this session's own incident data server-side (app/ai.py
+ *  in the backend). 503 when AT_AI_API_KEY is not configured, 502 if the model call itself fails,
+ *  429 if rate-limited -- all surfaced to the caller as a normal `ApiError`. */
+export const postAskAi = (question: string, authToken?: string): Promise<{ answer: string }> =>
+  postAuthed<{ answer: string }>("/api/ai/ask", { question }, authToken);

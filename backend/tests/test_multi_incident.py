@@ -134,6 +134,36 @@ def test_fold_target_does_not_use_the_wider_localized_path(engine: Engine) -> No
     assert engine._fold_target("P301") is None
 
 
+def test_fold_target_ignores_an_incident_that_has_gone_quiet_past_the_admission_window(
+    engine: Engine,
+) -> None:
+    """The causality-aware fix: once an incident's OWN alert activity has stopped for
+    `admission_window_s`, it stops being an admission anchor at all, even for a node spatially
+    near one of its members -- this is the documented Phase 16 Scale failure mode (two genuinely
+    concurrent, unrelated attacks merging into one) caught directly."""
+    _seed_open(engine, "seed_a", ["LIT101"])
+    window_samples = round(engine.settings.admission_window_s / 0.5)
+    engine._open["seed_a"].quiet = window_samples
+    assert engine._fold_target("MV101") == "seed_a"  # still within the window: folds as before
+    engine._open["seed_a"].quiet = window_samples + 1
+    # Past the window: a fresh, unrelated attack starting in the same neighbourhood opens its own
+    # incident instead of being absorbed into the now-cold one.
+    assert engine._fold_target("MV101") is None
+
+
+def test_fold_target_keeps_folding_a_continuously_alerting_incident_regardless_of_age(
+    engine: Engine,
+) -> None:
+    """The bug the first version of this fix introduced (caught by the full suite, not by the
+    unit tests above): a single slow attack whose own later hops independently cross persistence
+    well over `admission_window_s` apart must still fold into one incident for as long as it has
+    kept alerting continuously -- `quiet` never left 0, so age of the ORIGINAL member is
+    irrelevant."""
+    _seed_open(engine, "seed_a", ["LIT101"])
+    assert engine._open["seed_a"].quiet == 0
+    assert engine._fold_target("MV101") == "seed_a"
+
+
 # --------------------------------------------------------------- _advance_incident (end to end)
 
 
@@ -147,6 +177,26 @@ def test_a_distant_crossing_opens_a_second_incident_alongside_the_first(engine: 
     _seed_open(engine, "seed_a", ["LIT101"])
     _tick(engine, "PLC2")
     assert len(engine._open) == 2
+
+
+def test_a_late_nearby_crossing_opens_a_second_incident_once_the_first_has_gone_quiet(
+    engine: Engine,
+) -> None:
+    """End-to-end version of the admission-window unit test above: a SPATIALLY nearby crossing
+    that shows up well after the open incident's membership last moved opens its own incident
+    rather than being silently absorbed -- the exact two-concurrent-attacks scenario the Phase 16
+    Scale note flags as unsolved by distance alone."""
+    # A short admission window, well inside CLOSE_SAMPLES's own 30 s quiet-close timer (engine.py)
+    # -- isolates the fold-in behaviour under test from that unrelated, already-covered timeout.
+    engine.settings.admission_window_s = 5.0
+    _seed_open(engine, "seed_a", ["LIT101"])
+    window_ticks = round(engine.settings.admission_window_s / 0.5) + 1
+    for _ in range(window_ticks):
+        _tick(engine, None)  # quiet time passes; seed_a's membership is never refreshed
+    assert len(engine._open) == 1  # still just the one incident, now stale but not yet closed
+    assert engine._open["seed_a"].inc.status == "open"
+    _tick(engine, "MV101")  # a second attack starts right next to the first one's own origin
+    assert len(engine._open) == 2  # correctly treated as a new, separate incident
 
 
 def test_incident_ids_stay_unique_across_sequential_opens(engine: Engine) -> None:

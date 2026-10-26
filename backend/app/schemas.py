@@ -143,6 +143,17 @@ class Status(BaseModel):
     source: SourceInfo | None = None  # Phase 13
     live_available: bool = False  # Phase 13: the LIVE source answers right now
     live_reason: str | None = None  # Phase 13: why LIVE is not available
+    # Production Transition Roadmap, Phase 1: whether AT_AUTH_SECRET is configured, so the
+    # frontend knows a real login is required before Isolate -- the operator-name fallback is
+    # demo-mode only and must not read as sufficient when this is true.
+    auth_required: bool = False
+    # Phase 5: application availability (this endpoint answering at all) is NOT the same as
+    # evidence-persistence availability. The app degrades gracefully and keeps running when the
+    # incidents+ledger store cannot be opened (Phase 3.1); without this field, that degradation
+    # was invisible to monitoring -- a healthcheck watching only HTTP 200 on /api/status would
+    # read a degraded app as fully healthy, which is exactly the "silently claims evidence was
+    # preserved" failure mode a production readiness review has to rule out.
+    evidence_available: bool = False
 
 
 class ModeRequest(BaseModel):
@@ -209,3 +220,31 @@ class HistorySample(BaseModel):
     value: float
     score: float
     status: str
+
+
+class VerificationIssueOut(BaseModel):
+    seq: int | None
+    kind: str
+    detail: str
+
+
+class VerifyLedgerResponse(BaseModel):
+    """Phase 3: the audit ledger's integrity status, never conflated with HTTP 200 -- `status`
+    distinguishes `verified`, `integrity_failure` and `unavailable` (an operational error reading
+    the ledger itself, not a finding about the evidence)."""
+
+    status: Literal["verified", "integrity_failure", "unavailable"]
+    checked: int
+    first_failure: VerificationIssueOut | None
+    issue_count: int
+
+
+class AskAiRequest(BaseModel):
+    """Ask AI (app/ai.py): free-text Q&A grounded in this session's own incident data. `question`
+    is bounded so one request can't balloon the (billed) prompt size."""
+
+    question: str = Field(min_length=1, max_length=500)
+
+
+class AskAiResponse(BaseModel):
+    answer: str

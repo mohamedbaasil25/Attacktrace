@@ -6,6 +6,20 @@
     <!-- Phase 15: fonts are self-hosted (src/main.tsx imports @fontsource-variable/*) -- no
          external network call at runtime. -->
     <title>AttackTrace</title>
+    <!-- Applies a saved light-theme choice before the stylesheet paints, same "no flash of the
+         wrong theme" trick any dark/light toggle needs -- dark (no attribute) is still the
+         default for anyone who hasn't chosen light. -->
+    <script>
+      (function () {
+        try {
+          if (localStorage.getItem("at_theme") === "light") {
+            document.documentElement.dataset.theme = "light";
+          }
+        } catch (e) {
+          /* best effort; the page still renders in the default dark theme */
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

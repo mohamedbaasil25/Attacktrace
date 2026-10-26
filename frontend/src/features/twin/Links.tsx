@@ -19,15 +19,21 @@ export function Links({ nodes, incident }: Props) {
           <g key={l.id}>
             {l.kind === "pipe" ? (
               <>
-                <path d={l.d} stroke="var(--line-1)" strokeWidth={9} fill="none" strokeLinecap="butt" />
+                {/* `line-2`, not `line-1`: the casing needs to read as a pipe against the canvas
+                    in both themes -- `line-1` (border-weight, barely off the page background by
+                    design) all but disappeared against the light theme's near-white canvas. */}
+                <path d={l.d} stroke="var(--line-2)" strokeWidth={10} fill="none" strokeLinecap="round" />
+                <path d={l.d} stroke="var(--bg-0)" strokeOpacity={0.35} strokeWidth={6} fill="none" strokeLinecap="round" />
                 <path
                   d={l.d}
                   className={dur === null ? "" : "flow"}
                   stroke="var(--accent)"
-                  strokeOpacity={dur === null ? 0.12 : 0.9}
+                  strokeOpacity={dur === null ? 0.12 : 0.95}
                   strokeWidth={3}
                   strokeDasharray="3 9"
+                  strokeLinecap="round"
                   fill="none"
+                  filter={dur === null ? undefined : "url(#pipe-glow)"}
                   style={dur === null ? undefined : { animationDuration: `${dur}s` }}
                 />
               </>

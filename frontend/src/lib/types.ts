@@ -130,6 +130,13 @@ export interface Status {
   source?: SourceInfo | null; // Phase 13
   live_available?: boolean; // Phase 13: the LIVE source answers right now
   live_reason?: string | null;
+  /** Production Transition Roadmap, Phase 1: AT_AUTH_SECRET is configured server-side, so a
+   *  verified login (not just the operator-name field) is required before Isolate. */
+  auth_required?: boolean;
+  /** Phase 5: the incidents+audit-ledger store opened successfully. The app runs in degraded
+   *  mode (no persistence, no evidence) rather than crash when this is false -- distinct from
+   *  general app health, since a 200 here does not mean evidence is being preserved. */
+  evidence_available?: boolean;
 }
 
 export interface AttackRequest {
@@ -189,4 +196,17 @@ export interface HistorySample {
   value: number;
   score: number;
   status: string;
+}
+
+export interface VerificationIssue {
+  seq: number | null;
+  kind: string;
+  detail: string;
+}
+
+export interface VerifyLedgerResponse {
+  status: "verified" | "integrity_failure" | "unavailable";
+  checked: number;
+  first_failure: VerificationIssue | null;
+  issue_count: number;
 }

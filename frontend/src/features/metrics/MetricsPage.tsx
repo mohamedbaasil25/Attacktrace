@@ -1,5 +1,6 @@
-import { ArrowLeft, FileX, LoaderCircle, TrendingDown, TrendingUp } from "lucide-react";
+import { FileX, LoaderCircle, Lock, TrendingDown, TrendingUp } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
+import { NavBar } from "../../app/NavBar";
 import { Chip } from "../../components/ui/Chip";
 import { EmptyState } from "../../components/ui/EmptyState";
 import { Tooltip } from "../../components/ui/Tooltip";
@@ -11,9 +12,14 @@ import {
   type LiveEvalMetrics,
   type Metrics,
 } from "../../lib/metrics";
+import { useAuth } from "../../store/auth";
 import { MetricsChart } from "./MetricsChart";
 
-type Load = { state: "loading" } | { state: "missing" } | { state: "ready"; metrics: Metrics };
+type Load =
+  | { state: "loading" }
+  | { state: "missing" }
+  | { state: "unauthorized" }
+  | { state: "ready"; metrics: Metrics };
 
 /** AttackTrace vs the 3-sigma baseline on the same value; `better` says which direction counts
  *  as an improvement so the chip's arrow and tone (never colour alone) point the right way. */
@@ -254,13 +260,24 @@ function LiveCards({ l }: { l: LiveEvalMetrics }) {
 
 export function MetricsPage() {
   const [load, setLoad] = useState<Load>({ state: "loading" });
+  // Read directly from the store's current value: this page is reached by a full page
+  // navigation (not client-side routing), so there's no React tree to subscribe through at
+  // mount time -- the token itself is still available (sessionStorage), just not reactively.
+  const authToken = useAuth((s) => s.token);
 
   useEffect(() => {
     let live = true;
-    fetch("/api/metrics")
-      .then((r) => (r.ok ? r.json() : null))
+    fetch("/api/metrics", authToken ? { headers: { authorization: `Bearer ${authToken}` } } : {})
+      .then((r) => {
+        if (r.status === 401) return "unauthorized" as const;
+        return r.ok ? r.json() : null;
+      })
       .then((raw: unknown) => {
         if (!live) return;
+        if (raw === "unauthorized") {
+          setLoad({ state: "unauthorized" });
+          return;
+        }
         const metrics = parseMetrics(raw);
         setLoad(metrics ? { state: "ready", metrics } : { state: "missing" });
       })
@@ -268,22 +285,17 @@ export function MetricsPage() {
     return () => {
       live = false;
     };
-  }, []);
+  }, [authToken]);
 
   const rows = useMemo(() => (load.state === "ready" ? f1Rows(load.metrics) : []), [load]);
 
   return (
-    <div className="flex h-full min-w-[1280px] flex-col gap-2 bg-surface-0 p-4">
-      <header className="flex h-12 shrink-0 items-center gap-3 border-b border-line-1 px-2">
-        <a href="/" className="flex items-center gap-1 text-label text-ink-3 transition-colors duration-fast ease-out hover:text-ink-1">
-          <ArrowLeft size={14} aria-hidden />
-          Dashboard
-        </a>
-        <h1 className="text-sm font-semibold tracking-tight text-ink-1">Metrics</h1>
-      </header>
-      <main className="flex min-h-0 flex-1 flex-col gap-2 p-1">
+    <div className="flex h-full min-w-[1280px] flex-col bg-surface-0">
+      <NavBar />
+      <main className="flex min-h-0 flex-1 flex-col gap-2 p-4">
         {load.state === "loading" && <EmptyState icon={LoaderCircle} text="Loading" />}
         {load.state === "missing" && <EmptyState icon={FileX} text="Run make eval" />}
+        {load.state === "unauthorized" && <EmptyState icon={Lock} text="Login required" />}
         {load.state === "ready" && (
           <>
             <Cards m={load.metrics} />

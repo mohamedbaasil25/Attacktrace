@@ -1,10 +1,11 @@
-import { History as HistoryIcon } from "lucide-react";
+import { History as HistoryIcon, Lock } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { EmptyState } from "../../components/ui/EmptyState";
 import { ApiError, getHistory } from "../../lib/api";
 import { formatValue } from "../../lib/format";
 import { HISTORY_RANGES, historyPath } from "../../lib/history";
 import type { HistorySample } from "../../lib/types";
+import { useAuth } from "../../store/auth";
 
 const VW = 1000;
 const VH = 120;
@@ -17,23 +18,30 @@ export function HistoryTrend({ nodeIds }: { nodeIds: string[] }) {
   const [rangeS, setRangeS] = useState<number>(HISTORY_RANGES[0].seconds);
   const [samples, setSamples] = useState<HistorySample[] | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [unauthorized, setUnauthorized] = useState(false);
+  const authToken = useAuth((s) => s.token);
 
   useEffect(() => {
     if (!node) return;
     let live = true;
     setSamples(null);
     setError(null);
-    getHistory(node, Date.now() / 1000 - rangeS)
+    setUnauthorized(false);
+    getHistory(node, Date.now() / 1000 - rangeS, authToken || undefined)
       .then((s) => live && setSamples(s))
       .catch((e: unknown) => {
         if (!live) return;
-        setError(e instanceof ApiError ? e.message : "Could not load history");
+        if (e instanceof ApiError && e.status === 401) {
+          setUnauthorized(true);
+        } else {
+          setError(e instanceof ApiError ? e.message : "Could not load history");
+        }
         setSamples([]);
       });
     return () => {
       live = false;
     };
-  }, [node, rangeS]);
+  }, [node, rangeS, authToken]);
 
   const path = useMemo(() => (samples ? historyPath(samples, VW, VH) : ""), [samples]);
   const latest = samples?.[samples.length - 1];
@@ -78,8 +86,10 @@ export function HistoryTrend({ nodeIds }: { nodeIds: string[] }) {
       <div className="relative min-h-0 flex-1">
         {samples === null ? (
           <EmptyState icon={HistoryIcon} text="Loading" />
+        ) : unauthorized ? (
+          <EmptyState icon={Lock} text="Login required" />
         ) : samples.length < 2 ? (
-          <EmptyState icon={HistoryIcon} text={error ?? "No history yet"} />
+          <EmptyState icon={HistoryIcon} text={error ? "Could not load" : "No history yet"} />
         ) : (
           <svg viewBox={`0 0 ${VW} ${VH}`} preserveAspectRatio="none" className="h-full w-full">
             <path

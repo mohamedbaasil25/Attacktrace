@@ -1,0 +1,41 @@
+{
+ "definition": "wall-clock from this client's POST /api/attack send time to the first /ws/live message whose incident id differs from the pre-attack baseline -- includes HTTP request, server processing/detection-to-incident-open, and WS broadcast; NOT the same as live_metrics.json's existing figure (Modbus read round-trip only).",
+ "target_p95_s": 1.0,
+ "ws_connect_ok": true,
+ "clean_window_s": 597.9379999998491,
+ "clean_messages_received": 1197,
+ "clean_messages_per_s": 2.0018797935576966,
+ "quiet_wait_timeouts": 1,
+ "n_attacks": 5,
+ "n_with_latency": 2,
+ "n_dropped_or_timeout": 3,
+ "attack_results": [
+  {
+   "scenario": "sensor_offset",
+   "latency_s": 1.2660000000614673
+  },
+  {
+   "scenario": "sensor_freeze",
+   "latency_s": null,
+   "note": "no incident observed"
+  },
+  {
+   "scenario": "actuator_force",
+   "latency_s": null,
+   "note": "no incident observed"
+  },
+  {
+   "scenario": "rogue_setpoint",
+   "latency_s": null,
+   "note": "no incident observed"
+  },
+  {
+   "scenario": "sensor_ramp",
+   "latency_s": 5.483999999938533
+  }
+ ],
+ "p50_s": 1.2660000000614673,
+ "p95_s": 5.483999999938533,
+ "p99_s": 5.483999999938533,
+ "p95_meets_target": false
+}

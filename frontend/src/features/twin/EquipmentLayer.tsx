@@ -39,18 +39,28 @@ export function Equipment({ nodes, topo, ageByNode }: Props) {
           status={lit301.status}
         />
       )}
-      <rect
-        x={FILTER.x}
-        y={FILTER.y}
-        width={FILTER.w}
-        height={FILTER.h}
-        rx={6}
-        fill="var(--bg-0)"
-        stroke="var(--text-2)"
-        strokeOpacity={0.6}
-        strokeWidth={2}
-      />
-      <text x={FILTER.x + 8} y={FILTER.y + FILTER.h - 8} className="fill-text font-mono" fontSize={TEXT}>
+      <g filter="url(#equip-shadow)">
+        <rect
+          x={FILTER.x}
+          y={FILTER.y}
+          width={FILTER.w}
+          height={FILTER.h}
+          rx={8}
+          fill="var(--bg-0)"
+          stroke="var(--text-2)"
+          strokeOpacity={0.6}
+          strokeWidth={2}
+        />
+        <rect
+          x={FILTER.x + 2}
+          y={FILTER.y + 2}
+          width={FILTER.w - 4}
+          height={FILTER.h - 4}
+          rx={6}
+          fill="url(#filter-hatch)"
+        />
+      </g>
+      <text x={FILTER.x + 8} y={FILTER.y + FILTER.h - 8} className="fill-ink-1 font-mono" fontSize={TEXT}>
         Filter
       </text>
       {mv && <Valve at={ANCHOR.MV101} open={truth(mv)} status={mv.status} />}

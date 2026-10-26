@@ -21,6 +21,7 @@ from app.data.simdata import EMIT_EVERY
 from app.detect.baseline import BaselineDetector
 from app.detect.detector import PERSIST, aggregate
 from app.detect.pipeline import Loaded
+from app.evidence import classify_transition
 from app.localize import Incident as Analysis
 from app.localize import Weights, build_incident
 from app.localize.incident import FORWARD_S, LOOKBACK_S, SAMPLE_DT
@@ -44,6 +45,7 @@ from app.schemas import (
     Triple,
 )
 from app.sim import NODE_IDS, NODES, Plant
+from app.storage import IncidentStoreLike
 
 F64 = NDArray[np.float64]
 
@@ -149,6 +151,7 @@ class Engine:
         settings: Settings,
         detector_kind: str | None = None,
         clock: Callable[[], float] = time.time,
+        store: IncidentStoreLike | None = None,
     ) -> None:
         self.loaded, self.baseline, self.graph, self.settings = loaded, baseline, graph, settings
         self.detector_kind = detector_kind
@@ -163,8 +166,14 @@ class Engine:
         self._started = clock()
         self.incidents: list[Incident] = []
         self.latest: LiveMessage | None = None
+        self.store = store
+        self._saved: dict[str, Incident] = {}
         self._init_state()
         self._prewarm()
+        # Restart recovery (Phase 3): set *after* prewarming, so the clean warm-up ticks never
+        # touch the store, and load *after* prewarm clears `self.incidents` to [] at its own end.
+        if store is not None:
+            self.incidents = store.load(mode=self.mode)
 
     # ------------------------------------------------------------------ data source seam
     # SIM reads the simulator; `live.engine.LiveEngine` overrides these to read a protocol source.
@@ -191,9 +200,25 @@ class Engine:
         self._node_run = np.zeros(len(NODE_IDS), dtype=np.int64)  # per-node persistence (admission)
         self._alert_since: float | None = None
         self._open: dict[str, _Open] = {}  # keyed by incident id; multiple can be open at once
-        self._next_incident_id = 1  # monotonic; never derived from len(self.incidents)
+        # Monotonic; never derived from len(self.incidents) (that resets on reset()/restart, this
+        # must not, or a new incident could collide with -- and `INSERT OR REPLACE` clobber -- an
+        # already-persisted row's current-state entry, even though the ledger itself would still
+        # hold the original row's real history unmodified under its own event ids).
+        self._next_incident_id = self._next_id_from_store()
         self._launched: list[tuple[GroundTruth, float]] = []  # (truth, wall-clock launch time)
         self.incident_impact: dict[str, Impact] = {}  # worst impact seen while each incident ran
+
+    def _next_id_from_store(self) -> int:
+        """1 without a store. With one, the next id past every `inc_NNN` this mode has EVER
+        persisted -- not just what is currently in `self.incidents` (which `reset()` clears) --
+        so a restart or a reset can never reuse an id a prior run already wrote evidence for."""
+        if self.store is None:
+            return 1
+        ids = self.store.load(mode=self.mode)
+        max_n = max(
+            (int(i.id.removeprefix("inc_")) for i in ids if i.id.startswith("inc_")), default=0
+        )
+        return max_n + 1
 
     def reset(self, seed: int | None = None) -> None:
         self._attacks.clear()
@@ -244,25 +269,42 @@ class Engine:
         other node changes nothing. The incident becomes `contained` once an attack that was live
         has been isolated AND every node score then stays under the alert threshold for
         `contain_s`; the simulator knows whether an attack still acts, the detector alone cannot
-        see a settled offset."""
+        see a settled offset. Every outcome -- accepted or refused -- is recorded as an
+        `isolation_outcome` ledger event (Phase 3): a rejected attempt is still a security-
+        relevant event, and the diff-based `_persist` below would never see it (a refusal never
+        changes the incident object at all)."""
         op = self._open.get(incident_id)
         if op is None or op.inc.status not in ("localizing", "open"):
-            return False, "Incident is not active"
-        if node_id not in NODE_IDS:
-            return False, "Unknown node"
-        if node_id in self._attacks.isolated:
-            return False, "Node already isolated"
-        self._attacks.isolate(node_id)
-        live = self._attacks.active(self._plant.t)
-        op.isolated_t = self._plant.t
-        op.effective = bool(live) and all(g.target in self._attacks.isolated for g in live)
-        op.calm = 0
-        op.inc.isolated_by = operator
-        return True, None
+            accepted, reason = False, "Incident is not active"
+        elif node_id not in NODE_IDS:
+            accepted, reason = False, "Unknown node"
+        elif node_id in self._attacks.isolated:
+            accepted, reason = False, "Node already isolated"
+        else:
+            self._attacks.isolate(node_id)
+            live = self._attacks.active(self._plant.t)
+            op.isolated_t = self._plant.t
+            op.effective = bool(live) and all(g.target in self._attacks.isolated for g in live)
+            op.calm = 0
+            op.inc.isolated_by = operator
+            accepted, reason = True, None
+        if self.store is not None:
+            self.store.ledger.append(
+                "isolation_outcome",
+                incident_id,
+                {"node_id": node_id, "accepted": accepted, "reason": reason, "operator": operator},
+            )
+        return accepted, reason
 
     def _truth_for(self, plant_t: float) -> GroundTruthInfo | None:
+        """The most recently launched attack genuinely live at `plant_t` -- NOT merely the most
+        recently launched one, which could already have ended (a short attack finished minutes
+        ago still being "most recent" by launch order, not by relevance). Misattributing ground
+        truth to a finished, unrelated attack is worse than reporting none: this field feeds the
+        incident's forensic record and the UI's Reveal hit/miss comparison, so a false match reads
+        as fabricated evidence."""
         for gt, wall in reversed(self._launched):
-            if gt.start_s <= plant_t:
+            if gt.start_s <= plant_t < gt.end_s:
                 return GroundTruthInfo(
                     attack_id=gt.attack_id,
                     scenario=gt.scenario,
@@ -378,15 +420,37 @@ class Engine:
         `path` includes weakly-correlated nodes the localizer's one-shot window touches without
         them ever independently crossing threshold, over-extending the zone; the origin alone
         can't be reached by a legitimate propagation chain several hops away. Only
-        "localizing"/"open" incidents can absorb a new crossing."""
+        "localizing"/"open" incidents can absorb a new crossing.
+
+        Causality, not just space: an incident whose OWN alert activity has gone quiet for
+        `settings.admission_window_s` stops being an admission anchor at all, regardless of how
+        spatially close a new crossing is to one of its members. This is deliberately keyed on
+        `op.quiet` (already reset to 0 every tick this incident is alerting, by the caller just
+        below) rather than a per-member timestamp: a single attack whose downstream effects take
+        a while to ripple through the plant stays one incident for as long as it keeps alerting
+        continuously, no matter how long ago any individual member first crossed -- only once the
+        incident's OWN activity genuinely stops does a later, spatially-nearby crossing stop being
+        attributed to it. That is exactly the Phase 16 Scale note's failure mode (one attack's
+        propagation reaches most of the plant, goes quiet, and only THEN does a second, unrelated
+        attack start nearby) and not the other one a per-member recency check would have broken: a
+        single slow attack whose own later hops cross more than one window apart while the
+        incident is still actively alerting throughout.
+
+        `admission_window_s` defaults well below `CLOSE_SAMPLES`'s 30 s quiet-close timeout
+        (engine.py) on purpose: an incident needs to stop admitting new members meaningfully
+        before it closes outright, or this gate would almost never fire before the status check
+        above already excludes it."""
         nearby = set(
             nx.single_source_shortest_path_length(
                 self._zone_graph, node, cutoff=self.settings.zone_hops
             )
         )
+        window_samples = self.settings.admission_window_s / SAMPLE_DT
         for op in self._open.values():
             if op.inc.status not in ("localizing", "open"):
                 continue
+            if op.quiet > window_samples:
+                continue  # this incident's own propagation has gone cold
             if nearby & op.member_nodes:
                 return op.inc.id
         return None
@@ -429,6 +493,7 @@ class Engine:
             self._open[inc.id] = _Open(inc, k, alarms, member_nodes={node})
             self.incidents.append(inc)
             new_ids.add(inc.id)
+            self._persist(inc)
 
         for inc_id, op in list(self._open.items()):
             if inc_id in new_ids:
@@ -463,7 +528,22 @@ class Engine:
         for i, old in enumerate(self.incidents):
             if old.id == inc.id:
                 self.incidents[i] = inc
-                return
+                break
+        self._persist(inc)
+
+    def _persist(self, inc: Incident) -> None:
+        """Durable persistence (Phase 3): a no-op without a store (tests, and any mode not wired
+        to one). Diffs against the last-saved copy so an unchanged tick never writes -- `save`
+        itself decides the ledger event type from that diff via `classify_transition`, same as
+        `LiveRuntime._persist` does for LIVE."""
+        if self.store is None:
+            return
+        old = self._saved.get(inc.id)
+        if old is not None and old.model_dump_json() == inc.model_dump_json():
+            return
+        event_type, detail = classify_transition(old, inc)
+        self.store.save(inc, event_type=event_type, detail=detail)
+        self._saved[inc.id] = inc
 
     # --------------------------------------------------------------------- message
     def _node_states(

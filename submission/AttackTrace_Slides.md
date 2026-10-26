@@ -42,7 +42,7 @@ Notes: Each stage is its own module. The API contract between backend and UI is 
 - Tie rule: sensor versus its PLC
 - Top-1 rose from 0.66 to 0.88
 
-Notes: Each signal alone fails somewhere: deviation ties sensor and PLC, onset is noisy, causal ignores size. The 0.66 to 0.88 gain was measured on the earlier 50-attack set. The final set gives Top-1 0.84.
+Notes: Each signal alone fails somewhere: deviation ties sensor and PLC, onset is noisy, causal ignores size. The 0.66 to 0.88 gain is an iterative tuning win, not a held-out result: the tie rule's own logic was designed by observing failures on that 50-attack set and iterating until they resolved, then fixed as code — say so plainly if asked, don't let "held-out" overstate it. The final, independently-measured set gives Top-1 0.84.
 
 ---
 
@@ -102,7 +102,7 @@ Notes: 50 held-out attacks and 20 clean runs on unseen seeds. Weakest case is sl
 - Process Top-1 0.909 on detected attacks
 - Always answering P1 scores 0.864
 
-Notes: Strict F1 is low because most attacks are slow. Point-adjusted F1 is 0.915 but it is the optimistic number. HAI labels name the process, not the component.
+Notes: Strict F1 is low because most attacks are slow. Point-adjusted F1 is 0.915 but it is the optimistic number. HAI labels name the process, not the component. The 0.909 vs 0.864 process-Top-1 gap is 1 attack out of 22 (exact sign test p=1.00, not distinguishable from chance) — HAI is real evidence of detection, not of localization skill. The 0.077 baseline isn't an unfair comparison either: tuning its threshold properly only reaches 0.091, still far below our 0.428 (real HAI channels have near-zero clean-period variance, so the per-node breach rule alarms almost regardless of threshold).
 
 ---
 

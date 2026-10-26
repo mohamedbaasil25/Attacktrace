@@ -53,6 +53,16 @@ describe("liveUrl", () => {
     expect(liveUrl({ protocol: "http:", host: "a:5173" })).toBe("ws://a:5173/ws/live");
     expect(liveUrl({ protocol: "https:", host: "a" })).toBe("wss://a/ws/live");
   });
+
+  it("omits the token query param when none is passed", () => {
+    expect(liveUrl({ protocol: "http:", host: "a" })).toBe("ws://a/ws/live");
+  });
+
+  it("appends the operator token as a query param, URL-encoded", () => {
+    expect(liveUrl({ protocol: "http:", host: "a" }, "tok 123")).toBe(
+      "ws://a/ws/live?token=tok%20123",
+    );
+  });
 });
 
 class FakeSocket {

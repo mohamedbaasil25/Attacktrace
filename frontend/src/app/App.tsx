@@ -13,6 +13,7 @@ import { Timeline } from "../features/timeline/Timeline";
 import { TwinView } from "../features/twin/TwinView";
 import { useLive } from "../store/live";
 import { useUi, type CenterView } from "../store/ui";
+import { NavBar } from "./NavBar";
 import { TopBar } from "./TopBar";
 import { useLiveSourcePoll } from "./useLiveSourcePoll";
 import { useLiveStream } from "./useLiveStream";
@@ -122,18 +123,21 @@ export function App() {
     // Below `lg` (1024px) the dashboard stacks into one scrolling column instead of clipping or
     // forcing horizontal scroll at a fixed 1280px floor; `lg`/`xl` reproduce the original fixed
     // 3-column, viewport-locked layout exactly (xl matches the pre-redesign 280/360px columns).
-    <div className="flex min-h-screen flex-col gap-3 overflow-y-auto bg-surface-0 p-3 lg:h-full lg:gap-4 lg:overflow-hidden lg:p-4">
-      <TopBar />
-      <IncidentToast />
-      <NoticeToast />
-      <main className="grid min-h-0 flex-1 grid-cols-1 grid-rows-[360px_420px_420px_220px] gap-3 lg:grid-cols-[240px_minmax(0,1fr)_320px] lg:grid-rows-[minmax(0,1fr)_168px] lg:gap-4 xl:grid-cols-[280px_minmax(0,1fr)_360px]">
-        <AttackConsole />
-        <Center live={live} />
-        <IncidentPanel />
-        <div className="min-h-0 lg:col-span-3">
-          <Timeline />
-        </div>
-      </main>
+    <div className="flex min-h-screen flex-col overflow-y-auto bg-surface-0 lg:h-full lg:overflow-hidden">
+      <NavBar />
+      <div className="flex min-h-0 flex-1 flex-col gap-3 p-3 lg:gap-4 lg:overflow-hidden lg:p-4">
+        <TopBar />
+        <IncidentToast />
+        <NoticeToast />
+        <main className="grid min-h-0 flex-1 grid-cols-1 grid-rows-[360px_420px_420px_220px] gap-3 lg:grid-cols-[240px_minmax(0,1fr)_320px] lg:grid-rows-[minmax(0,1fr)_168px] lg:gap-4 xl:grid-cols-[280px_minmax(0,1fr)_360px]">
+          <AttackConsole />
+          <Center live={live} />
+          <IncidentPanel />
+          <div className="min-h-0 lg:col-span-3">
+            <Timeline />
+          </div>
+        </main>
+      </div>
     </div>
   );
 }

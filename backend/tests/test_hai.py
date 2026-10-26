@@ -8,6 +8,7 @@ from fastapi.testclient import TestClient
 from app.config import Settings
 from app.data.hai import HaiData, hai_paths, load_hai, node_kind, process_of
 from app.detect.hai_pipeline import (
+    compute_stuck_cols,
     hai_models_ready,
     load_hai_baseline,
     load_hai_detector,
@@ -15,6 +16,7 @@ from app.detect.hai_pipeline import (
 )
 from app.engine import Engine
 from app.engine_hai import HaiEngine
+from app.evidence import IncidentStore
 from app.main import create_app
 from app.schemas import LiveMessage
 from eval.hai import (
@@ -67,6 +69,20 @@ def test_tag_naming_heuristics() -> None:
     assert node_kind("P1_B2004") == "controller"
     assert node_kind("P1_FCV01D") == "actuator"
     assert node_kind("P1_LIT01") == "sensor"
+
+
+def test_compute_stuck_cols_excludes_legitimately_flat_sensors() -> None:
+    # 20 clean samples: col 0 a continuous sensor (always varies), col 1 a sensor that sits flat
+    # most of the time (a real HAI pattern -- a status word or slow setpoint), col 2 an actuator
+    # that's flat throughout (irrelevant either way: only "sensor"-typed columns are candidates).
+    rng = np.random.default_rng(0)
+    varying = rng.normal(size=20)
+    mostly_flat = np.zeros(20)
+    mostly_flat[-1] = 1.0  # one real change at the very end -- still "mostly flat"
+    flat_actuator = np.zeros(20)
+    x = np.stack([varying, mostly_flat, flat_actuator], axis=1)
+    cols = compute_stuck_cols(x, ["sensor", "sensor", "actuator"], max_flat_fraction=0.1)
+    assert cols == [0]  # the continuous sensor only -- the flat sensor and the actuator are out
 
 
 def test_one_test_file_is_not_enough(data: HaiData) -> None:
@@ -144,6 +160,36 @@ def test_dataset_attack_becomes_an_incident_without_invented_labels(hai_engine: 
     assert live, "the incident was visible while the attack ran"
     flagged = {n.id for m in live for n in m.nodes if n.status == "origin"}
     assert inc.origin[0].id in flagged  # the origin node was marked on the live stream
+
+
+def test_hai_incidents_survive_a_restart(hai_models: Path, data: HaiData, tmp_path: Path) -> None:
+    """Phase 3: HAI gets the same restart-survival guarantee SIM and LIVE already have, through
+    the same shared `IncidentStore` (see `test_evidence_audit.py`'s SIM equivalent and
+    `test_live_runtime.py::test_incidents_survive_a_restart_and_ids_continue`)."""
+    store = IncidentStore(tmp_path / "incidents.sqlite")
+    first = HaiEngine(
+        load_hai_detector(hai_models),
+        load_hai_baseline(hai_models),
+        data.tests[0],
+        Settings(),
+        store=store,
+    )
+    for _ in range(120):
+        first.step_sample()
+    assert first.incidents, "the +3 offset on P1_A must raise an incident"
+    before_ids = [i.id for i in first.incidents]
+    store.close()
+
+    reopened = IncidentStore(tmp_path / "incidents.sqlite")
+    second = HaiEngine(
+        load_hai_detector(hai_models),
+        load_hai_baseline(hai_models),
+        data.tests[0],
+        Settings(),
+        store=reopened,
+    )
+    assert [i.id for i in second.incidents] == before_ids
+    reopened.close()
 
 
 def test_reset_restarts_the_replay_and_the_replay_loops(hai_engine: HaiEngine) -> None:
