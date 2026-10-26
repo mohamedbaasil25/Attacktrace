@@ -16,7 +16,7 @@ dependencies = [
   "statsmodels>=0.14",
   "pyyaml>=6.0",
   "pymodbus>=3.15,<4",
-  "google-genai>=1.0,<2",
+  "google-genai>=1.0,<3",
 ]
 
 [project.optional-dependencies]
